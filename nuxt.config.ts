@@ -19,5 +19,8 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["./stores"],
   },
+  runtimeConfig: {
+    apibaseurl: process.env.API_BASE_URL,
+  },
   // ssr: false,
 });

@@ -67,7 +67,7 @@ const setCookie = async () => {
           :errorMessage="v$?.email?.$error ? v$?.email?.$errors?.[0]?.$message : ''
           " />
         <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.LOGIN_USING_OTP.toUpperCase()" />
-        <div class="link link-primary" @click="setCookie">Login as Guest</div>
+        <div class="custom-link-class text-center" @click="setCookie">Login as Guest</div>
         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
           {{ STRING_DATA.NOT_REGISTERED }}
           <NuxtLink :to="ROUTE_CONSTANTS.SIGN_UP" class="custom-link-class">

@@ -10,7 +10,7 @@ export const useUserStore = defineStore("user", () => {
 
   const signin = async (data: any) => {
     try {
-      const URL = "https://dummyjson.com/auth/login";
+      const URL = "/auth/login";
       const response = await postRequest<IUser>(URL, data);
       setToken(response.token);
     } catch (error) {

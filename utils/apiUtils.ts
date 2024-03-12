@@ -1,4 +1,4 @@
-export const API_BASE_URL = `https://jsonplaceholder.typicode.com`;
+export const API_BASE_URL = "https://dummyjson.com";
 
 interface RequestOptions {
   method: string;
@@ -23,7 +23,7 @@ function createRequest(
     baseURL: API_BASE_URL,
     query,
   };
-  return fetchFunction(url, requestOptions);
+  return fetchFunction(API_BASE_URL + url, requestOptions);
 }
 
 export function getRequest(

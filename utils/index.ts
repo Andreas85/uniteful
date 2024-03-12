@@ -16,7 +16,6 @@ export const STRING_DATA = {
   ADD_GROUP: "Add group",
   LOGOUT: "Logout",
   ADD: "Add",
-  CREATE_EVENT: "Create event",
   CLOSE: "Close",
   ADD_EVENT: "Add Event",
   GET: "GET",

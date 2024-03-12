@@ -7,9 +7,15 @@ const handleBack = () => {
   navigateTo(ROUTE_CONSTANTS.HOME)
 }
 
+const handleCreateEvent = (data: any) => {
+  console.log(data)
+  closeEventModal()
+}
+
 </script>
 <template>
-  <ModalsCreateEvent :addEventModal="addEventModal" :closeEventModal="closeEventModal" />
+  <ModalsCreateEvent :addEventModal="addEventModal" :closeEventModal="closeEventModal"
+    v-on:handle-submit="handleCreateEvent" />
   <div class="flex flex-col gap-4">
     <AtomsIconLabel :icon="'mi:arrow-left'" :iconSize="'2rem'">
       <div class="text-2xl cursor-pointer" @click="handleBack">{{ STRING_DATA.BACK_TO_HOME }}</div>

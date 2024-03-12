@@ -27,18 +27,19 @@ const submitForm = async () => {
 
   if (result) {
     const { groupName } = formData;
-    console.log("Api Call", groupName);
     const payload = {
       formData: {
         input: groupName,
       },
     };
 
-    // login(payload);
+    // console.log(payload, "modalcompo");
+    emit('handle-submit', payload)
   } else {
     console.log("Invalid Form NOT Submitted");
   }
 };
+
 </script>
 <template>
   <AtomsCustomModal :openModal="addGroupModal">

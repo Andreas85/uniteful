@@ -32,8 +32,8 @@ const submitForm = async () => {
         input: location,
       },
     };
-
-    // login(payload);
+    // console.log(payload, "modalcompo");
+    emit('handle-submit', payload)
   } else {
     console.log("Invalid Form NOT Submitted");
   }
