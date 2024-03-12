@@ -28,6 +28,10 @@ const toggleTopBar = () => {
   isMobileView.value.isOpenTopbar = !isMobileView.value.isOpenTopbar
 };
 
+const handleBrandClick = () => {
+  isMobileView.value.isOpenTopbar = false
+}
+
 </script>
 
 <template>
@@ -55,7 +59,7 @@ const toggleTopBar = () => {
           <template v-else>
             <AtomsCrossSvg v-on:clicked="toggleTopBar" />
           </template>
-          <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer " @click="toggleTopBar">
+          <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer " @click="handleBrandClick">
             {{ STRING_DATA.BRAND_NAME.toUpperCase() }}
           </NuxtLink>
           <AtomsSearchSvg :customClass="'h-[1.2rem] w-[1.2rem]'" v-on:clicked="toggleSearchClick" />
