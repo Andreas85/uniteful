@@ -55,7 +55,7 @@ const toggleTopBar = () => {
           <template v-else>
             <AtomsCrossSvg v-on:clicked="toggleTopBar" />
           </template>
-          <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer ">
+          <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer " @click="toggleTopBar">
             {{ STRING_DATA.BRAND_NAME.toUpperCase() }}
           </NuxtLink>
           <AtomsSearchSvg :customClass="'h-[1.2rem] w-[1.2rem]'" v-on:clicked="toggleSearchClick" />
