@@ -19,13 +19,7 @@ const handleBack = () => {
       <h2 class="custom-h2-class">{{ STRING_DATA.YOUR_GROUPS }}</h2>
       <AtomsActionButton :buttonLabel="STRING_DATA.CREATE_GROUP" :onclick="openGroupModal" />
     </div>
-    <!-- <AtomsComingSoon :showSearchImage="true" /> -->
-
-    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-      <div v-for="(item, index) in DUMMY_DATA" :key="index" class="py-4 border border-gray-400 shadow rounded p-4">
-        <AtomsEventCard :item="item" />
-      </div>
-    </div>
+    <AtomsComingSoon :showSearchImage="true" />
 
   </div>
 </template>

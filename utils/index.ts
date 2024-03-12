@@ -13,6 +13,7 @@ export const ENDPOINTS = {
 };
 
 export const STRING_DATA = {
+  ADD_GROUP: "Add group",
   LOGOUT: "Logout",
   ADD: "Add",
   CREATE_EVENT: "Create event",
@@ -69,6 +70,7 @@ export const ERROR_MESSAGE = {
   DURATION_REQ: "Duration is required",
   REPS_REQ: "Reps is required",
   LOCATION_REQ: "Location is required",
+  GROUP_NAME_REQ: "Group name is required",
 };
 
 export const URL_ROUTES = [

@@ -28,6 +28,7 @@ watchEffect(() => {
 
 const handleLogout = () => {
   logout()
+  navigateTo(ROUTE_CONSTANTS.HOME)
   handleClick()
 }
 
