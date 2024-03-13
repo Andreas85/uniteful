@@ -12,7 +12,12 @@ export default defineNuxtConfig({
     "@": resolve(__dirname, "/"),
   },
   css: ["~/assets/main.css"],
-  modules: ["@pinia/nuxt", "nuxt-icon"],
+  modules: ["@pinia/nuxt", "nuxt-icon", "nuxt-vue3-google-signin"],
+  googleSignIn: {
+    clientId:
+      "673702241334-uv0tqtb21ntgcqsgua33ioge606pif77.apps.googleusercontent.com",
+  },
+
   pinia: {
     autoImports: ["defineStore"],
   },

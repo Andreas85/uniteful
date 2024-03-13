@@ -58,7 +58,7 @@ const setCookie = async () => {
 <template>
   <div class="auth-section-class">
     <div class="flex flex-col items-start gap-6 w-full">
-
+      <NxGoogleSignIn />
       <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
         {{ STRING_DATA.SIGN_IN_ACCOUNT }}
       </h2>

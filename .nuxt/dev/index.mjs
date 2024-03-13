@@ -98,7 +98,11 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {},
+  "public": {
+    "googleSignIn": {
+      "clientId": "673702241334-uv0tqtb21ntgcqsgua33ioge606pif77.apps.googleusercontent.com"
+    }
+  },
   "apibaseurl": ""
 };
 const envOptions = {
