@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { data: todos, refresh, pending, status } = await getRequestUseFetch(ENDPOINTS.TODOS)
+
 definePageMeta({
   middleware: ["privateroute"]
 })
@@ -10,6 +12,6 @@ useHead({
 </script>
 <template>
   <div class="py-8">
-    <TemplatesEvents />
+    <TemplatesEvents :eventData="todos.todos" />
   </div>
 </template>

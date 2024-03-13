@@ -1,4 +1,9 @@
 <script setup lang="ts">
+
+const props = defineProps({
+  eventData: Array,
+})
+const { eventData } = props
 const { openModal, showModal, closeModal } = useModal()
 
 const handleBack = () => {
@@ -20,9 +25,8 @@ const handleCreateEvent = (data: any) => {
       <AtomsActionButton :buttonLabel="STRING_DATA.CREATE_EVENT" :onclick="showModal" />
     </div>
     <!-- <AtomsComingSoon :showSearchImage="true" /> -->
-
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-      <div v-for="(item, index) in DUMMY_DATA" :key="index" class="py-4 border border-gray-400 shadow rounded p-4">
+      <div v-for="(item, index) in eventData" :key="index" class="py-4 border border-gray-400 shadow rounded p-4">
         <AtomsEventCard :item="item" />
       </div>
     </div>

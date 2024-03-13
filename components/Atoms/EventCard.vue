@@ -18,7 +18,11 @@ const handleClick = () => {
 
 </script>
 <template>
-  <div class="flex flex-col gap-4">
-    {{ item.location }}
+  <div class="flex flex-col gap-4 min-h-40">
+    <h2 class="custom-h2-class line-clamp-2">
+      {{ item.todo }}
+    </h2>
+    <p class="flex-1"></p>
+    <NuxtLink class="custom-link text-right" :to="ROUTE_CONSTANTS.EVENTS + '/' + item.id">Read more ..</NuxtLink>
   </div>
 </template>

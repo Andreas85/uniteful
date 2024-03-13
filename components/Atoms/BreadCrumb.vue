@@ -11,12 +11,6 @@ const { hasId, breadCrumbName } = toRefs(props)
 const route = useRoute();
 const breadcrumbs = computed(() => useBreadcrumbs(route));
 
-watchEffect(() => {
-  if (hasId.value && breadcrumbs.value.length > 0) {
-    breadcrumbs.value.pop();
-  }
-});
-
 </script>
 <template>
   <div class="text-lg breadcrumbs">
