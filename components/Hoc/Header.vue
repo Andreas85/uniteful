@@ -54,15 +54,15 @@ const handleBrandClick = () => {
       <div class="flex flex-col w-full gap-4">
         <div class="flex items-center justify-between w-full relative bg-white">
           <template v-if="!isMobileView.isOpenTopbar">
-            <AtomsMenuSvg v-on:clicked="toggleTopBar" />
+            <SVGMenuSvg v-on:clicked="toggleTopBar" />
           </template>
           <template v-else>
-            <AtomsCrossSvg v-on:clicked="toggleTopBar" />
+            <SVGCrossSvg v-on:clicked="toggleTopBar" />
           </template>
           <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer " @click="handleBrandClick">
             {{ STRING_DATA.BRAND_NAME.toUpperCase() }}
           </NuxtLink>
-          <AtomsSearchSvg :customClass="'h-[1.2rem] w-[1.2rem]'" v-on:clicked="toggleSearchClick" />
+          <SVGSearchSvg :customClass="'h-[1.2rem] w-[1.2rem]'" v-on:clicked="toggleSearchClick" />
 
         </div>
         <template v-if="searchSvgClicked">

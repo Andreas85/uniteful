@@ -6,7 +6,8 @@ const { data: todo } = await getRequestUseFetch(URL)
 
 </script>
 <template>
-  <div class="w-4/5 mx-auto border shadow p-4">
-    {{ todo?.title }}
+  <div class="w-4/5 mx-auto border shadow p-4">{{ JSON.stringify(todo) }}
+    <AtomsBreadCrumb :hasId="true" :breadCrumbName="todo.todo" />
+    {{ todo?.todo }}
   </div>
 </template>

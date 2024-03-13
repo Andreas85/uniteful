@@ -1,28 +1,23 @@
 <script setup lang="ts">
-const addEventModal = ref(false);
+const { openModal, showModal, closeModal } = useModal()
 
-const openEventModal = () => addEventModal.value = true;
-const closeEventModal = () => addEventModal.value = false;
 const handleBack = () => {
   navigateTo(ROUTE_CONSTANTS.HOME)
 }
 
 const handleCreateEvent = (data: any) => {
   console.log(data)
-  closeEventModal()
+  closeModal()
 }
 
 </script>
 <template>
-  <ModalsCreateEvent :addEventModal="addEventModal" :closeEventModal="closeEventModal"
-    v-on:handle-submit="handleCreateEvent" />
+  <ModalsCreateEvent :addEventModal="openModal" :closeEventModal="closeModal" v-on:handle-submit="handleCreateEvent" />
   <div class="flex flex-col gap-4">
-    <AtomsIconLabel :icon="'mi:arrow-left'" :iconSize="'2rem'">
-      <div class="text-2xl cursor-pointer" @click="handleBack">{{ STRING_DATA.BACK_TO_HOME }}</div>
-    </AtomsIconLabel>
+    <AtomsBreadCrumb />
     <div class="flex items-center justify-between">
       <h2 class="custom-h2-class">{{ STRING_DATA.YOUR_EVENTS }}</h2>
-      <AtomsActionButton :buttonLabel="STRING_DATA.CREATE_EVENT" :onclick="openEventModal" />
+      <AtomsActionButton :buttonLabel="STRING_DATA.CREATE_EVENT" :onclick="showModal" />
     </div>
     <!-- <AtomsComingSoon :showSearchImage="true" /> -->
 
