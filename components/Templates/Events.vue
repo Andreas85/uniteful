@@ -17,7 +17,8 @@ const handleCreateEvent = (data: any) => {
 
 </script>
 <template>
-  <ModalsCreateEvent :addEventModal="openModal" :closeEventModal="closeModal" v-on:handle-submit="handleCreateEvent" />
+  <ModalsCreateEvent v-if="openModal" :addEventModal="openModal" :closeEventModal="closeModal"
+    v-on:handle-submit="handleCreateEvent" />
   <div class="flex flex-col gap-4">
     <AtomsBreadCrumb />
     <div class="flex items-center justify-between">

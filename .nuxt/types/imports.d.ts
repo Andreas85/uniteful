@@ -41,9 +41,12 @@ declare global {
   const getAppManifest: typeof import('../../node_modules/nuxt/dist/app/composables/manifest')['getAppManifest']
   const getCurrentInstance: typeof import('../../node_modules/vue')['getCurrentInstance']
   const getCurrentScope: typeof import('../../node_modules/vue')['getCurrentScope']
+  const getISODate: typeof import('../../utils/helper')['getISODate']
   const getRequest: typeof import('../../utils/apiUtils')['getRequest']
   const getRequestUseFetch: typeof import('../../utils/apiUtils')['getRequestUseFetch']
+  const getRequiredDataFormat: typeof import('../../utils/helper')['getRequiredDataFormat']
   const getRouteRules: typeof import('../../node_modules/nuxt/dist/app/composables/manifest')['getRouteRules']
+  const getTodayDate: typeof import('../../utils/helper')['getTodayDate']
   const h: typeof import('../../node_modules/vue')['h']
   const hasInjectionContext: typeof import('../../node_modules/vue')['hasInjectionContext']
   const inject: typeof import('../../node_modules/vue')['inject']
@@ -216,9 +219,12 @@ declare module 'vue' {
     readonly getAppManifest: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/manifest')['getAppManifest']>
     readonly getCurrentInstance: UnwrapRef<typeof import('../../node_modules/vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('../../node_modules/vue')['getCurrentScope']>
+    readonly getISODate: UnwrapRef<typeof import('../../utils/helper')['getISODate']>
     readonly getRequest: UnwrapRef<typeof import('../../utils/apiUtils')['getRequest']>
     readonly getRequestUseFetch: UnwrapRef<typeof import('../../utils/apiUtils')['getRequestUseFetch']>
+    readonly getRequiredDataFormat: UnwrapRef<typeof import('../../utils/helper')['getRequiredDataFormat']>
     readonly getRouteRules: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/manifest')['getRouteRules']>
+    readonly getTodayDate: UnwrapRef<typeof import('../../utils/helper')['getTodayDate']>
     readonly h: UnwrapRef<typeof import('../../node_modules/vue')['h']>
     readonly hasInjectionContext: UnwrapRef<typeof import('../../node_modules/vue')['hasInjectionContext']>
     readonly inject: UnwrapRef<typeof import('../../node_modules/vue')['inject']>
@@ -384,9 +390,12 @@ declare module '@vue/runtime-core' {
     readonly getAppManifest: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/manifest')['getAppManifest']>
     readonly getCurrentInstance: UnwrapRef<typeof import('../../node_modules/vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('../../node_modules/vue')['getCurrentScope']>
+    readonly getISODate: UnwrapRef<typeof import('../../utils/helper')['getISODate']>
     readonly getRequest: UnwrapRef<typeof import('../../utils/apiUtils')['getRequest']>
     readonly getRequestUseFetch: UnwrapRef<typeof import('../../utils/apiUtils')['getRequestUseFetch']>
+    readonly getRequiredDataFormat: UnwrapRef<typeof import('../../utils/helper')['getRequiredDataFormat']>
     readonly getRouteRules: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/manifest')['getRouteRules']>
+    readonly getTodayDate: UnwrapRef<typeof import('../../utils/helper')['getTodayDate']>
     readonly h: UnwrapRef<typeof import('../../node_modules/vue')['h']>
     readonly hasInjectionContext: UnwrapRef<typeof import('../../node_modules/vue')['hasInjectionContext']>
     readonly inject: UnwrapRef<typeof import('../../node_modules/vue')['inject']>

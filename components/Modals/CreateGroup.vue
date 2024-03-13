@@ -7,12 +7,13 @@ interface Props {
   closeGroupModal?: Function;
 }
 
-const emit = defineEmits(["handleSubmit"]);
+const emit = defineEmits(["handle-submit"]);
 const props = defineProps<Props>();
 const { addGroupModal, closeGroupModal } = toRefs(props);
 
 const formData = reactive({
   groupName: "",
+  groupDesc: ""
 });
 
 const rules = {
@@ -26,10 +27,11 @@ const submitForm = async () => {
   const result = await v$.value.$validate();
 
   if (result) {
-    const { groupName } = formData;
+    const { groupName, groupDesc } = formData;
     const payload = {
       formData: {
-        input: groupName,
+        name: groupName,
+        desc: groupDesc
       },
     };
 
@@ -48,6 +50,9 @@ const submitForm = async () => {
       <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
         <AtomsBaseInput v-model="formData.groupName" :placeholder="'Enter your group name'" :label="'Group name'"
           :type="'text'" :errorMessage="v$?.groupName?.$error ? v$?.groupName?.$errors?.[0]?.$message : ''" />
+        <AtomsBaseInput v-model="formData.groupDesc" :placeholder="'Enter your group description'"
+          :label="'Description'" :type="'text'"
+          :errorMessage="v$?.groupDesc?.$error ? v$?.groupDesc?.$errors?.[0]?.$message : ''" :isTextarea="true" />
         <div class="flex items-center justify-end gap-4">
           <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" />
           <AtomsActionButton :onclick="closeGroupModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />

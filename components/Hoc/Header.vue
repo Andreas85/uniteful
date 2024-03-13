@@ -40,7 +40,7 @@ const handleBrandClick = () => {
     , 'px-4': !isMobileView.mobileView
   }">
     <template v-if="!isMobileView.mobileView">
-      <div class="lg:flex hidden flex-row items-center justify-between w-full">
+      <div class="flex flex-row items-center justify-between w-full">
         <div class="flex items-center justify-start gap-12">
           <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer ">
             {{ STRING_DATA.BRAND_NAME.toUpperCase() }}

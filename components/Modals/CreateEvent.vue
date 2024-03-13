@@ -2,7 +2,7 @@
 import { useVuelidate } from "@vuelidate/core";
 import { helpers, required, requiredIf } from "@vuelidate/validators";
 
-const emit = defineEmits(["handleSubmit"]);
+const emit = defineEmits(["handle-submit"]);
 const props = defineProps({
   addEventModal: Boolean,
   closeEventModal: Function
@@ -11,7 +11,9 @@ const { addEventModal, closeEventModal } = toRefs(props);
 
 const formData = reactive({
   location: "",
-  group: ""
+  group: "",
+  startDate: getRequiredDataFormat(new Date()),
+  endDate: "",
 });
 
 const rules = {
@@ -25,11 +27,11 @@ const submitForm = async () => {
   const result = await v$.value.$validate();
 
   if (result) {
-    const { location } = formData;
+    const { location, group, startDate, endDate } = formData;
     console.log("Api Call", location);
     const payload = {
       formData: {
-        input: location,
+        location, group, startDate: getISODate(startDate), endDate: getISODate(endDate)
       },
     };
     // console.log(payload, "modalcompo");
@@ -49,6 +51,8 @@ const submitForm = async () => {
         <AtomsBaseInput v-model="formData.location" :placeholder="'Enter your location'" :label="'Location'"
           :type="'text'" :errorMessage="v$?.location?.$error ? v$?.location?.$errors?.[0]?.$message : ''" />
         <AtomsBaseInput v-model="formData.group" :placeholder="'Enter your group'" :label="'Group'" :type="'text'" />
+        <AtomsBaseInput v-model="formData.startDate" :label="'Start date'" :type="'date'" :min="getTodayDate()" />
+        <AtomsBaseInput v-model="formData.endDate" :label="'End date'" :type="'date'" :min="formData.startDate" />
         <div class="flex items-center justify-end gap-4">
           <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" />
           <AtomsActionButton :onclick="closeEventModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />

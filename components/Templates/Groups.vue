@@ -8,11 +8,13 @@ const handleBack = () => {
 
 const handleCreateGroup = (data: any) => {
   closeModal()
+  console.log(data)
 }
 
 </script>
 <template>
-  <ModalsCreateGroup :addGroupModal="openModal" :closeGroupModal="closeModal" v-on:handle-submit="handleCreateGroup" />
+  <ModalsCreateGroup v-if="openModal" :addGroupModal="openModal" :closeGroupModal="closeModal"
+    v-on:handle-submit="handleCreateGroup" />
   <div class="flex flex-col gap-4">
     <AtomsBreadCrumb />
 

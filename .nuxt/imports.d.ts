@@ -29,7 +29,7 @@ export { injectHead, useHead, useSeoMeta, useHeadSafe, useServerHead, useServerS
 export { useBreadcrumbs } from '../composables/useBreadCrumbs';
 export { useModal } from '../composables/useModal';
 export { API_BASE_URL, getRequest, postRequest, putRequest, deleteRequest, getRequestUseFetch } from '../utils/apiUtils';
-export { capitalizeFirstLetter } from '../utils/helper';
+export { capitalizeFirstLetter, getTodayDate, getISODate, getRequiredDataFormat } from '../utils/helper';
 export { ROUTE_CONSTANTS, ENDPOINTS, STRING_DATA, ERROR_MESSAGE, URL_ROUTES, DUMMY_DATA } from '../utils/index';
 export { useTodosStore } from '../stores/todos';
 export { useUserStore } from '../stores/user';
