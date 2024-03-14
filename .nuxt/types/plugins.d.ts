@@ -20,6 +20,7 @@ type NuxtAppInjections =
   InjectionType<typeof import("../../node_modules/nuxt-vue3-google-signin/dist/runtime/plugin").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/chunk-reload.client").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/check-if-layout-used").default> &
+  InjectionType<typeof import("../../plugins/api").default> &
   InjectionType<typeof import("../../plugins/auth").default> &
   InjectionType<typeof import("../../plugins/vTooltip").default>
 

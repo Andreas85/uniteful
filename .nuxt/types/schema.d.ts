@@ -16,10 +16,10 @@ declare module 'nuxt/schema' {
 
       cdnURL: string,
    },
-
-   apibaseurl: string,
   }
   interface PublicRuntimeConfig {
+   apibaseurl: string,
+
    googleSignIn: {
       clientId: string,
    },

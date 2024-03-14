@@ -28,9 +28,11 @@ export { useTokenClient, useCodeClient, useGsiScript, useOneTap } from 'vue3-goo
 export { injectHead, useHead, useSeoMeta, useHeadSafe, useServerHead, useServerSeoMeta, useServerHeadSafe } from '@unhead/vue';
 export { useBreadcrumbs } from '../composables/useBreadCrumbs';
 export { useModal } from '../composables/useModal';
+export { useServiceTodos } from '../composables/useServiceTodos';
 export { API_BASE_URL, getRequest, postRequest, putRequest, deleteRequest, getRequestUseFetch } from '../utils/apiUtils';
 export { capitalizeFirstLetter, getTodayDate, getISODate, getRequiredDataFormat } from '../utils/helper';
 export { ROUTE_CONSTANTS, ENDPOINTS, STRING_DATA, ERROR_MESSAGE, URL_ROUTES, DUMMY_DATA } from '../utils/index';
+export { authService, productService, todoService } from '../utils/repository';
 export { useTodosStore } from '../stores/todos';
 export { useUserStore } from '../stores/user';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';

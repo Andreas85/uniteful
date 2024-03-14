@@ -11,6 +11,9 @@ useHead({
   title: `Login | ${STRING_DATA.BRAND_NAME}`,
 })
 
+const { $api } = useNuxtApp();
+const authRepo = authService($api);
+
 const formData = reactive({
   email: "",
 });
@@ -43,7 +46,16 @@ const submitForm = async () => {
 
 const userStore = useUserStore()
 const { token } = storeToRefs(userStore)
-const { signin, logout } = userStore
+const { logout, setToken } = userStore
+
+const signin = async (data: any) => {
+  try {
+    const response = await authRepo.post(data);
+    setToken(response.token);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const setCookie = async () => {
   const payload = {

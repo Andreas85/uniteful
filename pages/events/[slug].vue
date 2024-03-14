@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const route = useRoute();
-
-const URL = `${ENDPOINTS.TODOS}/${route.params.slug}`
-const { data: todo } = await getRequestUseFetch(URL)
+const { $api } = useNuxtApp()
+const todoRepo = todoService($api)
+const { data: todo, refresh, pending, status } = await useAsyncData(() => todoRepo.getById({ id: route.params.slug }))
 
 </script>
 <template>

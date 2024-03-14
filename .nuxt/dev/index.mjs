@@ -99,11 +99,11 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
+    "apibaseurl": "https://dummyjson.com",
     "googleSignIn": {
       "clientId": "673702241334-uv0tqtb21ntgcqsgua33ioge606pif77.apps.googleusercontent.com"
     }
-  },
-  "apibaseurl": ""
+  }
 };
 const envOptions = {
   prefix: "NITRO_",

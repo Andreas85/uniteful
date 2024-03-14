@@ -8,28 +8,6 @@ export const useUserStore = defineStore("user", () => {
   const setToken = (data?: string) => (token.value = data);
   const setUser = (data?: string) => (user.value = data);
 
-  const signin = async (data: any) => {
-    try {
-      const URL = "/auth/login";
-      const response = await postRequest<IUser>(URL, data);
-      setToken(response.token);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchUsers = async () => {
-    if (token.value) {
-      try {
-        const URL = "https://dummyjson.com/user/1";
-        const response = await getRequest<IUser>(URL);
-        setUser(response);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
   const logout = () => {
     setToken();
     setUser();
@@ -40,5 +18,12 @@ export const useUserStore = defineStore("user", () => {
     isAuthenticated.value = !!newValue;
   });
 
-  return { isAuthenticated, token, user, signin, fetchUsers, logout };
+  return {
+    isAuthenticated,
+    token,
+    user,
+    logout,
+    setToken,
+    setUser,
+  };
 });

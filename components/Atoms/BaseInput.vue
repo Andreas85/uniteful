@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, toRefs, defineEmits } from 'vue';
 
 interface Props {
   label: string;

@@ -13,6 +13,8 @@ function createRequest(
   fetchFunction: any
 ): Promise<any> {
   const { method, body, headers, query } = options;
+  console.log(API_BASE_URL, "API_BASE_URL");
+
   const requestOptions = {
     method,
     body: body ? JSON.stringify(body) : undefined,

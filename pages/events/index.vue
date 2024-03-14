@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const { data: todos, refresh, pending, status } = await getRequestUseFetch(ENDPOINTS.TODOS)
+const { $api } = useNuxtApp()
+const todoRepo = todoService($api)
+const { data: todos, refresh, pending, status } = await useAsyncData(() => todoRepo.get())
+
 
 definePageMeta({
   middleware: ["privateroute"]
