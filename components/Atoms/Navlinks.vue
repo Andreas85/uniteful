@@ -30,7 +30,7 @@ const handleSignup = () => {
       <AtomsIconLabel :icon="'material-symbols:login'">
         <NuxtLink :to="ROUTE_CONSTANTS.LOGIN">{{ STRING_DATA.LOGIN }}</NuxtLink>
       </AtomsIconLabel>
-      <AtomsActionButton :buttonLabel="STRING_DATA.SIGN_UP" :icon="'mdi:register-outline'" :onclick="handleSignup" />
+      <NxActionButton :buttonLabel="STRING_DATA.SIGN_UP" :icon="'mdi:register-outline'" :onclick="handleSignup" />
     </template>
   </div>
 </template>

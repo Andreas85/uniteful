@@ -162,6 +162,7 @@ declare global {
   const useTokenClient: typeof import('../../node_modules/vue3-google-signin')['useTokenClient']
   const useTransitionState: typeof import('../../node_modules/vue')['useTransitionState']
   const useUserStore: typeof import('../../stores/user')['useUserStore']
+  const userService: typeof import('../../utils/repository')['userService']
   const watch: typeof import('../../node_modules/vue')['watch']
   const watchEffect: typeof import('../../node_modules/vue')['watchEffect']
   const watchPostEffect: typeof import('../../node_modules/vue')['watchPostEffect']
@@ -344,6 +345,7 @@ declare module 'vue' {
     readonly useTokenClient: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useTokenClient']>
     readonly useTransitionState: UnwrapRef<typeof import('../../node_modules/vue')['useTransitionState']>
     readonly useUserStore: UnwrapRef<typeof import('../../stores/user')['useUserStore']>
+    readonly userService: UnwrapRef<typeof import('../../utils/repository')['userService']>
     readonly watch: UnwrapRef<typeof import('../../node_modules/vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('../../node_modules/vue')['watchEffect']>
     readonly watchPostEffect: UnwrapRef<typeof import('../../node_modules/vue')['watchPostEffect']>
@@ -519,6 +521,7 @@ declare module '@vue/runtime-core' {
     readonly useTokenClient: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useTokenClient']>
     readonly useTransitionState: UnwrapRef<typeof import('../../node_modules/vue')['useTransitionState']>
     readonly useUserStore: UnwrapRef<typeof import('../../stores/user')['useUserStore']>
+    readonly userService: UnwrapRef<typeof import('../../utils/repository')['userService']>
     readonly watch: UnwrapRef<typeof import('../../node_modules/vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('../../node_modules/vue')['watchEffect']>
     readonly watchPostEffect: UnwrapRef<typeof import('../../node_modules/vue')['watchPostEffect']>

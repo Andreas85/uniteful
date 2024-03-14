@@ -54,8 +54,8 @@ const submitForm = async () => {
           :label="'Description'" :type="'text'"
           :errorMessage="v$?.groupDesc?.$error ? v$?.groupDesc?.$errors?.[0]?.$message : ''" :isTextarea="true" />
         <div class="flex items-center justify-end gap-4">
-          <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" />
-          <AtomsActionButton :onclick="closeGroupModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />
+          <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" />
+          <NxActionButton :onclick="closeGroupModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />
         </div>
       </form>
     </div>

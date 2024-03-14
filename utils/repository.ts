@@ -31,3 +31,15 @@ export const todoService = <T>(fetch: $Fetch<T, NitrofetchRequest>) => ({
     return fetch<User[]>("/todos" + "/" + id);
   },
 });
+
+/**
+ * Users Service
+ */
+export const userService = <T>(fetch: $Fetch<T, NitrofetchRequest>) => ({
+  async get(): Promise<User[]> {
+    return fetch<User[]>("/users");
+  },
+  async getById({ id }): Promise<User[]> {
+    return fetch<User[]>("/users" + "/" + id);
+  },
+});

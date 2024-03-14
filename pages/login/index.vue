@@ -78,7 +78,7 @@ const setCookie = async () => {
         <AtomsBaseInput v-model="formData.email" :placeholder="'Enter your email'" :label="'Email'" type="email"
           :errorMessage="v$?.email?.$error ? v$?.email?.$errors?.[0]?.$message : ''
           " />
-        <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.LOGIN_USING_OTP.toUpperCase()" />
+        <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.LOGIN_USING_OTP.toUpperCase()" />
         <div class="custom-link-class text-center" @click="setCookie">Login as Guest</div>
         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
           {{ STRING_DATA.NOT_REGISTERED }}

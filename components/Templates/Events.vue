@@ -23,7 +23,7 @@ const handleCreateEvent = (data: any) => {
     <AtomsBreadCrumb />
     <div class="flex items-center justify-between">
       <h2 class="custom-h2-class">{{ STRING_DATA.YOUR_EVENTS }}</h2>
-      <AtomsActionButton :buttonLabel="STRING_DATA.CREATE_EVENT" :onclick="showModal" />
+      <NxActionButton :buttonLabel="STRING_DATA.CREATE_EVENT" :onclick="showModal" />
     </div>
     <!-- <AtomsComingSoon :showSearchImage="true" /> -->
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">

@@ -52,7 +52,7 @@ const submitForm = async () => {
         <AtomsBaseInput v-model="formData.email" :placeholder="'Enter your email'" :label="'Email'" type="email"
           :errorMessage="v$?.email?.$error ? v$?.email?.$errors?.[0]?.$message : ''
           " />
-        <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.REGISTER.toUpperCase()" />
+        <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.REGISTER.toUpperCase()" />
         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
           {{ STRING_DATA.ALREADY_HAVE_ACCOUNT }}
           <NuxtLink :to="ROUTE_CONSTANTS.LOGIN" class="custom-link-class">

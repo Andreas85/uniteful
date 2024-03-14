@@ -12,7 +12,7 @@ const { addEventModal, closeEventModal } = toRefs(props);
 const formData = reactive({
   location: "",
   group: "",
-  startDate: getRequiredDataFormat(new Date()),
+  startDate: "",
   endDate: "",
 });
 
@@ -41,6 +41,9 @@ const submitForm = async () => {
   }
 };
 
+const handleInput = (field: any) => {
+  formData[field] = "";
+};
 
 </script>
 <template>
@@ -51,11 +54,12 @@ const submitForm = async () => {
         <AtomsBaseInput v-model="formData.location" :placeholder="'Enter your location'" :label="'Location'"
           :type="'text'" :errorMessage="v$?.location?.$error ? v$?.location?.$errors?.[0]?.$message : ''" />
         <AtomsBaseInput v-model="formData.group" :placeholder="'Enter your group'" :label="'Group'" :type="'text'" />
-        <AtomsBaseInput v-model="formData.startDate" :label="'Start date'" :type="'date'" :min="getTodayDate()" />
+        <AtomsBaseInput v-model="formData.startDate" :label="'Start date'" :type="'date'" :min="getTodayDate()"
+          @input="handleInput('endDate')" />
         <AtomsBaseInput v-model="formData.endDate" :label="'End date'" :type="'date'" :min="formData.startDate" />
-        <div class="flex items-center justify-end gap-4">
-          <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" />
-          <AtomsActionButton :onclick="closeEventModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />
+        <div class="flex items-center justify-end gap-4" :min="getTodayDate()">
+          <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" />
+          <NxActionButton :onclick="closeEventModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />
         </div>
       </form>
     </div>
