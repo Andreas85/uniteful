@@ -81,6 +81,7 @@ export const ERROR_MESSAGE = {
   REPS_REQ: "Reps is required",
   LOCATION_REQ: "Location is required",
   GROUP_NAME_REQ: "Group name is required",
+  EVENT_REQ: "Event name is required",
 };
 
 export const MESSAGES = {
@@ -100,15 +101,15 @@ export const URL_ROUTES = [
     isAuthenticatedRoute: true,
   },
   {
-    label: STRING_DATA.SETTINGS,
-    path: ROUTE_CONSTANTS.SETTINGS,
-    icon: "material-symbols:settings-outline",
-    isAuthenticatedRoute: true,
-  },
-  {
     label: STRING_DATA.YOUR_GROUPS,
     path: ROUTE_CONSTANTS.GROUPS,
     icon: "material-symbols:groups-outline",
+    isAuthenticatedRoute: true,
+  },
+  {
+    label: STRING_DATA.SETTINGS,
+    path: ROUTE_CONSTANTS.SETTINGS,
+    icon: "material-symbols:settings-outline",
     isAuthenticatedRoute: true,
   },
   {
