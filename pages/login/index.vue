@@ -3,16 +3,19 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 
 definePageMeta({
-  middleware: ["auth"]
+  middleware: ["auth"],
   // or middleware: 'auth'
-})
+});
 
 useHead({
   title: `Login | ${STRING_DATA.BRAND_NAME}`,
-})
+});
 
-const { $api } = useNuxtApp();
-const authRepo = authService($api);
+const { sendSignInOtp } = useAuthService();
+const { loading, showLoading, hideLoading } = useLoader()
+
+const otpsendsuccess = ref(false);
+const errorResponse = ref("");
 
 const formData = reactive({
   email: "",
@@ -33,61 +36,63 @@ const submitForm = async () => {
     const { email } = formData;
     console.log("Api Call", email);
     const payload = {
-      formData: {
-        input: email,
-      },
+      input: email,
     };
-
-    // login(payload);
+    signinService(payload);
   } else {
     console.log("Invalid Form NOT Submitted");
   }
 };
 
-const userStore = useUserStore()
-const { token } = storeToRefs(userStore)
-const { logout, setToken } = userStore
-
-const signin = async (data: any) => {
+const signinService = async (data: any) => {
   try {
-    const response = await authRepo.post(data);
-    setToken(response.token);
+    showLoading()
+    const response = await sendSignInOtp(data)
+    otpsendsuccess.value = true;
+    console.log(response)
   } catch (error) {
-    console.log(error);
+    otpsendsuccess.value = false;
+    const message = handleQueryResponse(error)
+    errorResponse.value = message
+  } finally {
+    hideLoading()
   }
-};
-
-const setCookie = async () => {
-  const payload = {
-    username: 'kminchelle',
-    password: '0lelplR',
-  }
-  await signin(payload)
-  await navigateTo(ROUTE_CONSTANTS.HOME)
 }
+
+const toggleOTPSucces = () => {
+  otpsendsuccess.value = false;
+};
 
 </script>
 <template>
   <div class="auth-section-class">
-    <div class="flex flex-col items-start gap-6 w-full">
-      <!-- <NxGoogleSignIn /> -->
-      <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-        {{ STRING_DATA.SIGN_IN_ACCOUNT }}
-      </h2>
-      <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
-        <AtomsBaseInput v-model="formData.email" :placeholder="'Enter your email'" :label="'Email'" type="email"
-          :errorMessage="v$?.email?.$error ? v$?.email?.$errors?.[0]?.$message : ''
-          " />
-        <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.LOGIN_USING_OTP.toUpperCase()" />
-        <div class="custom-link-class text-center" @click="setCookie">Login as Guest</div>
-        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-          {{ STRING_DATA.NOT_REGISTERED }}
-          <NuxtLink :to="ROUTE_CONSTANTS.SIGN_UP" class="custom-link-class">
-            {{ STRING_DATA.CREATE_ACCOUNT }}
-          </NuxtLink>
-        </p>
-      </form>
-    </div>
-
+    <template v-if="!otpsendsuccess">
+      <div class="flex flex-col items-start gap-6 w-full">
+        <!-- <NxGoogleSignIn /> -->
+        <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+          {{ STRING_DATA.SIGN_IN_ACCOUNT }}
+        </h2>
+        <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
+          <AtomsBaseInput v-model="formData.email" :placeholder="'Enter your email'" :label="'Email'" type="email"
+            :errorMessage="v$?.email?.$error ? v$?.email?.$errors?.[0]?.$message : ''
+      " />
+          <span v-if="errorResponse" class="errorClass">{{
+      errorResponse
+    }}</span>
+          <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.LOGIN_USING_OTP.toUpperCase()"
+            :is-loading="loading" />
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            {{ STRING_DATA.NOT_REGISTERED }}
+            <NuxtLink :to="ROUTE_CONSTANTS.SIGN_UP" class="custom-link-class">
+              {{ STRING_DATA.CREATE_ACCOUNT }}
+            </NuxtLink>
+          </p>
+        </form>
+      </div>
+    </template>
+    <template v-else>
+      <!-- OTP form -->
+      <TemplatesNxVerifyOtp :email="formData.email" v-on:change-email="toggleOTPSucces" />
+    </template>
   </div>
 </template>

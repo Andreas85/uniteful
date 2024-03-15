@@ -8,8 +8,17 @@ export const ROUTE_CONSTANTS = {
   SETTINGS: "/settings",
 };
 
+export const UNITED_COOKIE = {
+  TOKEN: "UNITED_COOKIE_TOKEN",
+  USER_DATA: "UNITED_USER_DATA",
+};
+
 export const ENDPOINTS = {
   TODOS: "/todos",
+  SIGN_UP: "/auth/signup",
+  SIGN_OTP: "/auth/signin-using-otp",
+  SEND_SIGNIN_OTP: "/auth/send-signin-otp",
+  GROUPS: "/group",
 };
 
 export const STRING_DATA = {
@@ -40,6 +49,8 @@ export const STRING_DATA = {
   SETTINGS: "Settings",
   HOME: "Home",
   BACK_TO_HOME: "Back to home page",
+  VERIFY_EMAIL_MESSAGE: "Verify your email",
+  CHANGE: "Change",
 };
 
 export const ERROR_MESSAGE = {
@@ -116,3 +127,5 @@ export const DUMMY_DATA = [
   { id: 5, location: "Agra" },
   { id: 6, location: "Agra" },
 ];
+
+export const OTP_EXPIRED_TIME = 180; // 3 minutes

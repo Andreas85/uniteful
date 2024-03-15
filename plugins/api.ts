@@ -1,7 +1,7 @@
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
   const userStore = useUserStore();
-  const token = useCookie("MY_COOKIE");
+  const token = useCookie(UNITED_COOKIE.TOKEN);
   const { logout } = userStore;
   const { isAuthenticated } = storeToRefs(userStore);
 

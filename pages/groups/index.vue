@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const { $api } = useNuxtApp()
-const userRepo = userService($api)
-const { data: users, refresh, pending, status } = await useAsyncData(() => userRepo.get())
+const { fetchGroupsService } = useGroupsService();
+
+// const { $api } = useNuxtApp()
+// const userRepo = userService($api)
+const { data: users, refresh, pending, status } = await useAsyncData(() => fetchGroupsService())
 
 definePageMeta({
   middleware: ["privateroute"]
@@ -12,6 +14,6 @@ useHead({
 </script>
 <template>
   <div class="py-8">
-    <TemplatesGroups :users="users.users" />
+    <TemplatesGroups :users="[]" />
   </div>
 </template>
