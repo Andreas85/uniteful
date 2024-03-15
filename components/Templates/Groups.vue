@@ -7,6 +7,7 @@ const { users } = toRefs(props)
 const { openModal, showModal, closeModal } = useModal()
 const { loading, showLoading, hideLoading } = useLoader()
 const { createGroupService } = useGroupsService()
+const errorResponse = ref("");
 
 const handleBack = () => {
   navigateTo(ROUTE_CONSTANTS.HOME)
@@ -18,10 +19,11 @@ const addGroup = async (payload) => {
     console.log(payload)
     const response = await createGroupService(payload)
     console.log(response)
-  } catch (error) {
-    console.log(error)
-  } finally {
     closeModal()
+  } catch (error) {
+    const message = handleQueryResponse(error)
+    errorResponse.value = message
+  } finally {
     hideLoading()
   }
 }
@@ -35,10 +37,15 @@ const handleCreateGroup = (data: any) => {
   addGroup(payload)
 }
 
+const handleCloseModal = () => {
+  closeModal()
+  errorResponse.value = ''
+}
+
 </script>
 <template>
-  <ModalsCreateGroup v-if="openModal" :addGroupModal="openModal" :closeGroupModal="closeModal"
-    v-on:handle-submit="handleCreateGroup" :loading="loading" />
+  <ModalsCreateGroup v-if="openModal" :addGroupModal="openModal" :closeGroupModal="handleCloseModal"
+    v-on:handle-submit="handleCreateGroup" :loading="loading" :errorResponse="errorResponse" />
   <div class=" flex flex-col gap-4">
     <AtomsBreadCrumb />
 

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-const { $api } = useNuxtApp()
-const todoRepo = todoService($api)
-const { data: todos, refresh, pending, status } = await useAsyncData(() => todoRepo.get())
-
 
 definePageMeta({
   middleware: ["privateroute"]
@@ -15,6 +11,6 @@ useHead({
 </script>
 <template>
   <div class="py-8">
-    <TemplatesEvents :eventData="todos.todos" />
+    <TemplatesEvents :eventData="[]" />
   </div>
 </template>

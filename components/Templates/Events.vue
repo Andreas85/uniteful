@@ -25,12 +25,16 @@ const handleCreateEvent = (data: any) => {
       <h2 class="custom-h2-class">{{ STRING_DATA.YOUR_EVENTS }}</h2>
       <NxActionButton :buttonLabel="STRING_DATA.CREATE_EVENT" :onclick="showModal" />
     </div>
-    <!-- <AtomsComingSoon :showSearchImage="true" /> -->
-    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-      <div v-for="(item, index) in eventData" :key="index" class="py-4 border border-gray-400 shadow rounded p-4">
-        <AtomsEventCard :item="item" />
+    <template v-if="eventData.lenght">
+      <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
+        <div v-for="(item, index) in eventData" :key="index" class="py-4 border border-gray-400 shadow rounded p-4">
+          <AtomsEventCard :item="item" />
+        </div>
       </div>
-    </div>
+    </template>
+    <template v-else>
+      <AtomsComingSoon :showSearchImage="true" />
 
+    </template>
   </div>
 </template>
