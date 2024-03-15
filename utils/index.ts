@@ -72,6 +72,10 @@ export const ERROR_MESSAGE = {
   GROUP_NAME_REQ: "Group name is required",
 };
 
+export const MESSAGES = {
+  DELETE_EVENT: "Are you sure you want to delete this event?",
+};
+
 export const URL_ROUTES = [
   {
     label: STRING_DATA.HOME,

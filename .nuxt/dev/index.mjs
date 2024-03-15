@@ -99,7 +99,7 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "apibaseurl": "https://dummyjson.com",
+    "apibaseurl": "https://uniteful-backend-48d75b7d72db.herokuapp.com",
     "googleSignIn": {
       "clientId": "673702241334-uv0tqtb21ntgcqsgua33ioge606pif77.apps.googleusercontent.com"
     }

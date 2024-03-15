@@ -5,6 +5,10 @@ const userStore = useUserStore()
 const { logout } = userStore
 const { isAuthenticated } = storeToRefs(userStore)
 
+const handlelogout = () => {
+  logout()
+  navigateTo(ROUTE_CONSTANTS.LOGIN)
+}
 </script>
 <template>
   <div class="bg-white border border-gray-400 shadow-lg p-4 rounded-lg text-sm min-w-60 ">
@@ -17,7 +21,7 @@ const { isAuthenticated } = storeToRefs(userStore)
       </NuxtLink>
       <hr class="bg-gray-500" />
       <template v-if="isAuthenticated">
-        <NuxtLink class="cursor-pointer" @click="logout">
+        <NuxtLink class="cursor-pointer" @click="handlelogout">
           {{ STRING_DATA.LOGOUT }}
         </NuxtLink>
       </template>

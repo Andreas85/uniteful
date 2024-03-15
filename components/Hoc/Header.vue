@@ -35,7 +35,7 @@ const handleBrandClick = () => {
 </script>
 
 <template>
-  <div ref="navbarElement" class="navbar fixed top-0 bg-white z-50  border-b-2" :class="{
+  <div ref="navbarElement" class="navbar fixed top-0 bg-white z-20 border-b-2" :class="{
     'p-4': isMobileView.mobileView
     , 'px-4': !isMobileView.mobileView
   }">

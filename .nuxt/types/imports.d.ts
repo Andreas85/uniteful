@@ -5,6 +5,7 @@ declare global {
   const DUMMY_DATA: typeof import('../../utils/index')['DUMMY_DATA']
   const ENDPOINTS: typeof import('../../utils/index')['ENDPOINTS']
   const ERROR_MESSAGE: typeof import('../../utils/index')['ERROR_MESSAGE']
+  const MESSAGES: typeof import('../../utils/index')['MESSAGES']
   const ROUTE_CONSTANTS: typeof import('../../utils/index')['ROUTE_CONSTANTS']
   const STRING_DATA: typeof import('../../utils/index')['STRING_DATA']
   const URL_ROUTES: typeof import('../../utils/index')['URL_ROUTES']
@@ -188,6 +189,7 @@ declare module 'vue' {
     readonly DUMMY_DATA: UnwrapRef<typeof import('../../utils/index')['DUMMY_DATA']>
     readonly ENDPOINTS: UnwrapRef<typeof import('../../utils/index')['ENDPOINTS']>
     readonly ERROR_MESSAGE: UnwrapRef<typeof import('../../utils/index')['ERROR_MESSAGE']>
+    readonly MESSAGES: UnwrapRef<typeof import('../../utils/index')['MESSAGES']>
     readonly ROUTE_CONSTANTS: UnwrapRef<typeof import('../../utils/index')['ROUTE_CONSTANTS']>
     readonly STRING_DATA: UnwrapRef<typeof import('../../utils/index')['STRING_DATA']>
     readonly URL_ROUTES: UnwrapRef<typeof import('../../utils/index')['URL_ROUTES']>
@@ -364,6 +366,7 @@ declare module '@vue/runtime-core' {
     readonly DUMMY_DATA: UnwrapRef<typeof import('../../utils/index')['DUMMY_DATA']>
     readonly ENDPOINTS: UnwrapRef<typeof import('../../utils/index')['ENDPOINTS']>
     readonly ERROR_MESSAGE: UnwrapRef<typeof import('../../utils/index')['ERROR_MESSAGE']>
+    readonly MESSAGES: UnwrapRef<typeof import('../../utils/index')['MESSAGES']>
     readonly ROUTE_CONSTANTS: UnwrapRef<typeof import('../../utils/index')['ROUTE_CONSTANTS']>
     readonly STRING_DATA: UnwrapRef<typeof import('../../utils/index')['STRING_DATA']>
     readonly URL_ROUTES: UnwrapRef<typeof import('../../utils/index')['URL_ROUTES']>

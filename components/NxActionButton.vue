@@ -40,7 +40,7 @@ const handleClick = () => {
 
 const buttonClasses = computed(() => {
   if (props.isDeleteButton) {
-    return "btn-error text-white";
+    return "custom-action-button-class bg-red-600 hover:bg-red-400 text-white";
   } else if (props.isActionButton) {
     return "custom-action-button-class bg-action-btn text-white";
   } else {

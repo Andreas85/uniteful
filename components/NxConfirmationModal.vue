@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const props = defineProps<Props>({
+const props = defineProps({
   openModal: { type: Boolean, default: false },
   message: { type: String },
   closeModal: Function,
@@ -23,8 +23,8 @@ const handleClick = () => {
       </p>
       <div class="flex justify-end items-center gap-4">
         <NxActionButton :button-label="'Cancel'" :onclick="closeModal" />
-        <NxActionButton :custom-class="'custom-button-danger'" :is-loading="isModalLoading" :button-label="'Delete'"
-          :onclick="handleClick" />
+        <NxActionButton :custom-class="'custom-button-danger'" :is-loading="isModalLoading" :isDeleteButton="true"
+          :button-label="'Delete'" :onclick="handleClick" />
       </div>
     </div>
   </div>
