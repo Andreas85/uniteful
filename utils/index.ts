@@ -100,6 +100,12 @@ export const URL_ROUTES = [
     isAuthenticatedRoute: true,
   },
   {
+    label: STRING_DATA.SETTINGS,
+    path: ROUTE_CONSTANTS.SETTINGS,
+    icon: "material-symbols:settings-outline",
+    isAuthenticatedRoute: true,
+  },
+  {
     label: STRING_DATA.YOUR_GROUPS,
     path: ROUTE_CONSTANTS.GROUPS,
     icon: "material-symbols:groups-outline",

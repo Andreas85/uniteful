@@ -1,5 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ["privateroute"]
+})
 </script>
 <template>
-  <AtomsComingSoon />
+  <TemplatesSettings />
 </template>

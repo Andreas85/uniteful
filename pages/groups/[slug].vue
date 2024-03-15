@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ["privateroute"]
+})
 const route = useRoute();
 const { $api } = useNuxtApp()
 const userTodo = userService($api)

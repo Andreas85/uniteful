@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const { fetchGroupsService } = useGroupsService();
-
-// const { $api } = useNuxtApp()
-// const userRepo = userService($api)
-// const { data: users, refresh, pending, status } = await useAsyncData(() => fetchGroupsService())
+// const { fetchGroupsService } = useGroupsService();
 
 definePageMeta({
   middleware: ["privateroute"]

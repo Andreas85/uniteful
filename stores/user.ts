@@ -1,10 +1,9 @@
 export const useUserStore = defineStore("user", () => {
-  const user = ref();
-
   // const userData = getUserDataInLocalStorage();
   const userData = useCookie(UNITED_COOKIE.USER_DATA, {
     maxAge: 60 * 60,
   });
+  const user = ref(userData);
 
   const token = useCookie(UNITED_COOKIE.TOKEN, {
     maxAge: 60 * 60,
@@ -24,12 +23,6 @@ export const useUserStore = defineStore("user", () => {
   // Watch for changes in token and update isAuthenticated accordingly
   watch(token, (newValue) => {
     isAuthenticated.value = !!newValue;
-  });
-
-  // Watch for changes in token and update isAuthenticated accordingly
-  watch(userData, (newValue) => {
-    console.log(newValue, ">><L<L");
-    // user.value = !!newValue;
   });
 
   return {

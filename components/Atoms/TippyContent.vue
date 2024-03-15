@@ -19,6 +19,9 @@ const handlelogout = () => {
       <NuxtLink :to="ROUTE_CONSTANTS.GROUPS">
         {{ STRING_DATA.YOUR_GROUPS }}
       </NuxtLink>
+      <NuxtLink :to="ROUTE_CONSTANTS.SETTINGS">
+        {{ STRING_DATA.SETTINGS }}
+      </NuxtLink>
       <hr class="bg-gray-500" />
       <template v-if="isAuthenticated">
         <NuxtLink class="cursor-pointer" @click="handlelogout">
