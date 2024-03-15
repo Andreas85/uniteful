@@ -92,10 +92,10 @@ const toggleOTPSucces = () => {
           {{ STRING_DATA.CREATE_ACCOUNT }}
         </h2>
         <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
-          <AtomsBaseInput v-model="formData.firstName" :placeholder="'Enter your firstname'" :label="'Firstname'"
+          <AtomsBaseInput v-model="formData.firstName" :placeholder="'Enter your first name'" :label="'First name'"
             type="text" :errorMessage="v$?.firstName?.$error ? v$?.firstName?.$errors?.[0]?.$message : ''
       " />
-          <AtomsBaseInput v-model="formData.lastName" :placeholder="'Enter your lastname'" :label="'Lastname'"
+          <AtomsBaseInput v-model="formData.lastName" :placeholder="'Enter your last name'" :label="'Last name'"
             type="text" :errorMessage="v$?.lastName?.$error ? v$?.lastName?.$errors?.[0]?.$message : ''
       " />
           <AtomsBaseInput v-model="formData.email" :placeholder="'Enter your email'" :label="'Email'" type="email"
