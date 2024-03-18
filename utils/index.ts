@@ -55,6 +55,7 @@ export const STRING_DATA = {
   BACK_TO_HOME: "Back to home page",
   VERIFY_EMAIL_MESSAGE: "Verify your email",
   CHANGE: "Change",
+  MEMBERS: "Members",
 };
 
 export const ERROR_MESSAGE = {

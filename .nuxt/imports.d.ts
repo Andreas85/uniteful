@@ -29,12 +29,12 @@ export { injectHead, useHead, useSeoMeta, useHeadSafe, useServerHead, useServerS
 export { useAuthService } from '../composables/useAuthService';
 export { useBreadcrumbs } from '../composables/useBreadCrumbs';
 export { useGroupsService } from '../composables/useGroupsService';
+export { useImageUpload } from '../composables/useImageUpload';
 export { useLoader } from '../composables/useLoader';
 export { useModal } from '../composables/useModal';
 export { API_BASE_URL, getRequest, postRequest, putRequest, deleteRequest, getRequestUseFetch } from '../utils/apiUtils';
 export { capitalizeFirstLetter, getTodayDate, getISODate, getRequiredDataFormat, formatTimeForMinutes, getUserDataInLocalStorage, setUserDataInLocalStorage, handleQueryResponse } from '../utils/helper';
 export { ROUTE_CONSTANTS, UNITED_COOKIE, ENDPOINTS, STRING_DATA, ERROR_MESSAGE, MESSAGES, URL_ROUTES, DUMMY_DATA, OTP_EXPIRED_TIME, HAST_ID, GROUPS_TAB } from '../utils/index';
-export { iGroupData } from '../utils/interfaceGroup';
 export { authService, productService, todoService, userService } from '../utils/repository';
 export { useTodosStore } from '../stores/todos';
 export { useUserStore } from '../stores/user';

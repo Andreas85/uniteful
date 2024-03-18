@@ -2,8 +2,10 @@
 
 const props = defineProps({
   users: Array,
+  heading: String
 })
-const { users } = toRefs(props)
+
+const { users, heading } = toRefs(props)
 const { openModal, showModal, closeModal } = useModal()
 const { loading, showLoading, hideLoading } = useLoader()
 const { createGroupService } = useGroupsService()
@@ -18,7 +20,6 @@ const addGroup = async (payload) => {
     showLoading()
     console.log(payload)
     const response = await createGroupService(payload)
-    console.log(response)
     closeModal()
   } catch (error) {
     const message = handleQueryResponse(error)
@@ -29,9 +30,9 @@ const addGroup = async (payload) => {
 }
 
 const handleCreateGroup = (data: any) => {
-  const { name } = data.formData
+  const { name, desc, groupValues } = data.formData
   const payload = {
-    name
+    name, desc, groupValues
   }
   console.log(payload)
   addGroup(payload)
@@ -50,7 +51,7 @@ const handleCloseModal = () => {
     <AtomsBreadCrumb />
 
     <div class="flex items-center justify-between">
-      <h2 class="custom-h2-class">{{ STRING_DATA.YOUR_GROUPS }}</h2>
+      <h2 class="custom-h2-class">{{ heading }}</h2>
       <NxActionButton :buttonLabel="STRING_DATA.CREATE_GROUP" :onclick="showModal" />
     </div>
     <template v-if="users?.length">

@@ -19,7 +19,8 @@ onMounted(() => {
   if (route.path === ROUTE_CONSTANTS.GROUP_OWNER) {
     selectedTab.value = GROUPS_TAB?.[0]
     navigateTo(ROUTE_CONSTANTS.GROUP_OWNER)
-  } else {
+  }
+  if (route.path === ROUTE_CONSTANTS.GROUP_MEMBER) {
     selectedTab.value = GROUPS_TAB?.[1]
     navigateTo(ROUTE_CONSTANTS.GROUP_MEMBER)
   }

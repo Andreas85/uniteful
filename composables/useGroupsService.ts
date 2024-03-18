@@ -17,10 +17,14 @@ export const useGroupsService = () => {
     return response;
   };
 
-  const fetchGroupOwnershipService = async () => {
+  const fetchGroupOwnershipService = async (data: {
+    limit: number;
+    page: number;
+  }) => {
+    const { page, limit } = data;
     const response = await $api(ENDPOINTS.GROUPS_OWNERSHIP, {
       method: "GET",
-      query: { page: 0, limit: 5 },
+      query: { page: page, limit: limit },
     });
     const sendResponse = response.data;
     // console.log(sendResponse);
@@ -36,10 +40,14 @@ export const useGroupsService = () => {
     return sendResponse;
   };
 
-  const fetchGroupMembershipService = async (data) => {
+  const fetchGroupMembershipService = async (data: {
+    limit: string;
+    page: string;
+  }) => {
+    const { limit, page } = data;
     const response = await $api(ENDPOINTS.GROUPS_MEMBERSHIP, {
       method: "GET",
-      query: { page: 0, limit: 5 },
+      query: { page: page, limit: limit },
     });
     const sendResponse = response.data;
     return sendResponse;

@@ -38,6 +38,6 @@ const handleClick = () => {
     <p class="flex-1 ">
       totalMembers :{{ item.totalMembers }}
     </p>
-    <!-- <NuxtLink class="custom-link text-right" :to="ROUTE_CONSTANTS.GROUPS + '/' + item._id">Read more ..</NuxtLink> -->
+    <NuxtLink class="custom-link text-right" :to="ROUTE_CONSTANTS.GROUP_OWNER + '/' + item._id">Read more ..</NuxtLink>
   </div>
 </template>
