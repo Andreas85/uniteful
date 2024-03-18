@@ -6,6 +6,8 @@ export const ROUTE_CONSTANTS = {
   SIGN_UP: "/signup",
   GROUPS: "/groups",
   SETTINGS: "/settings",
+  GROUP_OWNER: "/groups/owner",
+  GROUP_MEMBER: "/groups/member",
 };
 
 export const UNITED_COOKIE = {
@@ -19,6 +21,8 @@ export const ENDPOINTS = {
   SIGN_OTP: "/auth/signin-using-otp",
   SEND_SIGNIN_OTP: "/auth/send-signin-otp",
   GROUPS: "/group",
+  GROUPS_MEMBERSHIP: "/group/membership",
+  GROUPS_OWNERSHIP: "/group/ownership",
 };
 
 export const STRING_DATA = {
@@ -136,3 +140,16 @@ export const DUMMY_DATA = [
 ];
 
 export const OTP_EXPIRED_TIME = 180; // 3 minutes
+export const HAST_ID = {
+  OWNER: "#owner",
+  MEMBER: "#member",
+};
+
+export const GROUPS_TAB = [
+  { id: 1, label: "Owner", sectionId: HAST_ID.OWNER },
+  {
+    id: 2,
+    label: "Member",
+    sectionId: HAST_ID.MEMBER,
+  },
+];

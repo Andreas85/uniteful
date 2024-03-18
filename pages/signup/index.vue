@@ -44,7 +44,7 @@ const rules = {
   },
 };
 
-const loginService = async (payload) => {
+const signupRequest = async (payload) => {
   try {
     showLoading()
     const response = await signUpService(payload)
@@ -70,7 +70,7 @@ const submitForm = async () => {
       lastName: lastName
     }
 
-    loginService(payload);
+    signupRequest(payload);
   } else {
     console.log("Invalid Form NOT Submitted");
   }

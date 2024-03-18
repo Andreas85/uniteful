@@ -5,6 +5,8 @@ declare global {
   const DUMMY_DATA: typeof import('../../utils/index')['DUMMY_DATA']
   const ENDPOINTS: typeof import('../../utils/index')['ENDPOINTS']
   const ERROR_MESSAGE: typeof import('../../utils/index')['ERROR_MESSAGE']
+  const GROUPS_TAB: typeof import('../../utils/index')['GROUPS_TAB']
+  const HAST_ID: typeof import('../../utils/index')['HAST_ID']
   const MESSAGES: typeof import('../../utils/index')['MESSAGES']
   const OTP_EXPIRED_TIME: typeof import('../../utils/index')['OTP_EXPIRED_TIME']
   const ROUTE_CONSTANTS: typeof import('../../utils/index')['ROUTE_CONSTANTS']
@@ -56,6 +58,7 @@ declare global {
   const h: typeof import('../../node_modules/vue')['h']
   const handleQueryResponse: typeof import('../../utils/helper')['handleQueryResponse']
   const hasInjectionContext: typeof import('../../node_modules/vue')['hasInjectionContext']
+  const iGroupData: typeof import('../../utils/interfaceGroup')['iGroupData']
   const inject: typeof import('../../node_modules/vue')['inject']
   const injectHead: typeof import('../../node_modules/@unhead/vue')['injectHead']
   const isNuxtError: typeof import('../../node_modules/nuxt/dist/app/composables/error')['isNuxtError']
@@ -188,6 +191,9 @@ declare global {
   // @ts-ignore
   export type { Component, ComponentPublicInstance, ComputedRef, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode } from '../../node_modules/vue'
   import('../../node_modules/vue')
+  // @ts-ignore
+  export type { IGroupData } from '../../interfaces/GroupInterfaces'
+  import('../../interfaces/GroupInterfaces')
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -197,6 +203,8 @@ declare module 'vue' {
     readonly DUMMY_DATA: UnwrapRef<typeof import('../../utils/index')['DUMMY_DATA']>
     readonly ENDPOINTS: UnwrapRef<typeof import('../../utils/index')['ENDPOINTS']>
     readonly ERROR_MESSAGE: UnwrapRef<typeof import('../../utils/index')['ERROR_MESSAGE']>
+    readonly GROUPS_TAB: UnwrapRef<typeof import('../../utils/index')['GROUPS_TAB']>
+    readonly HAST_ID: UnwrapRef<typeof import('../../utils/index')['HAST_ID']>
     readonly MESSAGES: UnwrapRef<typeof import('../../utils/index')['MESSAGES']>
     readonly OTP_EXPIRED_TIME: UnwrapRef<typeof import('../../utils/index')['OTP_EXPIRED_TIME']>
     readonly ROUTE_CONSTANTS: UnwrapRef<typeof import('../../utils/index')['ROUTE_CONSTANTS']>
@@ -248,6 +256,7 @@ declare module 'vue' {
     readonly h: UnwrapRef<typeof import('../../node_modules/vue')['h']>
     readonly handleQueryResponse: UnwrapRef<typeof import('../../utils/helper')['handleQueryResponse']>
     readonly hasInjectionContext: UnwrapRef<typeof import('../../node_modules/vue')['hasInjectionContext']>
+    readonly iGroupData: UnwrapRef<typeof import('../../utils/interfaceGroup')['iGroupData']>
     readonly inject: UnwrapRef<typeof import('../../node_modules/vue')['inject']>
     readonly injectHead: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['injectHead']>
     readonly isNuxtError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['isNuxtError']>
@@ -382,6 +391,8 @@ declare module '@vue/runtime-core' {
     readonly DUMMY_DATA: UnwrapRef<typeof import('../../utils/index')['DUMMY_DATA']>
     readonly ENDPOINTS: UnwrapRef<typeof import('../../utils/index')['ENDPOINTS']>
     readonly ERROR_MESSAGE: UnwrapRef<typeof import('../../utils/index')['ERROR_MESSAGE']>
+    readonly GROUPS_TAB: UnwrapRef<typeof import('../../utils/index')['GROUPS_TAB']>
+    readonly HAST_ID: UnwrapRef<typeof import('../../utils/index')['HAST_ID']>
     readonly MESSAGES: UnwrapRef<typeof import('../../utils/index')['MESSAGES']>
     readonly OTP_EXPIRED_TIME: UnwrapRef<typeof import('../../utils/index')['OTP_EXPIRED_TIME']>
     readonly ROUTE_CONSTANTS: UnwrapRef<typeof import('../../utils/index')['ROUTE_CONSTANTS']>
@@ -433,6 +444,7 @@ declare module '@vue/runtime-core' {
     readonly h: UnwrapRef<typeof import('../../node_modules/vue')['h']>
     readonly handleQueryResponse: UnwrapRef<typeof import('../../utils/helper')['handleQueryResponse']>
     readonly hasInjectionContext: UnwrapRef<typeof import('../../node_modules/vue')['hasInjectionContext']>
+    readonly iGroupData: UnwrapRef<typeof import('../../utils/interfaceGroup')['iGroupData']>
     readonly inject: UnwrapRef<typeof import('../../node_modules/vue')['inject']>
     readonly injectHead: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['injectHead']>
     readonly isNuxtError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['isNuxtError']>

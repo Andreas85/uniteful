@@ -16,7 +16,7 @@ const handlelogout = () => {
       <NuxtLink :to="ROUTE_CONSTANTS.EVENTS">
         {{ STRING_DATA.YOUR_EVENTS }}
       </NuxtLink>
-      <NuxtLink :to="ROUTE_CONSTANTS.GROUPS">
+      <NuxtLink :to="ROUTE_CONSTANTS.GROUP_OWNER">
         {{ STRING_DATA.YOUR_GROUPS }}
       </NuxtLink>
       <NuxtLink :to="ROUTE_CONSTANTS.SETTINGS">

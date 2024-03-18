@@ -1,7 +1,5 @@
 <template>
   <NuxtLayout>
-    <div class="common-padding ">
-      <NuxtPage />
-    </div>
+    <NuxtPage />
   </NuxtLayout>
 </template>

@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     autoImports: ["defineStore"],
   },
   imports: {
-    dirs: ["./stores"],
+    dirs: ["./stores", "./interfaces"],
   },
   runtimeConfig: {
     public: {

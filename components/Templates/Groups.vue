@@ -53,7 +53,7 @@ const handleCloseModal = () => {
       <h2 class="custom-h2-class">{{ STRING_DATA.YOUR_GROUPS }}</h2>
       <NxActionButton :buttonLabel="STRING_DATA.CREATE_GROUP" :onclick="showModal" />
     </div>
-    <template v-if="users.length">
+    <template v-if="users?.length">
       <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
         <div v-for="( item, index ) in  users " :key="index" class="py-4 border border-gray-400 shadow rounded p-4">
           <AtomsGroupCard :item="item" />

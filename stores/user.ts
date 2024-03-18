@@ -6,7 +6,7 @@ export const useUserStore = defineStore("user", () => {
   const user = ref(userData);
 
   const token = useCookie(UNITED_COOKIE.TOKEN, {
-    maxAge: 60 * 60,
+    maxAge: 60 * 60 * 24, // one day
   });
 
   const isAuthenticated = ref(!!token.value);
