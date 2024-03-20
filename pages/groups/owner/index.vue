@@ -34,7 +34,7 @@ const nextPage = () => {
 </script>
 <template>
   <div class="flex flex-col gap-4 ">
-    <TemplatesGroups :users="GroupData" :heading="STRING_DATA.YOUR_GROUPS" />
+    <TemplatesGroups :users="GroupData" :heading="STRING_DATA.YOUR_GROUPS" :buttonLabel="STRING_DATA.CREATE_GROUP" />
     <NxPagination :totalCount="totalPage" v-on:prev="prevPage" v-on:next="nextPage" />
   </div>
 </template>

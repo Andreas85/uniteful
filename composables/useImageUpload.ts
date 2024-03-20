@@ -1,23 +1,20 @@
 export const useImageUpload = () => {
   const { $api } = useNuxtApp();
 
-  const awsPreSignedURLUpload = (imageFile: FileList[0]) => {
-    const apiUrl = "/upload?fileName=" + imageFile.name;
-    return $api(apiUrl, {
+  const awsPreSignedURLUpload = async (imageFile) => {
+    const apiUrl = ENDPOINTS.AWS_SIGNED_URL + "?fileName=" + imageFile.name;
+    const response = await $api(apiUrl, {
       method: "GET",
-    })
-      .then(function (response: any) {
-        return response?.signedUrl;
-      })
-      .then(function (signedUrl) {
-        const uploadedFileUrl = signedUrl?.split("?")[0];
-        fetch(signedUrl, {
-          method: "PUT",
-          body: imageFile,
-        });
-        return uploadedFileUrl;
-      });
+    });
+    const signedUrl = response?.data;
+    const uploadedFileUrl = signedUrl?.split("?")[0];
+    await $fetch(signedUrl, {
+      method: "PUT",
+      body: imageFile,
+    });
+    return uploadedFileUrl;
   };
+
   return {
     awsPreSignedURLUpload,
   };

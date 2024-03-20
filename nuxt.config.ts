@@ -11,8 +11,25 @@ export default defineNuxtConfig({
   alias: {
     "@": resolve(__dirname, "/"),
   },
-  css: ["~/assets/main.css"],
-  modules: ["@pinia/nuxt", "nuxt-icon", "nuxt-vue3-google-signin"],
+  css: [
+    "~/assets/main.css",
+    "primevue/resources/themes/aura-light-green/theme.css",
+  ],
+  modules: [
+    "@pinia/nuxt",
+    "nuxt-icon",
+    "nuxt-vue3-google-signin",
+    "nuxt-primevue",
+  ],
+  primevue: {
+    /* Options */
+    options: {
+      ripple: true,
+    },
+    components: {
+      include: ["FileUpload", "usetoast", "Toast"],
+    },
+  },
   googleSignIn: {
     clientId:
       "673702241334-uv0tqtb21ntgcqsgua33ioge606pif77.apps.googleusercontent.com",

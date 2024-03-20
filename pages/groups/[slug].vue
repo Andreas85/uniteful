@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["privateroute"]
+  middleware: ["privateroute"],
+  layout: "groupdetail"
 })
 const { fetchGroupOwnershipDetailService } = useGroupsService()
 const route = useRoute();

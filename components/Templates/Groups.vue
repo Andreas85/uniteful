@@ -2,7 +2,8 @@
 
 const props = defineProps({
   users: Array,
-  heading: String
+  heading: String,
+  buttonLabel: String
 })
 
 const { users, heading } = toRefs(props)
@@ -52,11 +53,11 @@ const handleCloseModal = () => {
 
     <div class="flex items-center justify-between">
       <h2 class="custom-h2-class">{{ heading }}</h2>
-      <NxActionButton :buttonLabel="STRING_DATA.CREATE_GROUP" :onclick="showModal" />
+      <NxActionButton v-if="buttonLabel" :buttonLabel="buttonLabel" :onclick="showModal" />
     </div>
     <template v-if="users?.length">
       <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-        <div v-for="( item, index ) in  users " :key="index" class="py-4 border border-gray-400 shadow rounded p-4">
+        <div v-for="( item, index ) in  users " :key="index" class="shadow rounded ">
           <AtomsGroupCard :item="item" />
         </div>
       </div>

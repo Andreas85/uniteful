@@ -4,10 +4,11 @@ const props = defineProps({
   hasId: { type: Boolean, default: false },
   breadCrumbName: {
     type: String, default: ""
-  }
+  },
+  breadCrumbLink: String,
 })
 
-const { hasId, breadCrumbName } = toRefs(props)
+const { hasId, breadCrumbName, breadCrumbLink } = toRefs(props)
 const route = useRoute();
 const breadcrumbs = computed(() => useBreadcrumbs(route));
 
@@ -26,7 +27,14 @@ const breadcrumbs = computed(() => useBreadcrumbs(route));
         </NuxtLink>
       </li>
       <li v-if="hasId && breadCrumbName">
-        {{ breadCrumbName }}
+        <template v-if="breadCrumbLink">
+          <NuxtLink :to="breadCrumbLink" class="gap-2">
+            {{ breadCrumbName }}
+          </NuxtLink>
+        </template>
+        <template v-else>
+          {{ breadCrumbName }}
+        </template>
       </li>
     </ul>
   </div>

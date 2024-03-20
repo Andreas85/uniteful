@@ -19,7 +19,7 @@ const handleTabClick = (data: any) => {
 
 </script>
 <template>
-  <div role="tablist" class="tabs tabs-bordered flex items-center justify-center  sticky top-16 bg-white tabs-lg">
+  <div role="tablist" class="tabs tabs-bordered flex items-center justify-center  sticky top-16 bg-[#f6f7f8] tabs-lg">
     <a v-for="tab in tabList" :key="tab.id" class="tab font-bold md:w-auto w-full"
       :class="{ 'tab-active': (activeTab.id === tab.id) }" @click="() => handleTabClick(tab)">
       <!-- {{ tab.id }} {{ activeTab.id }} -->

@@ -315,6 +315,13 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@bassist/utils@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/@bassist/utils/-/utils-0.4.0.tgz"
+  integrity sha512-aoFTl0jUjm8/tDZodP41wnEkvB+C5O9NFCuYN/ztL6jSUSsuBkXq90/1ifBm1XhV/zySHgLYlU1+tgo3XtQ+nA==
+  dependencies:
+    "@withtypes/mime" "^0.1.2"
+
 "@cloudflare/kv-asset-handler@^0.3.1":
   version "0.3.1"
   resolved "https://registry.npmjs.org/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.3.1.tgz"
@@ -669,7 +676,7 @@
     which "^3.0.1"
     ws "^8.16.0"
 
-"@nuxt/kit@^3.10.0", "@nuxt/kit@^3.10.3", "@nuxt/kit@^3.5.0", "@nuxt/kit@^3.8.2", "@nuxt/kit@^3.9.1", "@nuxt/kit@3.10.3":
+"@nuxt/kit@^3.10.0", "@nuxt/kit@^3.10.3", "@nuxt/kit@^3.5.0", "@nuxt/kit@^3.7.3", "@nuxt/kit@^3.8.2", "@nuxt/kit@^3.9.1", "@nuxt/kit@3.10.3":
   version "3.10.3"
   resolved "https://registry.npmjs.org/@nuxt/kit/-/kit-3.10.3.tgz"
   integrity sha512-PUjYB9Mvx0qD9H1QZBwwtY4fLlCLET+Mm9BVqUOtXCaGoXd6u6BE4e/dGFPk2UEKkIcDGrUMSbqkHYvsEuK9NQ==
@@ -1341,6 +1348,13 @@
   dependencies:
     vue-demi ">=0.14.7"
 
+"@withtypes/mime@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@withtypes/mime/-/mime-0.1.2.tgz"
+  integrity sha512-PB9BfZGzwblUONJY0LiOwsHCA6uV3DIPj/w9ReekdHxPOl0VdUFgI5s4avKycuuq9Gf5Nz2ZPA2O36GAUzlMPA==
+  dependencies:
+    mime "^3.0.0"
+
 abbrev@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/abbrev/-/abbrev-2.0.0.tgz"
@@ -1949,6 +1963,11 @@ croner@^8.0.1:
   version "8.0.1"
   resolved "https://registry.npmjs.org/croner/-/croner-8.0.1.tgz"
   integrity sha512-Hq1+lXVgjJjcS/U+uk6+yVmtxami0r0b+xVtlGyABgdz110l/kOnHWvlSI7nVzrTl8GCdZHwZS4pbBFT7hSL/g==
+
+cropperjs@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.npmjs.org/cropperjs/-/cropperjs-1.6.1.tgz"
+  integrity sha512-F4wsi+XkDHCOMrHMYjrTEE4QBOrsHHN5/2VsVAaRq8P7E5z7xQpT75S+f/9WikmBEailas3+yo+6zPIomW+NOA==
 
 cross-spawn@^7.0.0, cross-spawn@^7.0.3:
   version "7.0.3"
@@ -3893,6 +3912,14 @@ nuxt-icon@^0.6.9:
     "@nuxt/devtools-kit" "^1.0.8"
     "@nuxt/kit" "^3.10.3"
 
+nuxt-primevue@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/nuxt-primevue/-/nuxt-primevue-0.3.1.tgz"
+  integrity sha512-wTFvUbniEhntFamnRP4znMqU9a4lYr7eXvA7FW5nGX51YCV3nJzXZlCML4l6kEL0pyJsSV4DTb0Qo61nZnn9JQ==
+  dependencies:
+    "@nuxt/kit" "^3.7.3"
+    primevue "~3.49.1"
+
 nuxt-vue3-google-signin@^0.0.11:
   version "0.0.11"
   resolved "https://registry.npmjs.org/nuxt-vue3-google-signin/-/nuxt-vue3-google-signin-0.0.11.tgz"
@@ -4451,6 +4478,11 @@ pretty-bytes@^6.1.1:
   version "6.1.1"
   resolved "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.1.1.tgz"
   integrity sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==
+
+primevue@~3.49.1:
+  version "3.49.1"
+  resolved "https://registry.npmjs.org/primevue/-/primevue-3.49.1.tgz"
+  integrity sha512-OmUTqbKbPB63Zqf7uA49cipDi+Qh+/13AYJPwgvsVsI4QmAKIkeibBwkOgj1CNIFlopfF79YmyBshFUAPqlw9A==
 
 proc-log@^3.0.0:
   version "3.0.0"
@@ -5688,6 +5720,14 @@ vue-devtools-stub@^0.1.0:
   resolved "https://registry.npmjs.org/vue-devtools-stub/-/vue-devtools-stub-0.1.0.tgz"
   integrity sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==
 
+vue-picture-cropper@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/vue-picture-cropper/-/vue-picture-cropper-0.7.0.tgz"
+  integrity sha512-NF7+Dgso6d0GB16E5d/BbrcTIHm1VWz8dS3IjLhoBl+ZeC+yDA46CyJphQuO32SisaPmrKHN8VbiE2LgAfhnkQ==
+  dependencies:
+    "@bassist/utils" "^0.4.0"
+    cropperjs "^1.6.1"
+
 vue-router@^4.1.0, vue-router@^4.3.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.3.0.tgz"
@@ -5719,7 +5759,7 @@ vue-tsc@^1.8.26, vue-tsc@>=1.3.9:
     "@vue/language-core" "1.8.27"
     semver "^7.5.4"
 
-"vue@^2.0.0 || >=3.0.0", "vue@^2.6.14 || ^3.3.0", "vue@^2.7.0 || ^3.2.25", vue@^3, vue@^3.0.*, vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.2.0, vue@^3.2.25, vue@^3.3.4, vue@^3.4.19, "vue@>=2.7 || >=3", vue@>=3, vue@3.4.21:
+"vue@^2.0.0 || >=3.0.0", "vue@^2.6.14 || ^3.3.0", "vue@^2.7.0 || ^3.2.25", vue@^3, vue@^3.0.*, vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.2.0, vue@^3.2.25, vue@^3.3.4, vue@^3.4.19, "vue@>=2.7 || >=3", vue@>=3, vue@>=3.2.13, vue@3.4.21:
   version "3.4.21"
   resolved "https://registry.npmjs.org/vue/-/vue-3.4.21.tgz"
   integrity sha512-5hjyV/jLEIKD/jYl4cavMcnzKwjMKohureP8ejn3hhEjwhWIhWeuzL2kJAjzl/WyVsgPY56Sy4Z40C3lVshxXA==

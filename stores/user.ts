@@ -1,7 +1,7 @@
 export const useUserStore = defineStore("user", () => {
   // const userData = getUserDataInLocalStorage();
   const userData = useCookie(UNITED_COOKIE.USER_DATA, {
-    maxAge: 60 * 60,
+    maxAge: 60 * 60 * 24,
   });
   const user = ref(userData);
 

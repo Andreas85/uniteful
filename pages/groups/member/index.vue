@@ -12,5 +12,5 @@ const { data: GroupData, refresh } = useAsyncData(() => fetchGroupMembershipServ
 
 </script>
 <template>
-  <TemplatesGroups :users="GroupData" :heading="STRING_DATA.MEMBERS" />
+  <TemplatesGroups :users="GroupData" :heading="STRING_DATA.YOUR_MEMBERS" />
 </template>

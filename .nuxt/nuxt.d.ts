@@ -2,6 +2,7 @@
 /// <reference types="@pinia/nuxt" />
 /// <reference types="nuxt-icon" />
 /// <reference types="nuxt-vue3-google-signin" />
+/// <reference types="nuxt-primevue" />
 /// <reference types="@nuxt/devtools" />
 /// <reference types="@nuxt/telemetry" />
 /// <reference types="nuxt" />

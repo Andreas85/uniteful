@@ -42,3 +42,8 @@ export const handleQueryResponse = (error: any) => {
   const result = error?.data?.result?.errText;
   return result;
 };
+
+export const containsNumericValue = (str: string) => {
+  const regex = /\d/;
+  return regex.test(str);
+};

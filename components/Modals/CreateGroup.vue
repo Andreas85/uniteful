@@ -19,7 +19,6 @@ const newInstruction = ref("");
 const formData = reactive({
   groupName: "",
   groupDesc: "",
-  groupValues: []
 });
 
 const rules = {
@@ -33,12 +32,11 @@ const submitForm = async () => {
   const result = await v$.value.$validate();
 
   if (result) {
-    const { groupName, groupDesc, groupValues } = formData;
+    const { groupName, groupDesc } = formData;
     const payload = {
       formData: {
         name: groupName,
         desc: groupDesc,
-        groupValues: groupValues
       },
     };
 
@@ -49,18 +47,6 @@ const submitForm = async () => {
   }
 };
 
-const handleAddInstruction = () => {
-  if (newInstruction.value) {
-    formData.groupValues.push(newInstruction.value);
-    newInstruction.value = "";
-  }
-};
-
-const handleDeleteInstruction = (index: number) => {
-  if (index >= 0 && index < formData.groupValues.length) {
-    formData.groupValues.splice(index, 1);
-  }
-};
 
 const handleChange = async (e) => {
   try {
@@ -79,8 +65,6 @@ const handleChange = async (e) => {
     <div class="flex flex-col gap-4 w-full">
       <h2 class="text-center font-bold text-lg">{{ STRING_DATA.ADD_GROUP }}</h2>
 
-      <input class="form-controls flex-1" placeholder="Add groupValues" type="file" v-on:change="handleChange" />
-
 
       <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
         <AtomsBaseInput v-model="formData.groupName" :placeholder="'Enter your group name'" :label="'Group name'"
@@ -91,29 +75,6 @@ const handleChange = async (e) => {
         <span v-if="errorResponse" class="errorClass">{{
     errorResponse
   }}</span>
-
-
-        <div class="flex items-center justify-center gap-2">
-          <input class="form-controls flex-1" v-model="newInstruction" placeholder="Add groupValues" type="text" />
-
-          <div class="btn rounded-full" :onclick="handleAddInstruction">
-            <Icon :name="'ic:outline-plus'" :width="'1.1rem'" :height="'1.1rem'" />
-          </div>
-        </div>
-        <template v-if="formData.groupValues?.length">
-          <ul class="flex flex-col items-start gap-2 my-2">
-            <li class="w-full" v-for="(_, index) in formData.groupValues" :key="index">
-              <div class="flex items-center justify-center gap-2">
-                <input class="form-controls flex-1" v-model="formData.groupValues[index]" placeholder="Add group values"
-                  type="text" />
-                <div class="btn rounded-full" :onclick="() => handleDeleteInstruction(index)">
-                  <Icon :name="'mdi:trash-outline'" :width="'1.1rem'" :height="'1.1rem'" />
-                </div>
-              </div>
-            </li>
-          </ul>
-        </template>
-
         <div class="flex items-center justify-end gap-4">
           <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" :is-loading="loading" />
           <NxActionButton :onclick="closeGroupModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />

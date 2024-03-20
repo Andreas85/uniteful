@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 const route = useRoute();
-
 const selectedTab = ref<Tab>(GROUPS_TAB?.[0]);
 
 const handleTabClick = (data: Tab) => {
@@ -26,9 +25,10 @@ onMounted(() => {
   }
 })
 
-
 </script>
 <template>
-  <NxCustomTab :tab-list="GROUPS_TAB" v-on:tab-click="handleTabClick" :active-tab="selectedTab" />
+  <!-- {{ JSON.stringify(route.params.slug) }} -->
+  <NxCustomTab v-if="!route.params.slug" :tab-list="GROUPS_TAB" v-on:tab-click="handleTabClick"
+    :active-tab="selectedTab" />
   <slot />
 </template>

@@ -23,9 +23,13 @@ export const ENDPOINTS = {
   GROUPS: "/group",
   GROUPS_MEMBERSHIP: "/group/membership",
   GROUPS_OWNERSHIP: "/group/ownership",
+  AWS_SIGNED_URL: "/file/s3url",
 };
 
 export const STRING_DATA = {
+  UPDATE_GROUP_INFORMATION: "Update group information",
+  YOUR_MEMBERS: "Your members",
+  UPDATE: "Update",
   ADD_GROUP: "Add group",
   LOGOUT: "Logout",
   ADD: "Add",
@@ -36,7 +40,7 @@ export const STRING_DATA = {
   PUT: "PUT",
   DELETE: "DELETE",
   LOGIN: "Login",
-  BRAND_NAME: "United",
+  BRAND_NAME: "Uniteful",
   SIGN_UP: "Signup",
   COMING_SOON: "Coming Soon",
   SIGN_IN_ACCOUNT: "Sign in to your account",
@@ -132,12 +136,56 @@ export const URL_ROUTES = [
 ];
 
 export const DUMMY_DATA = [
-  { id: 1, location: "Agra" },
-  { id: 2, location: "Agra" },
-  { id: 3, location: "Agra" },
-  { id: 4, location: "Agra" },
-  { id: 5, location: "Agra" },
-  { id: 6, location: "Agra" },
+  {
+    id: 1,
+    name: "Sheku Verma",
+    createdAt: "Joined Mar 18, 2024",
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    createdAt: "Joined Mar 19, 2024",
+  },
+  {
+    id: 3,
+    name: "Alice Smith",
+    createdAt: "Joined Mar 20, 2024",
+  },
+  {
+    id: 4,
+    name: "Bob Johnson",
+    createdAt: "Joined Mar 21, 2024",
+  },
+  {
+    id: 5,
+    name: "Emma Brown",
+    createdAt: "Joined Mar 22, 2024",
+  },
+  {
+    id: 6,
+    name: "Michael Lee",
+    createdAt: "Joined Mar 23, 2024",
+  },
+  {
+    id: 7,
+    name: "Sara Williams",
+    createdAt: "Joined Mar 24, 2024",
+  },
+  {
+    id: 8,
+    name: "David Martinez",
+    createdAt: "Joined Mar 25, 2024",
+  },
+  {
+    id: 9,
+    name: "Jennifer Wilson",
+    createdAt: "Joined Mar 26, 2024",
+  },
+  {
+    id: 10,
+    name: "Daniel Taylor",
+    createdAt: "Joined Mar 27, 2024",
+  },
 ];
 
 export const OTP_EXPIRED_TIME = 180; // 3 minutes
@@ -152,5 +200,58 @@ export const GROUPS_TAB = [
     id: 2,
     label: "Member",
     sectionId: HAST_ID.MEMBER,
+  },
+];
+
+export const VISIBILITY = {
+  EVERYONE: "everyone",
+  CHERRY_PICKED: "cherry_picked",
+};
+
+export const GROUP_ADMISSION = {
+  MANUAL: "manual",
+  AUTOMATIC: "automatic",
+};
+export const REGISTRATION = {
+  EVERYONE: "everyone",
+  EVERYONE_IN_GROUP: "everyone_in_group",
+  CHERRY_PICKED: "cherry_picked",
+  CRITERIA: "criteria",
+};
+
+export const VISIBILITY_TYPE = [
+  { id: 1, name: "Everyone", code: VISIBILITY.EVERYONE },
+  {
+    id: 2,
+    name: "Cherry picker",
+    code: VISIBILITY.CHERRY_PICKED,
+  },
+];
+
+export const REGISTRATION_POLICY = [
+  { id: 1, name: "Everyone", code: REGISTRATION.EVERYONE },
+  {
+    id: 2,
+    name: "Everyone in group",
+    code: REGISTRATION.EVERYONE_IN_GROUP,
+  },
+  {
+    id: 3,
+    name: "Cherry picker",
+    code: REGISTRATION.CHERRY_PICKED,
+  },
+  {
+    id: 4,
+    name: "Criteria",
+    code: REGISTRATION.CRITERIA,
+  },
+];
+
+export const GROUP_ADMISSION_POLICY = [
+  { id: 1, name: "Manual", code: GROUP_ADMISSION.MANUAL },
+  {
+    id: 2,
+    name: "Automatic",
+    code: GROUP_ADMISSION.AUTOMATIC,
   },
 ];

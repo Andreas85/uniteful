@@ -1,17 +1,61 @@
 <script setup lang="ts">
+interface IFileRef {
+  blobUrl: string;
+  base64Url: string;
+  fileUrl: string;
+}
 
 const props = defineProps({
   userData: Object,
 })
+
 const { userData } = props
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
+const toast = useToast();
+const route = useRoute();
+
+const sectionClass = () => ("lg:w-1/2 w-full rounded-lg bg-white p-4")
+const navigateToEdit = () => {
+  navigateTo(route.fullPath + "/edit")
+}
 
 </script>
 <template>
   <div class="flex flex-col gap-4">
+    <Toast />
     <AtomsBreadCrumb :hasId="true" :breadCrumbName="userData?.name" />
-    <div class="flex items-center justify-between">
-      <h2 class="custom-h2-class">Total Members: {{ userData?.totalMembers }}</h2>
+    <div class="flex justify-end items-center ">
+      <NxActionButton :buttonLabel="STRING_DATA.UPDATE_GROUP_INFORMATION.toUpperCase()" :onclick="navigateToEdit" />
     </div>
+    <section class="flex w-full mx-auto lg:flex-row flex-col gap-5 py-4">
+      <div class="lg:w-1/2 w-full rounded-lg min-h-full">
+        <img src="~assets/img/sample.png" class="rounded-lg min-h-96" />
+      </div>
+      <div :class="sectionClass()">
+        <div class="flex flex-col gap-4">
 
+          <div class="lg:text-3xl text-lg font-bold">{{ userData.name }}</div>
+          <AtomsIconLabel :icon="'basil:location-outline'">
+            {{ userData?.location ?? '-' }}
+          </AtomsIconLabel>
+          <div class="flex gap-4 items-center justify-start">
+
+            <AtomsIconLabel :icon="'material-symbols:group-outline'">
+              {{ userData?.totalMembers ?? '-' }} members
+            </AtomsIconLabel>
+            <span>
+              {{ userData?.isPublic ? 'Public' : 'Private' }} group
+            </span>
+          </div>
+          <AtomsIconLabel :icon="'mdi:user-outline'">
+            Organized by {{ user?.firstName ?? '-' }}
+          </AtomsIconLabel>
+        </div>
+      </div>
+    </section>
+    <section>
+      <NxGroupMembers :memberId="'test'" />
+    </section>
   </div>
 </template>

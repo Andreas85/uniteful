@@ -1,4 +1,14 @@
 export const useGroupsService = () => {
+  interface IPayloadUpdataGroup {
+    name: string;
+    groupValues: string[];
+    visibility: Visibility;
+  }
+
+  interface Visibility {
+    visibilityType: string;
+  }
+
   const { $api } = useNuxtApp();
 
   const fetchGroupsService = async () => {
@@ -13,7 +23,21 @@ export const useGroupsService = () => {
       method: "POST",
       body: data,
     });
-    console.log(response, "service");
+    return response;
+  };
+
+  const updateGroupService = async (payload: {
+    id: string;
+    formData: IPayloadUpdataGroup;
+  }) => {
+    const { id, formData } = payload;
+    const URL = ENDPOINTS.GROUPS + "/" + id;
+    console.log(URL);
+
+    const response = await $api(URL, {
+      method: "PUT",
+      body: formData,
+    });
     return response;
   };
 
@@ -31,8 +55,8 @@ export const useGroupsService = () => {
     return sendResponse;
   };
 
-  const fetchGroupOwnershipDetailService = async (data) => {
-    const URL = ENDPOINTS.GROUPS_OWNERSHIP + "/" + data?.id;
+  const fetchGroupDetailService = async (data) => {
+    const URL = ENDPOINTS.GROUPS + "/" + data?.id;
     const response = await $api(URL, {
       method: "GET",
     });
@@ -58,6 +82,7 @@ export const useGroupsService = () => {
     fetchGroupsService,
     fetchGroupOwnershipService,
     fetchGroupMembershipService,
-    fetchGroupOwnershipDetailService,
+    fetchGroupDetailService,
+    updateGroupService,
   };
 };

@@ -6,13 +6,19 @@ declare global {
   const ENDPOINTS: typeof import('../../utils/index')['ENDPOINTS']
   const ERROR_MESSAGE: typeof import('../../utils/index')['ERROR_MESSAGE']
   const GROUPS_TAB: typeof import('../../utils/index')['GROUPS_TAB']
+  const GROUP_ADMISSION: typeof import('../../utils/index')['GROUP_ADMISSION']
+  const GROUP_ADMISSION_POLICY: typeof import('../../utils/index')['GROUP_ADMISSION_POLICY']
   const HAST_ID: typeof import('../../utils/index')['HAST_ID']
   const MESSAGES: typeof import('../../utils/index')['MESSAGES']
   const OTP_EXPIRED_TIME: typeof import('../../utils/index')['OTP_EXPIRED_TIME']
+  const REGISTRATION: typeof import('../../utils/index')['REGISTRATION']
+  const REGISTRATION_POLICY: typeof import('../../utils/index')['REGISTRATION_POLICY']
   const ROUTE_CONSTANTS: typeof import('../../utils/index')['ROUTE_CONSTANTS']
   const STRING_DATA: typeof import('../../utils/index')['STRING_DATA']
   const UNITED_COOKIE: typeof import('../../utils/index')['UNITED_COOKIE']
   const URL_ROUTES: typeof import('../../utils/index')['URL_ROUTES']
+  const VISIBILITY: typeof import('../../utils/index')['VISIBILITY']
+  const VISIBILITY_TYPE: typeof import('../../utils/index')['VISIBILITY_TYPE']
   const abortNavigation: typeof import('../../node_modules/nuxt/dist/app/composables/router')['abortNavigation']
   const acceptHMRUpdate: typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['acceptHMRUpdate']
   const addRouteMiddleware: typeof import('../../node_modules/nuxt/dist/app/composables/router')['addRouteMiddleware']
@@ -24,6 +30,7 @@ declare global {
   const clearNuxtData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['clearNuxtData']
   const clearNuxtState: typeof import('../../node_modules/nuxt/dist/app/composables/state')['clearNuxtState']
   const computed: typeof import('../../node_modules/vue')['computed']
+  const containsNumericValue: typeof import('../../utils/helper')['containsNumericValue']
   const createError: typeof import('../../node_modules/nuxt/dist/app/composables/error')['createError']
   const customRef: typeof import('../../node_modules/vue')['customRef']
   const defineAppConfig: typeof import('../../node_modules/nuxt/dist/app/nuxt')['defineAppConfig']
@@ -132,9 +139,11 @@ declare global {
   const useAuthService: typeof import('../../composables/useAuthService')['useAuthService']
   const useBreadcrumbs: typeof import('../../composables/useBreadCrumbs')['useBreadcrumbs']
   const useCodeClient: typeof import('../../node_modules/vue3-google-signin')['useCodeClient']
+  const useConfirm: typeof import('primevue/useconfirm')['useConfirm']
   const useCookie: typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']
   const useCssModule: typeof import('../../node_modules/vue')['useCssModule']
   const useCssVars: typeof import('../../node_modules/vue')['useCssVars']
+  const useDialog: typeof import('primevue/usedialog')['useDialog']
   const useError: typeof import('../../node_modules/nuxt/dist/app/composables/error')['useError']
   const useFetch: typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['useFetch']
   const useGroupsService: typeof import('../../composables/useGroupsService')['useGroupsService']
@@ -156,6 +165,7 @@ declare global {
   const useNuxtDevTools: typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']
   const useOneTap: typeof import('../../node_modules/vue3-google-signin')['useOneTap']
   const usePinia: typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']
+  const usePrimeVue: typeof import('primevue/config')['usePrimeVue']
   const useRequestEvent: typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']
   const useRequestFetch: typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestFetch']
   const useRequestHeader: typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestHeader']
@@ -170,6 +180,8 @@ declare global {
   const useServerSeoMeta: typeof import('../../node_modules/@unhead/vue')['useServerSeoMeta']
   const useSlots: typeof import('../../node_modules/vue')['useSlots']
   const useState: typeof import('../../node_modules/nuxt/dist/app/composables/state')['useState']
+  const useStyle: typeof import('primevue/usestyle')['useStyle']
+  const useToast: typeof import('primevue/usetoast')['useToast']
   const useTodosStore: typeof import('../../stores/todos')['useTodosStore']
   const useTokenClient: typeof import('../../node_modules/vue3-google-signin')['useTokenClient']
   const useTransitionState: typeof import('../../node_modules/vue')['useTransitionState']
@@ -204,13 +216,19 @@ declare module 'vue' {
     readonly ENDPOINTS: UnwrapRef<typeof import('../../utils/index')['ENDPOINTS']>
     readonly ERROR_MESSAGE: UnwrapRef<typeof import('../../utils/index')['ERROR_MESSAGE']>
     readonly GROUPS_TAB: UnwrapRef<typeof import('../../utils/index')['GROUPS_TAB']>
+    readonly GROUP_ADMISSION: UnwrapRef<typeof import('../../utils/index')['GROUP_ADMISSION']>
+    readonly GROUP_ADMISSION_POLICY: UnwrapRef<typeof import('../../utils/index')['GROUP_ADMISSION_POLICY']>
     readonly HAST_ID: UnwrapRef<typeof import('../../utils/index')['HAST_ID']>
     readonly MESSAGES: UnwrapRef<typeof import('../../utils/index')['MESSAGES']>
     readonly OTP_EXPIRED_TIME: UnwrapRef<typeof import('../../utils/index')['OTP_EXPIRED_TIME']>
+    readonly REGISTRATION: UnwrapRef<typeof import('../../utils/index')['REGISTRATION']>
+    readonly REGISTRATION_POLICY: UnwrapRef<typeof import('../../utils/index')['REGISTRATION_POLICY']>
     readonly ROUTE_CONSTANTS: UnwrapRef<typeof import('../../utils/index')['ROUTE_CONSTANTS']>
     readonly STRING_DATA: UnwrapRef<typeof import('../../utils/index')['STRING_DATA']>
     readonly UNITED_COOKIE: UnwrapRef<typeof import('../../utils/index')['UNITED_COOKIE']>
     readonly URL_ROUTES: UnwrapRef<typeof import('../../utils/index')['URL_ROUTES']>
+    readonly VISIBILITY: UnwrapRef<typeof import('../../utils/index')['VISIBILITY']>
+    readonly VISIBILITY_TYPE: UnwrapRef<typeof import('../../utils/index')['VISIBILITY_TYPE']>
     readonly abortNavigation: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/router')['abortNavigation']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['acceptHMRUpdate']>
     readonly addRouteMiddleware: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/router')['addRouteMiddleware']>
@@ -222,6 +240,7 @@ declare module 'vue' {
     readonly clearNuxtData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['clearNuxtData']>
     readonly clearNuxtState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/state')['clearNuxtState']>
     readonly computed: UnwrapRef<typeof import('../../node_modules/vue')['computed']>
+    readonly containsNumericValue: UnwrapRef<typeof import('../../utils/helper')['containsNumericValue']>
     readonly createError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['createError']>
     readonly customRef: UnwrapRef<typeof import('../../node_modules/vue')['customRef']>
     readonly defineAppConfig: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/nuxt')['defineAppConfig']>
@@ -330,9 +349,11 @@ declare module 'vue' {
     readonly useAuthService: UnwrapRef<typeof import('../../composables/useAuthService')['useAuthService']>
     readonly useBreadcrumbs: UnwrapRef<typeof import('../../composables/useBreadCrumbs')['useBreadcrumbs']>
     readonly useCodeClient: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useCodeClient']>
+    readonly useConfirm: UnwrapRef<typeof import('primevue/useconfirm')['useConfirm']>
     readonly useCookie: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']>
     readonly useCssModule: UnwrapRef<typeof import('../../node_modules/vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('../../node_modules/vue')['useCssVars']>
+    readonly useDialog: UnwrapRef<typeof import('primevue/usedialog')['useDialog']>
     readonly useError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['useError']>
     readonly useFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['useFetch']>
     readonly useGroupsService: UnwrapRef<typeof import('../../composables/useGroupsService')['useGroupsService']>
@@ -354,6 +375,7 @@ declare module 'vue' {
     readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
     readonly useOneTap: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useOneTap']>
     readonly usePinia: UnwrapRef<typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']>
+    readonly usePrimeVue: UnwrapRef<typeof import('primevue/config')['usePrimeVue']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']>
     readonly useRequestFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestFetch']>
     readonly useRequestHeader: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestHeader']>
@@ -368,6 +390,8 @@ declare module 'vue' {
     readonly useServerSeoMeta: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['useServerSeoMeta']>
     readonly useSlots: UnwrapRef<typeof import('../../node_modules/vue')['useSlots']>
     readonly useState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/state')['useState']>
+    readonly useStyle: UnwrapRef<typeof import('primevue/usestyle')['useStyle']>
+    readonly useToast: UnwrapRef<typeof import('primevue/usetoast')['useToast']>
     readonly useTodosStore: UnwrapRef<typeof import('../../stores/todos')['useTodosStore']>
     readonly useTokenClient: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useTokenClient']>
     readonly useTransitionState: UnwrapRef<typeof import('../../node_modules/vue')['useTransitionState']>
@@ -392,13 +416,19 @@ declare module '@vue/runtime-core' {
     readonly ENDPOINTS: UnwrapRef<typeof import('../../utils/index')['ENDPOINTS']>
     readonly ERROR_MESSAGE: UnwrapRef<typeof import('../../utils/index')['ERROR_MESSAGE']>
     readonly GROUPS_TAB: UnwrapRef<typeof import('../../utils/index')['GROUPS_TAB']>
+    readonly GROUP_ADMISSION: UnwrapRef<typeof import('../../utils/index')['GROUP_ADMISSION']>
+    readonly GROUP_ADMISSION_POLICY: UnwrapRef<typeof import('../../utils/index')['GROUP_ADMISSION_POLICY']>
     readonly HAST_ID: UnwrapRef<typeof import('../../utils/index')['HAST_ID']>
     readonly MESSAGES: UnwrapRef<typeof import('../../utils/index')['MESSAGES']>
     readonly OTP_EXPIRED_TIME: UnwrapRef<typeof import('../../utils/index')['OTP_EXPIRED_TIME']>
+    readonly REGISTRATION: UnwrapRef<typeof import('../../utils/index')['REGISTRATION']>
+    readonly REGISTRATION_POLICY: UnwrapRef<typeof import('../../utils/index')['REGISTRATION_POLICY']>
     readonly ROUTE_CONSTANTS: UnwrapRef<typeof import('../../utils/index')['ROUTE_CONSTANTS']>
     readonly STRING_DATA: UnwrapRef<typeof import('../../utils/index')['STRING_DATA']>
     readonly UNITED_COOKIE: UnwrapRef<typeof import('../../utils/index')['UNITED_COOKIE']>
     readonly URL_ROUTES: UnwrapRef<typeof import('../../utils/index')['URL_ROUTES']>
+    readonly VISIBILITY: UnwrapRef<typeof import('../../utils/index')['VISIBILITY']>
+    readonly VISIBILITY_TYPE: UnwrapRef<typeof import('../../utils/index')['VISIBILITY_TYPE']>
     readonly abortNavigation: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/router')['abortNavigation']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['acceptHMRUpdate']>
     readonly addRouteMiddleware: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/router')['addRouteMiddleware']>
@@ -410,6 +440,7 @@ declare module '@vue/runtime-core' {
     readonly clearNuxtData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['clearNuxtData']>
     readonly clearNuxtState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/state')['clearNuxtState']>
     readonly computed: UnwrapRef<typeof import('../../node_modules/vue')['computed']>
+    readonly containsNumericValue: UnwrapRef<typeof import('../../utils/helper')['containsNumericValue']>
     readonly createError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['createError']>
     readonly customRef: UnwrapRef<typeof import('../../node_modules/vue')['customRef']>
     readonly defineAppConfig: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/nuxt')['defineAppConfig']>
@@ -518,9 +549,11 @@ declare module '@vue/runtime-core' {
     readonly useAuthService: UnwrapRef<typeof import('../../composables/useAuthService')['useAuthService']>
     readonly useBreadcrumbs: UnwrapRef<typeof import('../../composables/useBreadCrumbs')['useBreadcrumbs']>
     readonly useCodeClient: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useCodeClient']>
+    readonly useConfirm: UnwrapRef<typeof import('primevue/useconfirm')['useConfirm']>
     readonly useCookie: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']>
     readonly useCssModule: UnwrapRef<typeof import('../../node_modules/vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('../../node_modules/vue')['useCssVars']>
+    readonly useDialog: UnwrapRef<typeof import('primevue/usedialog')['useDialog']>
     readonly useError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['useError']>
     readonly useFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['useFetch']>
     readonly useGroupsService: UnwrapRef<typeof import('../../composables/useGroupsService')['useGroupsService']>
@@ -542,6 +575,7 @@ declare module '@vue/runtime-core' {
     readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
     readonly useOneTap: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useOneTap']>
     readonly usePinia: UnwrapRef<typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']>
+    readonly usePrimeVue: UnwrapRef<typeof import('primevue/config')['usePrimeVue']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']>
     readonly useRequestFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestFetch']>
     readonly useRequestHeader: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestHeader']>
@@ -556,6 +590,8 @@ declare module '@vue/runtime-core' {
     readonly useServerSeoMeta: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['useServerSeoMeta']>
     readonly useSlots: UnwrapRef<typeof import('../../node_modules/vue')['useSlots']>
     readonly useState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/state')['useState']>
+    readonly useStyle: UnwrapRef<typeof import('primevue/usestyle')['useStyle']>
+    readonly useToast: UnwrapRef<typeof import('primevue/usetoast')['useToast']>
     readonly useTodosStore: UnwrapRef<typeof import('../../stores/todos')['useTodosStore']>
     readonly useTokenClient: UnwrapRef<typeof import('../../node_modules/vue3-google-signin')['useTokenClient']>
     readonly useTransitionState: UnwrapRef<typeof import('../../node_modules/vue')['useTransitionState']>
