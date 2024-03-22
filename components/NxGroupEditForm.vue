@@ -59,7 +59,7 @@ const visiblityTypesearch = async (event) => {
     console.log(userData);
     items.value = [
       ...userData.map((item) => ({
-        value: item?._id,
+        id: item?._id,
         name: item.name,
         email: item.email,
       })),
@@ -74,7 +74,7 @@ const registrationTypeSearch = async (event) => {
     console.log(userData);
     items_registration.value = [
       ...userData.map((item) => ({
-        value: item?._id,
+        id: item?._id,
         name: item.name,
         email: item.email,
       })),
@@ -133,13 +133,13 @@ const submitForm = async () => {
       visibility: {
         visibilityType: visibility.code,
         cherryPickedUsers: user_visibility.length
-          ? user_visibility?.map((item) => item.value)
+          ? user_visibility?.map((item) => (item.id))
           : [],
       },
       registrationPolicy: {
         policyType: registrationPolicy.code,
         cherryPickedUsers: user_registration_policy?.length
-          ? user_registration_policy?.map((item) => item.value)
+          ? user_registration_policy?.map((item) => (item.id))
           : [],
       },
       admissionPolicy: { policyType: admissionPolicy.code },
@@ -200,12 +200,24 @@ const handleItemSelect = (
 ) => {
   const { value: selectedData } = event;
   console.log(selectedData);
+  // debugger
   if (isRegistrationPolicyUser) {
-    formData.user_registration_policy.push(selectedData);
+    const isPresent = formData.user_registration_policy.findIndex(
+      (item) => ( item.id === selectedData.value )
+    );
+    if (isPresent === -1) {
+      formData.user_registration_policy.push(selectedData);
+    }
     registrationPolicyUser.value = "";
     return;
   }
-  formData.user_visibility.push(selectedData);
+  const isPresent = formData.user_visibility.findIndex(
+    (item) => (item.id === selectedData.value)
+  );
+  // console.log(isPresent)
+  if (isPresent === -1) {
+    formData.user_visibility.push(selectedData);
+  }
   visibilitiyUser.value = "";
 };
 
@@ -221,7 +233,8 @@ const handleRemoveChips = (
     formData.user_registration_policy = updatedData;
     return;
   }
-  const updatedData = formData.user_visibility.filter(
+
+  const updatedData = formData.user_visibility?.filter(
     (item) => item?.id !== id
   );
   formData.user_visibility = updatedData;
@@ -331,16 +344,33 @@ const handleRemoveChips = (
                   @item-select="handleItemSelect"
                   class="rounded-lg bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
                 />
+                <!-- {{ JSON.stringify(formData.user_visibility) }} -->
                 <div
                   class="flex flex-wrap gap-2"
-                  v-if="formData.user_visibility?.length"
+                  v-if="formData.user_visibility.length > 0"
                 >
-                  <Chip
+                  <!-- <Chip
                     :label="item.name || item.email"
                     v-for="(item, index) in formData.user_visibility"
                     removable
                     @remove="(e) => handleRemoveChips(e, item?.id)"
-                  />
+                  /> -->
+                  <!-- :label="item.name || item.email" -->
+                  <!-- removable -->
+                  <div
+                    v-for="(item, index) in formData.user_visibility"
+                    class="flex items-center justify-start gap-2 bg-gray-200 rounded-full px-2 py-1"
+                  >
+                    <span>{{ item.name || item.email }}</span>
+
+                    <Icon
+                      :name="'charm:cross'"
+                      :width="'1.1rem'"
+                      class="cursor-pointer"
+                      :height="'1.1rem'"
+                      @click="(e) => handleRemoveChips(e, item?.id)"
+                    />
+                  </div>
                 </div>
               </div>
             </template>
@@ -384,14 +414,28 @@ const handleRemoveChips = (
                 />
                 <div
                   class="flex flex-wrap gap-2"
-                  v-if="formData.user_registration_policy?.length"
+                  v-if="formData.user_registration_policy?.length > 0"
                 >
-                  <Chip
+                  <!-- <Chip
                     :label="item.name || item.email"
                     v-for="(item, index) in formData.user_registration_policy"
                     removable
                     @remove="(e) => handleRemoveChips(e, item?.id, true)"
-                  />
+                  /> -->
+                  <div
+                    v-for="(item, index) in formData.user_registration_policy"
+                    class="flex items-center justify-start gap-2 bg-gray-200 rounded-full px-2 py-1"
+                  >
+                    <span>{{ item.name || item.email }}</span>
+
+                    <Icon
+                      :name="'charm:cross'"
+                      :width="'1.1rem'"
+                      class="cursor-pointer"
+                      :height="'1.1rem'"
+                      @click="(e) => handleRemoveChips(e, item?.id)"
+                    />
+                  </div>
                 </div>
               </div>
             </template>
