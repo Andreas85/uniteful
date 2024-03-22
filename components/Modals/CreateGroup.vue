@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useVuelidate } from "@vuelidate/core";
 import { helpers, required, requiredIf } from "@vuelidate/validators";
+import Dialog from 'primevue/dialog';
 
 interface Props {
   addGroupModal?: boolean;
@@ -61,9 +62,10 @@ const handleChange = async (e) => {
 
 </script>
 <template>
-  <AtomsCustomModal :openModal="addGroupModal">
+  <!-- <AtomsCustomModal :openModal="addGroupModal"> -->
+    <!-- <Dialog v-model:visible="addGroupModal" modal :header="STRING_DATA.ADD_GROUP" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"> -->
     <div class="flex flex-col gap-4 w-full">
-      <h2 class="text-center font-bold text-lg">{{ STRING_DATA.ADD_GROUP }}</h2>
+      <!-- <h2 class="text-center font-bold text-lg">{{ STRING_DATA.ADD_GROUP }}</h2> -->
 
 
       <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
@@ -81,5 +83,6 @@ const handleChange = async (e) => {
         </div>
       </form>
     </div>
-  </AtomsCustomModal>
+  <!-- </Dialog> -->
+<!-- </AtomsCustomModal> -->
 </template>

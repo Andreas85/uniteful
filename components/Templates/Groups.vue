@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Dialog from 'primevue/dialog';
 
 const props = defineProps({
   users: Array,
@@ -6,6 +7,8 @@ const props = defineProps({
   buttonLabel: String
 })
 
+const route = useRoute();
+const emit = defineEmits(['card-click'])
 const { users, heading } = toRefs(props)
 const { openModal, showModal, closeModal } = useModal()
 const { loading, showLoading, hideLoading } = useLoader()
@@ -21,6 +24,7 @@ const addGroup = async (payload) => {
     showLoading()
     console.log(payload)
     const response = await createGroupService(payload)
+    refreshData()
     closeModal()
   } catch (error) {
     const message = handleQueryResponse(error)
@@ -44,10 +48,20 @@ const handleCloseModal = () => {
   errorResponse.value = ''
 }
 
+const refreshData = async () => {
+  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.OWNER_GROUP)
+}
+
+const handleCardClicked = (idd:string) => {
+  emit('card-click', idd)
+}
+
 </script>
 <template>
+     <Dialog v-model:visible="openModal" modal :header="STRING_DATA.ADD_GROUP" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
   <ModalsCreateGroup v-if="openModal" :addGroupModal="openModal" :closeGroupModal="handleCloseModal"
     v-on:handle-submit="handleCreateGroup" :loading="loading" :errorResponse="errorResponse" />
+  </Dialog>
   <div class=" flex flex-col gap-4">
     <AtomsBreadCrumb />
 
@@ -57,8 +71,8 @@ const handleCloseModal = () => {
     </div>
     <template v-if="users?.length">
       <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-        <div v-for="( item, index ) in  users " :key="index" class="shadow rounded ">
-          <AtomsGroupCard :item="item" />
+        <div v-for="( item, index ) in  users " :key="index" >
+          <AtomsGroupCard :item="item" v-on:clicked="handleCardClicked"/>
         </div>
       </div>
     </template>

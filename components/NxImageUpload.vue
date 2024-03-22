@@ -8,9 +8,11 @@ export interface IFileRef {
 const emit = defineEmits(['upload-event'])
 const props = defineProps({
   loading: Boolean,
+  url: String,
 })
 
-const { loading } = props
+const { loading, url } = props
+const route = useRoute();
 const fileRef = ref<IFileRef>({
   blobUrl: "",
   base64Url: "",
@@ -58,10 +60,16 @@ const uploadComplete = async (event) => {
   reader.onloadend = function () {
     const base64data = reader.result;
     const blobUrl = URL.createObjectURL(blob)
-    result.blobUrl = blobUrl
-    result.base64Url = base64data
-    result.fileUrl = file
-    fileRef.value = result
+
+    // Update the filename here
+    const newFilename = `groups/${route.params.slug}.png`;
+    const updatedFile = new File([blob], newFilename, { type: file.type });
+
+    result.blobUrl = blobUrl;
+    result.base64Url = base64data;
+    result.fileUrl = updatedFile;
+    fileRef.value = result;
+
   };
 }
 
@@ -78,9 +86,11 @@ const removeFileCallback = () => {
 
 <template>
   <div class="card">
-    <!-- {{ JSON.stringify(fileRef.blobUrl) }} -->
+    <!-- {{ JSON.stringify(url) }} -->
     <Toast />
-    <FileUpload :previewWidth="1200" customUpload @uploader="customBase64Uploader" @select="uploadComplete"
+    <!-- :style="{width: '100%'}" -->
+    <!-- :previewWidth="1200" -->
+    <FileUpload  customUpload @uploader="customBase64Uploader" @select="uploadComplete"
       accept="image/png,image/gif,image/jpeg,image/webp" :maxFileSize="1000000" @clear="handleClearButton"
       @remove="handleRemove">
       <template #empty>

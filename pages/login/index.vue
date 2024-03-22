@@ -14,9 +14,10 @@ useHead({
 const { sendSignInOtp } = useAuthService();
 const { loading, showLoading, hideLoading } = useLoader()
 
+const {showError, showSuccess} = useToastComposable()
+
 const otpsendsuccess = ref(false);
 const errorResponse = ref("");
-
 const formData = reactive({
   email: "",
 });
@@ -49,9 +50,11 @@ const signinService = async (data: any) => {
     showLoading()
     const response = await sendSignInOtp(data)
     otpsendsuccess.value = true;
+    showSuccess({detail: STRING_DATA.EMAIL_OTP_SUCCESS_MESSAGE})
     console.log(response)
   } catch (error) {
     otpsendsuccess.value = false;
+    console.log(error)
     const message = handleQueryResponse(error)
     errorResponse.value = message
   } finally {

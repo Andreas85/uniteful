@@ -24,9 +24,16 @@ export const ENDPOINTS = {
   GROUPS_MEMBERSHIP: "/group/membership",
   GROUPS_OWNERSHIP: "/group/ownership",
   AWS_SIGNED_URL: "/file/s3url",
+  USER_SEARCH_AUTO_COMPLETE: "/user/search",
+};
+
+export const NUXT_ASYNC_DATA_KEY = {
+  OWNER_GROUP: "owner-group",
 };
 
 export const STRING_DATA = {
+  CANCEL: "Cancel",
+  EDIT: "Edit",
   UPDATE_GROUP_INFORMATION: "Update group information",
   YOUR_MEMBERS: "Your members",
   UPDATE: "Update",
@@ -60,6 +67,7 @@ export const STRING_DATA = {
   VERIFY_EMAIL_MESSAGE: "Verify your email",
   CHANGE: "Change",
   MEMBERS: "Members",
+  EMAIL_OTP_SUCCESS_MESSAGE: "We have send an OTP on your email",
 };
 
 export const ERROR_MESSAGE = {

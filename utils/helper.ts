@@ -1,5 +1,5 @@
 import moment from "moment";
-
+import _ from 'lodash'
 export function capitalizeFirstLetter(data: string) {
   return data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
 }
@@ -46,4 +46,52 @@ export const handleQueryResponse = (error: any) => {
 export const containsNumericValue = (str: string) => {
   const regex = /\d/;
   return regex.test(str);
+};
+
+export const setDataInQueryParams = (values: any) => {
+  const data = btoa(JSON.stringify(values));
+  return data;
+};
+
+export const getDataFromQueryParams = (encodedString: string) => {
+  const data = JSON.parse(atob(encodedString));
+  return data;
+};
+
+export const sanitizedUserDetail = (data: any) => {
+  const result = _.cloneDeep(data);
+
+  const selectedVisibility = VISIBILITY_TYPE.find(
+    (item) => item?.code === data?.visibility?.visibilityType
+  );
+
+  const selectedRegistrationPolicy = REGISTRATION_POLICY.find(
+    (item) => item?.code === data?.registrationPolicy?.policyType
+  );
+
+  const selectedAdmissionPolicy = GROUP_ADMISSION_POLICY.find(
+    (item) => item?.code === data?.admissionPolicy?.policyType
+  );
+
+  if (data?.visibility?.visibilityType) {
+    result.visibility.visibilityType = selectedVisibility;
+  }
+
+  result.registrationPolicy = selectedRegistrationPolicy;
+  result.admissionPolicy = selectedAdmissionPolicy;
+
+  if (data?.visibility?.visibilityType == VISIBILITY.CHERRY_PICKED) {
+    result.user_visibility = data?.userMap.filter(
+      (item) => data?.visibility?.cherryPickedUsers?.includes(item?.id)
+    );
+  }
+
+  if (data?.registrationPolicy?.policyType == VISIBILITY.CHERRY_PICKED) {
+    result.user_registration_policy =data?.userMap.filter(
+      (item) => data?.registrationPolicy?.cherryPickedUsers?.includes(item?.id)
+    ); 
+  }
+
+  // console.log(selectedRegistrationPolicy, "helperw", data);
+  return result;
 };

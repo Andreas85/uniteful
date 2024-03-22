@@ -117,9 +117,46 @@ body :focus-within {
 }
 
 .content-wrapper {
-  @apply absolute -right-6 top-4 z-50 pointer-events-auto;
+  @apply absolute -right-6 z-50 pointer-events-auto;
 }
 
 .custom-drawer-class {
   @apply fixed left-0 top-12 p-4 right-0 bg-white z-50 w-full transform duration-300 items-start bottom-0;
+}
+
+.p-fileupload .p-fileupload-buttonbar {
+  @apply flex justify-normal items-center gap-4 flex-wrap p-0;
+}
+
+.p-fileupload .p-fileupload-content {
+  @apply px-0;
+}
+
+.p-fileupload .p-fileupload-content .p-fileupload-file {
+  @apply p-0;
+}
+
+.p-fileupload .p-fileupload-content .p-progressbar {
+  @apply hidden;
+}
+
+.p-fileupload .p-fileupload-content img {
+  @apply w-full aspect-video object-contain;
+}
+
+
+/* .p-card {
+  @apply bg-[#f6f7f8]
+} */
+
+.p-tabview .p-tabview-panels {
+  @apply bg-transparent
+}
+
+.p-tabview .p-tabview-nav-container .p-tabview-nav-content .p-tabview-nav {
+  @apply flex items-center justify-center bg-transparent
+}
+
+.p-tabview .p-tabview-nav-container .p-tabview-nav-content .p-tabview-nav .p-tabview-header a {
+  @apply bg-transparent
 }

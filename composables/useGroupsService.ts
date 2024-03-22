@@ -6,7 +6,8 @@ export const useGroupsService = () => {
   }
 
   interface Visibility {
-    visibilityType: string;
+    visibilityType?: string;
+    cherryPickedUsers?: string[]
   }
 
   const { $api } = useNuxtApp();
@@ -15,7 +16,7 @@ export const useGroupsService = () => {
     const response = await $api(ENDPOINTS.GROUPS, {
       method: "GET",
     });
-    return response;
+    return response ;
   };
 
   const createGroupService = async (data) => {
@@ -77,6 +78,19 @@ export const useGroupsService = () => {
     return sendResponse;
   };
 
+  const fetchUserSearchervice = async (data: {
+    searchString?: string;
+    
+  }) => {
+    const { searchString } = data;
+    const URL = ENDPOINTS.USER_SEARCH_AUTO_COMPLETE + "/"+ searchString;
+    const response = await $api(URL, {
+      method: "GET",
+    });
+    const sendResponse = response.data;
+    return sendResponse;
+  };
+
   return {
     createGroupService,
     fetchGroupsService,
@@ -84,5 +98,6 @@ export const useGroupsService = () => {
     fetchGroupMembershipService,
     fetchGroupDetailService,
     updateGroupService,
+    fetchUserSearchervice,
   };
 };

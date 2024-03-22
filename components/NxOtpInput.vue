@@ -11,7 +11,7 @@ const { otpCode } = toRefs(props);
 const otpInput = ref<any>(null);
 
 const handleOnComplete = (value: string) => {
-  console.log("OTP completed: ", value);
+  emit("handleOnChange", value);
 };
 
 const handleOnChange = (value: string) => {

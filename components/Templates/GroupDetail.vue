@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Card from 'primevue/card';
 interface IFileRef {
   blobUrl: string;
   base64Url: string;
@@ -9,33 +10,38 @@ const props = defineProps({
   userData: Object,
 })
 
-const { userData } = props
+const { userData } = toRefs(props)
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
-const toast = useToast();
+
 const route = useRoute();
 
-const sectionClass = () => ("lg:w-1/2 w-full rounded-lg bg-white p-4")
+const sectionClass = () => ("lg:w-1/2 w-full ")
 const navigateToEdit = () => {
   navigateTo(route.fullPath + "/edit")
 }
 
 </script>
 <template>
-  <div class="flex flex-col gap-4">
-    <Toast />
-    <AtomsBreadCrumb :hasId="true" :breadCrumbName="userData?.name" />
+  <div class="flex flex-col gap-4 pt-8">
+  <template v-if="!userData">
+      <NxLoadingPage />
+    </template>
+    <template v-else>
+    <AtomsBreadCrumb v-if="userData?.name" :hasId="true" :breadCrumbName="userData?.name" />
     <div class="flex justify-end items-center ">
-      <NxActionButton :buttonLabel="STRING_DATA.UPDATE_GROUP_INFORMATION.toUpperCase()" :onclick="navigateToEdit" />
+      <NxActionButton :buttonLabel="STRING_DATA.EDIT.toUpperCase()" :onclick="navigateToEdit" />
     </div>
     <section class="flex w-full mx-auto lg:flex-row flex-col gap-5 py-4">
       <div class="lg:w-1/2 w-full rounded-lg min-h-full">
-        <img src="~assets/img/sample.png" class="rounded-lg min-h-96" />
+        <img v-if="userData?.image" :src="userData?.image" alt="group-image" class="rounded-lg min-h-96" />
+        <img v-else src="~assets/img/sample.png" class="rounded-lg min-h-96" />
       </div>
-      <div :class="sectionClass()">
-        <div class="flex flex-col gap-4">
+      <Card :class="sectionClass()">
+        <template #title>{{ userData.name }}</template>
+        <template #content>
+          <div class="flex flex-col gap-4">
 
-          <div class="lg:text-3xl text-lg font-bold">{{ userData.name }}</div>
           <AtomsIconLabel :icon="'basil:location-outline'">
             {{ userData?.location ?? '-' }}
           </AtomsIconLabel>
@@ -52,10 +58,12 @@ const navigateToEdit = () => {
             Organized by {{ user?.firstName ?? '-' }}
           </AtomsIconLabel>
         </div>
-      </div>
+        </template>
+      </Card>
     </section>
-    <section>
+    <section class="mb-4">
       <NxGroupMembers :memberId="'test'" />
     </section>
+      </template>
   </div>
 </template>

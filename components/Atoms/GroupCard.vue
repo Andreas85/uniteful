@@ -25,14 +25,15 @@ const props = defineProps({
 
 const emit = defineEmits(["clicked"])
 const { customClass, item } = toRefs(props)
-
+const router = useRouter();
 const handleClick = () => {
   emit("clicked")
 }
 
 const moveToDetail = () => {
+  emit('clicked', item.value._id)
   const path = ROUTE_CONSTANTS.GROUP_OWNER + '/' + item.value._id
-  navigateTo(path)
+
 }
 
 </script>

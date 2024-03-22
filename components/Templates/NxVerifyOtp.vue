@@ -12,6 +12,7 @@ const { loading, showLoading, hideLoading } = useLoader()
 
 const userStore = useUserStore();
 const { setToken, setUser, setUserInCookies } = userStore;
+const {showError, showSuccess} = useToastComposable()
 
 const { token } = storeToRefs(userStore);
 const { email } = toRefs(props)
@@ -42,6 +43,7 @@ const verifyOtpService = async (payload) => {
     const { token, user } = response.data
     setToken(token)
     setUserInCookies(user)
+    showSuccess({detail: 'Logged-in Successfully'})
     await navigateTo(ROUTE_CONSTANTS.HOME)
     console.log(response)
   } catch (error) {
@@ -59,8 +61,13 @@ const handleOtpChange = (data: string) => {
 const signinService = async (data: any) => {
   try {
     const response = await sendSignInOtp(data)
+    showSuccess({detail: 'OTP resend successfully'})
+    timePassed.value=OTP_EXPIRED_TIME
+    errorResponse.value = ""
   } catch (error) {
+    const message = handleQueryResponse(error)
     console.log(error);
+    errorResponse.value = message
   }
 }
 

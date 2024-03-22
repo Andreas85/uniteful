@@ -5,6 +5,7 @@ definePageMeta({
 })
 
 const route = useRoute();
+const router = useRouter();
 const emit = defineEmits(["handle-submit"]);
 const { fetchGroupDetailService } = useGroupsService()
 const { updateGroupService } = useGroupsService()
@@ -21,11 +22,16 @@ const showError = (message) => {
   toast.add({ severity: 'error', summary: 'Error Message', detail: message ?? 'Message Content', life: 3000 });
 };
 
+
+const back = () => {
+  navigateTo(ROUTE_CONSTANTS.GROUP_OWNER +"/"+route.params.slug)
+}
 const upateGroup = async (payload) => {
   try {
     showLoading()
     const response = await updateGroupService({ id: route.params.slug ?? "", formData: payload })
     showSuccess()
+    back()
   } catch (error) {
     const message = handleQueryResponse(error)
     showError(message)
@@ -35,18 +41,23 @@ const upateGroup = async (payload) => {
 }
 
 const handleUpdateGroup = (data: any) => {
-  const { name, desc, groupValues } = data.formData
+  // const { name, desc, groupValues, visibility } = data.formData
   const payload = {
-    name, desc, groupValues
+    ...data 
   }
-  // console.log(payload)
+  console.log(payload)
   upateGroup(payload)
 }
 
+console.log(user)
 </script>
 <template>
-  <div class="py-8">
-    <Toast />
-    <NxGroupEditForm :userData="user" v-on:handle-submit="handleUpdateGroup" :loading="loading" />
-  </div>
+  <template v-if="pending">
+      <NxLoadingPage />
+    </template>
+    <template v-else>
+      <div class="py-8">
+        <NxGroupEditForm :userData="sanitizedUserDetail(user)" v-on:handle-submit="handleUpdateGroup" :loading="loading" />
+      </div>
+   </template>
 </template>

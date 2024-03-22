@@ -1,10 +1,11 @@
 <script setup lang="ts">
 
 const props = defineProps({
-  totalCount: Number,
+  totalCount: String,
+  currentPage: String,
 })
 
-const { totalCount } = toRefs(props)
+const { totalCount, currentPage } = toRefs(props)
 const emit = defineEmits(["prev", "next"])
 
 const handleNext = () => {
@@ -19,7 +20,7 @@ const handlePrev = () => {
 <template>
   <div class="join flex items-center justify-center mb-4">
     <button class="join-item btn" @click="handlePrev">«</button>
-    <button class="join-item btn">Page {{ totalCount ?? "22" }}</button>
+    <button class="join-item btn">Page {{ currentPage ?? "22" }}</button>
     <button class="join-item btn" @click="handleNext">»</button>
   </div>
 </template>

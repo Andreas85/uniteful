@@ -17,9 +17,9 @@ useHead({
 })
 
 const { signUpService } = useAuthService();
-const { loading, showLoading, hideLoading } = useLoader()
+const { loading, showLoading, hideLoading } = useLoader();
+const {showError, showSuccess} = useToastComposable()
 const errorResponse = ref("");
-
 const otpsendsuccess = ref(false);
 const formData = reactive({
   firstName: "",
@@ -48,9 +48,11 @@ const signupRequest = async (payload) => {
   try {
     showLoading()
     const response = await signUpService(payload)
+    showSuccess({detail: STRING_DATA.EMAIL_OTP_SUCCESS_MESSAGE})
     otpsendsuccess.value = true
   } catch (error) {
     otpsendsuccess.value = false
+    console.log(error)
     const message = handleQueryResponse(error)
     errorResponse.value = message
   } finally {
@@ -66,8 +68,9 @@ const submitForm = async () => {
     const { email, firstName, lastName } = formData;
     const payload = {
       email: email,
-      firstName: firstName,
-      lastName: lastName
+      // firstName: firstName,
+      // lastName: lastName
+      name: `${firstName} ${lastName}`
     }
 
     signupRequest(payload);
@@ -101,7 +104,7 @@ const toggleOTPSucces = () => {
           <AtomsBaseInput v-model="formData.email" :placeholder="'Enter your email'" :label="'Email'" type="email"
             :errorMessage="v$?.email?.$error ? v$?.email?.$errors?.[0]?.$message : ''
       " />
-          <span v-if="errorResponse" class="errorClass">{{
+        <span v-if="errorResponse" class="errorClass">{{
       errorResponse
     }}</span>
           <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.REGISTER.toUpperCase()" :is-loading="loading" />

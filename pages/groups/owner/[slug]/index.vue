@@ -12,8 +12,12 @@ const { data: user, refresh, pending, status } = await useAsyncData(() => fetchG
 
 </script>
 <template>
-  <div class="py-8">
-
-    <TemplatesGroupDetail :userData="user" />
-  </div>
+  <template v-if="pending">
+      <NxLoadingPage />
+    </template>
+    <template v-else>
+      <!-- <div class="pt-8"> -->
+        <TemplatesGroupDetail :userData="user" />
+      <!-- </div> -->
+    </template>
 </template>
