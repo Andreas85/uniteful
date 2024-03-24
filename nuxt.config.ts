@@ -1,50 +1,54 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { resolve } from "path";
+import { resolve } from 'path'
+import type { NuxtConfig } from '@nuxt/types'
+
 export default defineNuxtConfig({
   // devtools: { enabled: true },
+  buildModules: ['@nuxt/typescript-build'],
+
   postcss: {
     plugins: {
       tailwindcss: {},
-      autoprefixer: {},
-    },
+      autoprefixer: {}
+    }
   },
   alias: {
-    "@": resolve(__dirname, "/"),
+    '@': resolve(__dirname, '/')
   },
   css: [
-    "~/assets/main.css",
-    "primevue/resources/themes/aura-light-green/theme.css",
+    '~/assets/main.css',
+    'primevue/resources/themes/aura-light-green/theme.css'
   ],
   modules: [
-    "@pinia/nuxt",
-    "nuxt-icon",
-    "nuxt-vue3-google-signin",
-    "nuxt-primevue",
+    '@pinia/nuxt',
+    'nuxt-icon',
+    'nuxt-vue3-google-signin',
+    'nuxt-primevue'
   ],
   primevue: {
     /* Options */
     options: {
-      ripple: true,
+      ripple: true
     },
     components: {
-      include: ["FileUpload", "usetoast", "Toast"],
-    },
+      include: ['FileUpload', 'usetoast', 'Toast']
+    }
   },
   googleSignIn: {
     clientId:
-      "673702241334-uv0tqtb21ntgcqsgua33ioge606pif77.apps.googleusercontent.com",
+      '673702241334-uv0tqtb21ntgcqsgua33ioge606pif77.apps.googleusercontent.com'
   },
 
   pinia: {
-    autoImports: ["defineStore"],
+    autoImports: ['defineStore']
   },
   imports: {
-    dirs: ["./stores", "./interfaces"],
+    dirs: ['./stores', './types']
   },
   runtimeConfig: {
     public: {
-      apibaseurl: process.env.NUXT_API_BASE_URL,
-    },
-  },
+      apibaseurl: process.env.NUXT_API_BASE_URL
+    }
+  }
   // ssr: false,
-});
+})

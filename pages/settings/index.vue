@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["privateroute"]
+  middleware: ['privateroute']
 })
 </script>
 <template>

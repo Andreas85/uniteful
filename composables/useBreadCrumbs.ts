@@ -1,19 +1,19 @@
-export function useBreadcrumbs(route) {
+export function useBreadcrumbs (route: { path: string }) {
   const breadcrumbs = route.path
-    .split("/")
-    .filter((segment) => segment.trim() !== "");
+    .split('/')
+    .filter((segment: string) => segment.trim() !== '')
 
   const updateBreadCrumbs = breadcrumbs.filter(
-    (item) => !containsNumericValue(item) && item !== "edit"
-  );
-  const breadcrumbItems = updateBreadCrumbs.map((breadcrumb, index) => {
-    const pathSegments = updateBreadCrumbs.slice(0, index + 1);
-    const path = `/${pathSegments.join("/")}`;
+    (item: string) => !containsNumericValue(item) && item !== 'edit'
+  )
+  const breadcrumbItems = updateBreadCrumbs.map((breadcrumb: string, index: number) => {
+    const pathSegments = updateBreadCrumbs.slice(0, index + 1)
+    const path = `/${pathSegments.join('/')}`
     return {
       label: capitalizeFirstLetter(breadcrumb),
-      path: path,
-    };
-  });
+      path
+    }
+  })
 
-  return breadcrumbItems;
+  return breadcrumbItems
 }

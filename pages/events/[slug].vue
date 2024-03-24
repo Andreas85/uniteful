@@ -1,8 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["privateroute"]
+  middleware: ['privateroute']
 })
-const route = useRoute();
+const route = useRoute()
 const { $api } = useNuxtApp()
 const todoRepo = todoService($api)
 const { data: todo, refresh, pending, status } = await useAsyncData(() => todoRepo.getById({ id: route.params.slug }))
@@ -10,6 +10,6 @@ const { data: todo, refresh, pending, status } = await useAsyncData(() => todoRe
 </script>
 <template>
   <div class="py-8">
-    <TemplatesEventDetail :eventData="todo" />
+    <TemplatesEventDetail :event-data="todo ?? {}" />
   </div>
 </template>

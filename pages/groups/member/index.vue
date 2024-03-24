@@ -1,14 +1,14 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["privateroute"],
+  middleware: ['privateroute']
 })
 
 useHead({
-  title: `Your Groups | ${STRING_DATA.BRAND_NAME}`,
+  title: `Your Groups | ${STRING_DATA.BRAND_NAME}`
 })
 
-const { fetchGroupMembershipService } = useGroupsService();
-const { data: GroupData, refresh } = useAsyncData(() => fetchGroupMembershipService())
+const { fetchGroupMembershipService } = useGroupsService()
+const { data: GroupData, refresh } = useAsyncData(() => fetchGroupMembershipService({ limit: '6', page: '0' }))
 
 </script>
 <template>

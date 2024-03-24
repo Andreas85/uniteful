@@ -1,8 +1,10 @@
 <script setup lang="ts">
 
+const userData = ref<IUser>()
 </script>
+
 <template>
-  <div class="py-8">
-    hey
+  <div>
+    {{ userData?.title }}
   </div>
 </template>

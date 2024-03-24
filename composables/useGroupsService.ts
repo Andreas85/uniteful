@@ -1,95 +1,95 @@
 export const useGroupsService = () => {
+  interface Visibility {
+    visibilityType?: string;
+    cherryPickedUsers?: string[]
+  }
+
   interface IPayloadUpdataGroup {
     name: string;
     groupValues: string[];
     visibility: Visibility;
   }
 
-  interface Visibility {
-    visibilityType?: string;
-    cherryPickedUsers?: string[]
-  }
-
-  const { $api } = useNuxtApp();
+  const { $api } = useNuxtApp()
 
   const fetchGroupsService = async () => {
     const response = await $api(ENDPOINTS.GROUPS, {
-      method: "GET",
-    });
-    return response ;
-  };
+      method: 'GET'
+    })
+    return response
+  }
 
-  const createGroupService = async (data) => {
+  const createGroupService = async (data: any) => {
     const response = await $api(ENDPOINTS.GROUPS, {
-      method: "POST",
-      body: data,
-    });
-    return response;
-  };
+      method: 'POST',
+      body: data
+    })
+    return response
+  }
 
   const updateGroupService = async (payload: {
     id: string;
     formData: IPayloadUpdataGroup;
   }) => {
-    const { id, formData } = payload;
-    const URL = ENDPOINTS.GROUPS + "/" + id;
-    console.log(URL);
+    const { id, formData } = payload
+    const URL = ENDPOINTS.GROUPS + '/' + id
+    console.log(URL)
 
     const response = await $api(URL, {
-      method: "PUT",
-      body: formData,
-    });
-    return response;
-  };
+      method: 'PUT',
+      body: formData
+    })
+    return response
+  }
 
   const fetchGroupOwnershipService = async (data: {
     limit: number;
     page: number;
   }) => {
-    const { page, limit } = data;
+    const { page, limit } = data
     const response = await $api(ENDPOINTS.GROUPS_OWNERSHIP, {
-      method: "GET",
-      query: { page: page, limit: limit },
-    });
-    const sendResponse = response.data;
+      method: 'GET',
+      query: { page, limit }
+    }) as any
+    const sendResponse = response.data
     // console.log(sendResponse);
-    return sendResponse;
-  };
+    return sendResponse
+  }
 
-  const fetchGroupDetailService = async (data) => {
-    const URL = ENDPOINTS.GROUPS + "/" + data?.id;
-    const response = await $api(URL, {
-      method: "GET",
-    });
-    const sendResponse = response.data;
-    return sendResponse;
-  };
+  const fetchGroupDetailService = async (data: { id: string; }) => {
+    const URL = ENDPOINTS.GROUPS + '/' + data?.id
+    const response = (await $api(URL, {
+      method: 'GET'
+    })) as any
+    const sendResponse = response.data
+    return sendResponse
+  }
 
   const fetchGroupMembershipService = async (data: {
     limit: string;
     page: string;
   }) => {
-    const { limit, page } = data;
+    const { limit, page } = data
     const response = await $api(ENDPOINTS.GROUPS_MEMBERSHIP, {
-      method: "GET",
-      query: { page: page, limit: limit },
-    });
-    const sendResponse = response.data;
-    return sendResponse;
-  };
+      method: 'GET',
+      query: { page, limit }
+    })as any
+    const sendResponse = response.data
+    return sendResponse
+  }
 
   const fetchUserSearchervice = async (data: {
     searchString?: string;
-    
+
   }) => {
-    const { searchString } = data;
-    const URL = ENDPOINTS.USER_SEARCH_AUTO_COMPLETE + "/"+ searchString;
+    const { searchString } = data
+    const URL = ENDPOINTS.USER_SEARCH_AUTO_COMPLETE + '/' + searchString
     const response = await $api(URL, {
-      method: "GET",
-    });
-    const sendResponse = response.data;
-    return sendResponse;
-  };
+      method: 'GET'
+    }) as any
+    const sendResponse = response.data
+    return sendResponse
+  }
 
   return {
     createGroupService,
@@ -98,6 +98,6 @@ export const useGroupsService = () => {
     fetchGroupMembershipService,
     fetchGroupDetailService,
     updateGroupService,
-    fetchUserSearchervice,
-  };
-};
+    fetchUserSearchervice
+  }
+}

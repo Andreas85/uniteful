@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-const route = useRoute();
 const userStore = useUserStore()
 const { logout } = userStore
 const { isAuthenticated } = storeToRefs(userStore)
@@ -22,7 +21,7 @@ const handlelogout = () => {
       <NuxtLink :to="ROUTE_CONSTANTS.SETTINGS">
         {{ STRING_DATA.SETTINGS }}
       </NuxtLink>
-      <hr class="bg-gray-500" />
+      <hr class="bg-gray-500">
       <template v-if="isAuthenticated">
         <NuxtLink class="cursor-pointer" @click="handlelogout">
           {{ STRING_DATA.LOGOUT }}

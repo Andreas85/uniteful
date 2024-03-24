@@ -1,3 +1,3 @@
-export default defineNuxtPlugin(async (nuxtApp) => {
-  nuxtApp.test = "Test is working";
-});
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.test = 'Test is working'
+})

@@ -1,8 +1,8 @@
-export const useTodosStore = defineStore("todos", () => {
-  const data = ref([]);
-  function setTodosData(newData) {
-    data.value = newData;
+export const useTodosStore = defineStore('todos', () => {
+  const data = ref([])
+  function setTodosData (newData: any) {
+    data.value = newData
   }
 
-  return { data, setTodosData };
-});
+  return { data, setTodosData }
+})
