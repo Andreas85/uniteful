@@ -64,7 +64,7 @@ const handleCardClick = (idd:string) => {
       <NxLoadingPage />
     </template>
     <template v-else>
-      <TemplatesGroups :users="GroupData.rows" :heading="STRING_DATA.YOUR_GROUPS" :button-label="STRING_DATA.CREATE_GROUP" @card-click="handleCardClick" />
+      <TemplatesGroups :users="GroupData?.rows" :heading="STRING_DATA.YOUR_GROUPS" :button-label="STRING_DATA.CREATE_GROUP" @card-click="handleCardClick" />
       <NxPagination :total-count="totalPage?.toString()" :current-page="(pageRef+1)?.toString()" @prev="prevPage" @next="nextPage" />
     </template>
   </div>
