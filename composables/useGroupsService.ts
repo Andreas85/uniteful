@@ -1,22 +1,17 @@
 export const useGroupsService = () => {
-  interface Visibility {
-    visibilityType?: string;
-    cherryPickedUsers?: string[]
-  }
-
-  interface IPayloadUpdataGroup {
-    name: string;
-    groupValues: string[];
-    visibility: Visibility;
-  }
-
   const { $api } = useNuxtApp()
 
-  const fetchGroupsService = async () => {
+  const fetchGroupsService = async (data: {
+    limit: number;
+    page: number;
+  }) => {
+    const { limit, page } = data
     const response = await $api(ENDPOINTS.GROUPS, {
-      method: 'GET'
-    })
-    return response
+      method: 'GET',
+      query: { page, limit }
+    }) as any
+    const sendResponse = response.data
+    return sendResponse as IResponseDataGroup
   }
 
   const createGroupService = async (data: any) => {
@@ -33,8 +28,6 @@ export const useGroupsService = () => {
   }) => {
     const { id, formData } = payload
     const URL = ENDPOINTS.GROUPS + '/' + id
-    console.log(URL)
-
     const response = await $api(URL, {
       method: 'PUT',
       body: formData

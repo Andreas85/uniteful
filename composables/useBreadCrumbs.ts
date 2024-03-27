@@ -15,5 +15,7 @@ export function useBreadcrumbs (route: { path: string }) {
     }
   })
 
+  breadcrumbItems.splice(0, 0, { label: 'Home', path: ROUTE_CONSTANTS.HOME })
+
   return breadcrumbItems
 }

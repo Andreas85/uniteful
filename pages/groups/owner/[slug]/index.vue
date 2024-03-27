@@ -17,7 +17,7 @@ const { data: user, refresh, pending, status } = await useAsyncData(() => fetchG
   </template>
   <template v-else>
     <!-- <div class="pt-8"> -->
-    <TemplatesGroupDetail :user-data="user" />
+    <TemplatesGroupDetail :group-data="user" />
     <!-- </div> -->
   </template>
 </template>

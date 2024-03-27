@@ -142,8 +142,12 @@ body :focus-within {
 
 .p-fileupload .p-fileupload-content img {
   @apply w-full aspect-video object-contain;
+
 }
 
+.p-fileupload .p-fileupload-content .has-profile-class img{
+  @apply w-52 h-52 rounded-full shadow-lg border border-gray-600 object-cover mx-auto;
+} 
 
 /* .p-card {
   @apply bg-[#f6f7f8]
@@ -159,4 +163,8 @@ body :focus-within {
 
 .p-tabview .p-tabview-nav-container .p-tabview-nav-content .p-tabview-nav .p-tabview-header a {
   @apply bg-transparent
+}
+
+.breadcrumbs nav {
+  @apply bg-transparent p-0
 }

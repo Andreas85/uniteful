@@ -1,10 +1,8 @@
-<template>
-  <div />
-</template>
-
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['privateroute']
+  redirect: ROUTE_CONSTANTS.HOME
 })
-navigateTo(ROUTE_CONSTANTS.GROUP_OWNER)
 </script>
+<template>
+  home
+</template>

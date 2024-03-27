@@ -12,6 +12,9 @@ module.exports = {
     'prefer-const': ['error', { destructuring: 'all' }],
     'no-extra-boolean-cast': 'off',
     '@typescript-eslint/ban-types': 'off',
-    'vue/no-multiple-template-root': 'off'
+    'vue/no-multiple-template-root': 'off',
+    'vue/no-template-shadow': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/valid-template-root': 'off'
   }
 }

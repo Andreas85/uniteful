@@ -18,8 +18,8 @@ const handlelogout = () => {
       <NuxtLink :to="ROUTE_CONSTANTS.GROUP_OWNER">
         {{ STRING_DATA.YOUR_GROUPS }}
       </NuxtLink>
-      <NuxtLink :to="ROUTE_CONSTANTS.SETTINGS">
-        {{ STRING_DATA.SETTINGS }}
+      <NuxtLink :to="ROUTE_CONSTANTS.PROFILE">
+        {{ STRING_DATA.PROFILE }}
       </NuxtLink>
       <hr class="bg-gray-500">
       <template v-if="isAuthenticated">

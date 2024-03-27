@@ -28,7 +28,7 @@ const back = () => {
 const upateGroup = async (payload:any) => {
   try {
     showLoading()
-    const response = await updateGroupService({ id: route.params.slug?.toString() ?? '', formData: payload })
+    const response = await updateGroupService({ id: user.value._id?.toString() ?? '', formData: payload })
     showSuccess()
     back()
   } catch (error) {

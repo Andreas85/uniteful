@@ -95,3 +95,9 @@ export const sanitizedUserDetail = (data: any) => {
   // console.log(selectedRegistrationPolicy, "helperw", data);
   return result
 }
+
+export const getUserName = (data: IUser) => {
+  if (data) {
+    return `${data.firstName} ${data.lastName}`
+  }
+}

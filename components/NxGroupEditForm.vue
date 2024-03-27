@@ -246,7 +246,7 @@ const handleRemoveChips = (
     <AtomsBreadCrumb
       :has-id="true"
       :bread-crumb-name="userData?.name"
-      :bread-crumb-link="ROUTE_CONSTANTS.GROUP_OWNER + '/' + route.params.slug"
+      :bread-crumb-link="ROUTE_CONSTANTS.GROUP_OWNER + '/' + user?.slug"
     />
 
     <!-- {{ JSON.stringify(formData.image) }} -->
@@ -272,6 +272,7 @@ const handleRemoveChips = (
             <div v-if="!imageLoading" class="flex flex-col gap-6">
               <nx-image-upload
                 :url="formData.image"
+                :file-name="`groups/${route.params.slug}.png`"
                 @upload-event="handleUpload"
               />
             </div>
@@ -331,9 +332,7 @@ const handleRemoveChips = (
               />
             </div>
             <!-- {{JSON.stringify(formData.user_visibility)}} -->
-            <template
-              v-if="formData.visibility.code === VISIBILITY.CHERRY_PICKED"
-            >
+            <template v-if="formData.visibility.code === VISIBILITY.CHERRY_PICKED">
               <div class="p-fluid flex flex-col gap-4">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Users</label>
                 <AutoComplete
@@ -346,10 +345,7 @@ const handleRemoveChips = (
                   @item-select="handleItemSelect"
                 />
                 <!-- {{ JSON.stringify(formData.user_visibility) }} -->
-                <div
-                  v-if="formData.user_visibility.length > 0"
-                  class="flex flex-wrap gap-2"
-                >
+                <div v-if="formData.user_visibility.length > 0" class="flex flex-wrap gap-2">
                   <!-- <Chip
                     :label="item.name || item.email"
                     v-for="(item, index) in formData.user_visibility"
@@ -412,10 +408,7 @@ const handleRemoveChips = (
                   @complete="registrationTypeSearch"
                   @item-select="(e) => handleItemSelect(e, true)"
                 />
-                <div
-                  v-if="formData.user_registration_policy?.length > 0"
-                  class="flex flex-wrap gap-2"
-                >
+                <div v-if="formData.user_registration_policy?.length > 0" class="flex flex-wrap gap-2">
                   <!-- <Chip
                     :label="item.name || item.email"
                     v-for="(item, index) in formData.user_registration_policy"
@@ -470,28 +463,15 @@ const handleRemoveChips = (
         </template>
         <template #content>
           <div class="flex items-center justify-center gap-2">
-            <input
-              v-model="newInstruction"
-              class="form-controls flex-1"
-              placeholder="Add groupValues"
-              type="text"
-            >
+            <input v-model="newInstruction" class="form-controls flex-1" placeholder="Add groupValues" type="text">
 
             <div class="btn rounded-full" @click="handleAddInstruction">
-              <Icon
-                :name="'ic:outline-plus'"
-                :width="'1.1rem'"
-                :height="'1.1rem'"
-              />
+              <Icon :name="'ic:outline-plus'" :width="'1.1rem'" :height="'1.1rem'" />
             </div>
           </div>
           <template v-if="formData.groupValues?.length">
             <ul class="flex flex-col items-start gap-2 my-2">
-              <li
-                v-for="(_, index) in formData.groupValues"
-                :key="index"
-                class="w-full"
-              >
+              <li v-for="(_, index) in formData.groupValues" :key="index" class="w-full">
                 <div class="flex items-center justify-center gap-2">
                   <input
                     v-model="formData.groupValues[index]"
@@ -499,15 +479,8 @@ const handleRemoveChips = (
                     placeholder="Add group values"
                     type="text"
                   >
-                  <div
-                    class="btn rounded-full"
-                    @click="() => handleDeleteInstruction(index)"
-                  >
-                    <Icon
-                      :name="'mdi:trash-outline'"
-                      :width="'1.1rem'"
-                      :height="'1.1rem'"
-                    />
+                  <div class="btn rounded-full" @click="() => handleDeleteInstruction(index)">
+                    <Icon :name="'mdi:trash-outline'" :width="'1.1rem'" :height="'1.1rem'" />
                   </div>
                 </div>
               </li>
@@ -517,11 +490,7 @@ const handleRemoveChips = (
       </Card>
 
       <div class="flex items-center justify-end gap-4">
-        <NxActionButton
-          :is-submit="true"
-          :button-label="STRING_DATA.UPDATE.toUpperCase()"
-          :is-loading="loading"
-        />
+        <NxActionButton :is-submit="true" :button-label="STRING_DATA.UPDATE.toUpperCase()" :is-loading="loading" />
       </div>
     </form>
   </div>

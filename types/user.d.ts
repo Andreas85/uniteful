@@ -1,8 +1,11 @@
 interface IUser {
   title: string;
   content: string;
-  // thumbnailPath: string;
+  _id: string;
   type: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
 // ~/@types/news.d.ts

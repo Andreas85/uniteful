@@ -1,46 +1,29 @@
 <script setup lang="ts">
-import Card from 'primevue/card';
-interface IGroupData {
-  _id: string;
-  deleted: boolean;
-  name: string;
-  totalMembers: number;
-  isPublic: boolean;
-  owner: string;
-  groupValues: any[];
-  createdAt: Date;
-  updatedAt: Date;
-  slug: string;
-  newTEst: string;
-  __v: number;
-}
-// import type { IGroupData } from "../../types.d.ts"
+import Card from 'primevue/card'
+
 const props = defineProps({
   customClass: {
     type: String,
-    default: ""
+    default: ''
   },
-  item: { type: Object as IGroupData },
+  item: { type: Object as IGroup }
 })
 
-const emit = defineEmits(["clicked"])
+const emit = defineEmits(['clicked'])
 const { customClass, item } = toRefs(props)
-const router = useRouter();
+const router = useRouter()
 const handleClick = () => {
-  emit("clicked")
+  emit('clicked')
 }
 
 const moveToDetail = () => {
-  emit('clicked', item.value._id)
-  const path = ROUTE_CONSTANTS.GROUP_OWNER + '/' + item.value._id
-
+  emit('clicked', { _id: item.value._id, data: item.value })
 }
 
 </script>
 <template>
   <Card>
     <template #title>
-
       <h2 class="custom-h2-class line-clamp-2 cursor-pointer" @click="moveToDetail">
         {{ item.name }}
       </h2>
@@ -53,5 +36,4 @@ const moveToDetail = () => {
       </div>
     </template>
   </Card>
-
 </template>

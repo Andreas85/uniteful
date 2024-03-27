@@ -1,13 +1,9 @@
 export const useUserStore = defineStore('user', () => {
   // const userData = getUserDataInLocalStorage();
-  const userData = useCookie(UNITED_COOKIE.USER_DATA, {
-    maxAge: 60 * 60 * 24
-  })
-  const user = ref(userData)
+  const userData = useCookie(UNITED_COOKIE.USER_DATA) as unknown as IUser
+  const user = ref<IUser>(userData)
 
-  const token = useCookie(UNITED_COOKIE.TOKEN, {
-    maxAge: 60 * 60 * 24 // one day
-  })
+  const token = useCookie(UNITED_COOKIE.TOKEN)
 
   const isAuthenticated = ref(!!token.value)
   // const isAuthenticated = ref(false);

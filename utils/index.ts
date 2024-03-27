@@ -6,6 +6,7 @@ export const ROUTE_CONSTANTS = {
   SIGN_UP: '/signup',
   GROUPS: '/groups',
   SETTINGS: '/settings',
+  PROFILE: '/profile',
   GROUP_OWNER: '/groups/owner',
   GROUP_MEMBER: '/groups/member'
 }
@@ -28,10 +29,12 @@ export const ENDPOINTS = {
 }
 
 export const NUXT_ASYNC_DATA_KEY = {
-  OWNER_GROUP: 'owner-group'
+  OWNER_GROUP: 'owner-group',
+  HOME_PAGE_GROUP: 'home-page-group'
 }
 
 export const STRING_DATA = {
+  GROUPS: 'Groups',
   CANCEL: 'Cancel',
   EDIT: 'Edit',
   UPDATE_GROUP_INFORMATION: 'Update group information',
@@ -67,7 +70,8 @@ export const STRING_DATA = {
   VERIFY_EMAIL_MESSAGE: 'Verify your email',
   CHANGE: 'Change',
   MEMBERS: 'Members',
-  EMAIL_OTP_SUCCESS_MESSAGE: 'We have send an OTP on your email'
+  EMAIL_OTP_SUCCESS_MESSAGE: 'We have send an OTP on your email',
+  PROFILE: 'Profile'
 }
 
 export const ERROR_MESSAGE = {
@@ -119,13 +123,13 @@ export const URL_ROUTES = [
   },
   {
     label: STRING_DATA.YOUR_GROUPS,
-    path: ROUTE_CONSTANTS.GROUPS,
+    path: ROUTE_CONSTANTS.GROUP_OWNER,
     icon: 'material-symbols:groups-outline',
     isAuthenticatedRoute: true
   },
   {
-    label: STRING_DATA.SETTINGS,
-    path: ROUTE_CONSTANTS.SETTINGS,
+    label: STRING_DATA.PROFILE,
+    path: ROUTE_CONSTANTS.PROFILE,
     icon: 'material-symbols:settings-outline',
     isAuthenticatedRoute: true
   },
@@ -199,7 +203,9 @@ export const DUMMY_DATA = [
 export const OTP_EXPIRED_TIME = 180 // 3 minutes
 export const HAST_ID = {
   OWNER: '#owner',
-  MEMBER: '#member'
+  MEMBER: '#member',
+  GROUPS: '#groups',
+  EVENTS: '#events'
 }
 
 export const GROUPS_TAB = [
@@ -208,6 +214,15 @@ export const GROUPS_TAB = [
     id: 2,
     label: 'Member',
     sectionId: HAST_ID.MEMBER
+  }
+]
+
+export const DASHBOARD_TAB = [
+  { id: 1, label: 'Groups', sectionId: HAST_ID.GROUPS },
+  {
+    id: 2,
+    label: 'Events',
+    sectionId: HAST_ID.EVENTS
   }
 ]
 
