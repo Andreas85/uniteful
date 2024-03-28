@@ -5,7 +5,6 @@ import { helpers, required, requiredIf } from '@vuelidate/validators'
 import Card from 'primevue/card'
 import Dropdown from 'primevue/dropdown'
 import AutoComplete from 'primevue/autocomplete'
-import Chip from 'primevue/chip'
 
 const props = defineProps({
   userData: Object,
@@ -243,11 +242,7 @@ const handleRemoveChips = (
 </script>
 <template>
   <div class="flex flex-col gap-4 mx-auto lg:w-3/5 md:w-4/5">
-    <AtomsBreadCrumb
-      :has-id="true"
-      :bread-crumb-name="userData?.name"
-      :bread-crumb-link="ROUTE_CONSTANTS.GROUP_OWNER + '/' + user?.slug"
-    />
+    <AtomsBreadCrumb />
 
     <!-- {{ JSON.stringify(formData.image) }} -->
     <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
@@ -331,7 +326,6 @@ const handleRemoveChips = (
                 class="w-full md:w-14rem bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
               />
             </div>
-            <!-- {{JSON.stringify(formData.user_visibility)}} -->
             <template v-if="formData.visibility.code === VISIBILITY.CHERRY_PICKED">
               <div class="p-fluid flex flex-col gap-4">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Users</label>
@@ -344,16 +338,7 @@ const handleRemoveChips = (
                   @complete="visiblityTypesearch"
                   @item-select="handleItemSelect"
                 />
-                <!-- {{ JSON.stringify(formData.user_visibility) }} -->
                 <div v-if="formData.user_visibility.length > 0" class="flex flex-wrap gap-2">
-                  <!-- <Chip
-                    :label="item.name || item.email"
-                    v-for="(item, index) in formData.user_visibility"
-                    removable
-                    @remove="(e) => handleRemoveChips(e, item?.id)"
-                  /> -->
-                  <!-- :label="item.name || item.email" -->
-                  <!-- removable -->
                   <div
                     v-for="(item, index) in formData.user_visibility"
                     :key="index"
@@ -409,12 +394,6 @@ const handleRemoveChips = (
                   @item-select="(e) => handleItemSelect(e, true)"
                 />
                 <div v-if="formData.user_registration_policy?.length > 0" class="flex flex-wrap gap-2">
-                  <!-- <Chip
-                    :label="item.name || item.email"
-                    v-for="(item, index) in formData.user_registration_policy"
-                    removable
-                    @remove="(e) => handleRemoveChips(e, item?.id, true)"
-                  /> -->
                   <div
                     v-for="(item, index) in formData.user_registration_policy"
                     :key="index"
@@ -496,4 +475,4 @@ const handleRemoveChips = (
   </div>
 </template>
 
-<style scoped></style>: any: { query: any }(: { _id: any; name: any; email: any }): { query: any }(: { _id: any; name: any; email: any })(: { id: any })(: { id: any })      (: { id: any })    (: { id: any })      (: { id: string })    (: { id: string }): any: { query: any }(: { _id: any; name: any; email: any }): { query: any }(: { _id: any; name: any; email: any })(: { id: any })(: { id: any })      (: { id: any })    (: { id: any })      (: { id: string })    (: { id: string }): { query: string }(: { _id: any; name: any; email: any }): { query: string }(: { _id: any; name: any; email: any })(: { id: any })(: { id: any })      (: { id: any })    (: { id: any })      (: { id: string })    (: { id: string })(: { _id: any; name: any; email: any }): { query: string }(: { _id: any; name: any; email: any })(: { id: any })(: { id: any })      (: { id: any })    (: { id: any })      (: { id: string })    (: { id: string })
+<style scoped></style>

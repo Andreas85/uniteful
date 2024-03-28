@@ -84,6 +84,62 @@ export const useGroupsService = () => {
     return sendResponse
   }
 
+  const fetchGroupMemberService = async (payload: {
+    query: {limit:number; page: number};
+    groupId: string;
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
+  }) => {
+    const { success, fail, query, groupId } = payload
+    const { limit, page } = query
+    try {
+      const URL = ENDPOINTS.GROUPS + `/${groupId}` + '/members'
+      const response = (await $api(URL, {
+        method: 'GET',
+        query: { page, limit }
+      })) as any
+      success?.(response.data)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
+  const joinGroupService = async (payload: {
+    body: { groupId: string };
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
+  }) => {
+    const { body, success, fail } = payload
+    try {
+      const URL = ENDPOINTS.GROUPS + '/join'
+      const response = (await $api(URL, {
+        method: 'POST',
+        body
+      })) as any
+      success?.(response)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
+  const leaveGroupService = async (payload: {
+    body: {groupId: string};
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
+  }) => {
+    const { body, success, fail } = payload
+    try {
+      const URL = ENDPOINTS.GROUPS + '/leave'
+      const response = await $api(URL, {
+        method: 'POST',
+        body
+      }) as any
+      success?.(response)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
   return {
     createGroupService,
     fetchGroupsService,
@@ -91,6 +147,9 @@ export const useGroupsService = () => {
     fetchGroupMembershipService,
     fetchGroupDetailService,
     updateGroupService,
-    fetchUserSearchervice
+    fetchUserSearchervice,
+    fetchGroupMemberService,
+    joinGroupService,
+    leaveGroupService
   }
 }

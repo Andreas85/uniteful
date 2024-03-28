@@ -30,10 +30,19 @@ export const ENDPOINTS = {
 
 export const NUXT_ASYNC_DATA_KEY = {
   OWNER_GROUP: 'owner-group',
-  HOME_PAGE_GROUP: 'home-page-group'
+  OWNER_GROUP_DETAIL: 'owner-group-detail',
+  HOME_PAGE_GROUP: 'home-page-group',
+  HOME_PAGE_GROUP_DETAIL: 'home-page-group'
 }
 
 export const STRING_DATA = {
+  APPROVE: 'Approve',
+  REJECT: 'Reject',
+  MAKE_MODERATOR: 'Moderator',
+  REMOVE: 'Remove',
+  GROUP_VALUES: 'Group Values',
+  JOIN: 'Join',
+  LEAVE: 'Leave',
   GROUPS: 'Groups',
   CANCEL: 'Cancel',
   EDIT: 'Edit',
@@ -71,7 +80,10 @@ export const STRING_DATA = {
   CHANGE: 'Change',
   MEMBERS: 'Members',
   EMAIL_OTP_SUCCESS_MESSAGE: 'We have send an OTP on your email',
-  PROFILE: 'Profile'
+  PROFILE: 'Profile',
+  GROUO_NOT_EXISTS: 'Group does not exits',
+  MEMBER_NOT_FOUND: 'Member not found',
+  EVENTS: 'Events'
 }
 
 export const ERROR_MESSAGE = {

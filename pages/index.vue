@@ -14,13 +14,23 @@ const limitRef = ref(6)
 const { fetchGroupsService } = useGroupsService()
 const { data: GroupData, refresh, pending } = useAsyncData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP, () => fetchGroupsService({ page: pageRef.value, limit: limitRef.value }))
 
-const totalPage = ref(Math.ceil(GroupData.value?.count / limitRef.value))
+const totalPage = ref(0)
 
-const prevPage = () => updatePage(pageRef.value - 1)
-const nextPage = () => updatePage(pageRef.value + 1)
+watch(GroupData, (newValue) => {
+  if (newValue) {
+    const { count } = newValue
+    totalPage.value = Math.ceil(count / limitRef.value)
+  }
+}, { immediate: true })
+
+const handlePage = (e:PageState) => {
+  const { page } = e
+  updatePage(page)
+}
 
 const updatePage = (newPage: number) => {
-  if (newPage >= 0 && newPage < totalPage.value) {
+  const isPageCountValid = (newPage >= 0 && newPage < totalPage.value)
+  if (isPageCountValid) {
     pageRef.value = newPage
     updateRouteQuery()
   }
@@ -61,10 +71,9 @@ const handleCardClick = (props: { _id: string, data: IGroup }) => {
       <template v-else>
         <TemplatesGroups :users="GroupData?.rows" :heading="STRING_DATA.GROUPS" @card-click="handleCardClick" />
         <NxPagination
-          :total-count="totalPage?.toString()"
-          :current-page="(pageRef + 1)?.toString()"
-          @prev="prevPage"
-          @next="nextPage"
+          :total-count="totalPage"
+          :current-page="pageRef"
+          @currentpage="handlePage"
         />
       </template>
     </div>

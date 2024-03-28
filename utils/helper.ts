@@ -1,5 +1,6 @@
 import moment from 'moment'
 import _ from 'lodash'
+import type { LocationQueryValue } from 'vue-router'
 export function capitalizeFirstLetter (data: string) {
   return data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
 }
@@ -11,7 +12,7 @@ export function getTodayDate () {
 export function getISODate (data: string) {
   return moment.utc(data).toISOString()
 }
-export function getRequiredDataFormat (data: string, format: '') {
+export function getRequiredDataFormat (data: string, format?: '') {
   const dateFormat = format ?? 'YYYY-MM-DD'
   return moment(data).format(dateFormat)
 }
@@ -53,7 +54,7 @@ export const setDataInQueryParams = (values: any) => {
   return data
 }
 
-export const getDataFromQueryParams = (encodedString: string) => {
+export const getDataFromQueryParams = (encodedString: string | any) => {
   const data = JSON.parse(atob(encodedString))
   return data
 }
@@ -100,4 +101,14 @@ export const getUserName = (data: IUser) => {
   if (data) {
     return `${data.firstName} ${data.lastName}`
   }
+}
+
+export const getGroupStoreData = (data: IGroup) => {
+  const storeData = _.cloneDeep(data)
+  const { isOwner, isModerator } = data
+  const isNormalUser = !isOwner && !isModerator
+  if (isNormalUser) {
+    storeData.isOrdinaryUser = isNormalUser
+  }
+  return storeData
 }

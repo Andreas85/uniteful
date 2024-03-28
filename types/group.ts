@@ -9,6 +9,12 @@ interface IPayloadUpdataGroup {
   visibility: Visibility;
 }
 
+interface IOwner {
+  _id: string;
+  email: string;
+  name?: string;
+}
+
 interface IGroup {
   _id: string;
   name: string;
@@ -18,6 +24,12 @@ interface IGroup {
   slug: string;
   description: string;
   image: string;
+  owner: IOwner;
+  isOwner: boolean;
+  isMember: boolean;
+  isModerator: boolean;
+  canJoinGroup: boolean;
+  isOrdinaryUser?: boolean; // add at client side
 }
 
 interface IResponseDataGroup {

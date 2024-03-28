@@ -69,7 +69,7 @@ const handleCardClicked = (props: {_id: string, data: IGroup}) => {
     />
   </Dialog>
   <div class=" flex flex-col gap-4">
-    <AtomsBreadCrumb />
+    <AtomsBreadCrumb v-if="route.path !== ROUTE_CONSTANTS.HOME" />
 
     <div class="flex items-center justify-between">
       <h2 class="custom-h2-class">

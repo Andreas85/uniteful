@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useVuelidate } from "@vuelidate/core";
-import { helpers, required, requiredIf } from "@vuelidate/validators";
-import Dialog from 'primevue/dialog';
+import { useVuelidate } from '@vuelidate/core'
+import { helpers, required, requiredIf } from '@vuelidate/validators'
 
 interface Props {
   addGroupModal?: boolean;
@@ -10,44 +9,41 @@ interface Props {
   errorResponse?: string;
 }
 
-const emit = defineEmits(["handle-submit"]);
-const props = defineProps<Props>();
-const { loading, addGroupModal, closeGroupModal, errorResponse } = toRefs(props);
-const { awsPreSignedURLUpload } = useImageUpload();
-const fileRef = ref("");
+const emit = defineEmits(['handle-submit'])
+const props = defineProps<Props>()
+const { loading, addGroupModal, closeGroupModal, errorResponse } = toRefs(props)
+const { awsPreSignedURLUpload } = useImageUpload()
 
-const newInstruction = ref("");
 const formData = reactive({
-  groupName: "",
-  groupDesc: "",
-});
+  groupName: '',
+  groupDesc: ''
+})
 
 const rules = {
   groupName: {
-    required: helpers.withMessage(ERROR_MESSAGE.GROUP_NAME_REQ, required),
-  },
-};
+    required: helpers.withMessage(ERROR_MESSAGE.GROUP_NAME_REQ, required)
+  }
+}
 
-const v$ = useVuelidate(rules, formData);
+const v$ = useVuelidate(rules, formData)
 const submitForm = async () => {
-  const result = await v$.value.$validate();
+  const result = await v$.value.$validate()
 
   if (result) {
-    const { groupName, groupDesc } = formData;
+    const { groupName, groupDesc } = formData
     const payload = {
       formData: {
         name: groupName,
-        desc: groupDesc,
-      },
-    };
+        desc: groupDesc
+      }
+    }
 
     // console.log(payload, "modalcompo");
     emit('handle-submit', payload)
   } else {
-    console.log("Invalid Form NOT Submitted");
+    console.log('Invalid Form NOT Submitted')
   }
-};
-
+}
 
 const handleChange = async (e) => {
   try {
@@ -62,27 +58,30 @@ const handleChange = async (e) => {
 
 </script>
 <template>
-  <!-- <AtomsCustomModal :openModal="addGroupModal"> -->
-    <!-- <Dialog v-model:visible="addGroupModal" modal :header="STRING_DATA.ADD_GROUP" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"> -->
-    <div class="flex flex-col gap-4 w-full">
-      <!-- <h2 class="text-center font-bold text-lg">{{ STRING_DATA.ADD_GROUP }}</h2> -->
-
-
-      <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
-        <AtomsBaseInput v-model="formData.groupName" :placeholder="'Enter your group name'" :label="'Group name'"
-          :type="'text'" :errorMessage="v$?.groupName?.$error ? v$?.groupName?.$errors?.[0]?.$message : ''" />
-        <AtomsBaseInput v-model="formData.groupDesc" :placeholder="'Enter your group description'"
-          :label="'Description'" :type="'text'"
-          :errorMessage="v$?.groupDesc?.$error ? v$?.groupDesc?.$errors?.[0]?.$message : ''" :isTextarea="true" />
-        <span v-if="errorResponse" class="errorClass">{{
-    errorResponse
-  }}</span>
-        <div class="flex items-center justify-end gap-4">
-          <NxActionButton :isSubmit="true" :buttonLabel="STRING_DATA.ADD.toUpperCase()" :is-loading="loading" />
-          <NxActionButton :onclick="closeGroupModal" :buttonLabel="STRING_DATA.CLOSE.toUpperCase()" />
-        </div>
-      </form>
-    </div>
-  <!-- </Dialog> -->
-<!-- </AtomsCustomModal> -->
+  <div class="flex flex-col gap-4 w-full">
+    <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
+      <AtomsBaseInput
+        v-model="formData.groupName"
+        :placeholder="'Enter your group name'"
+        :label="'Group name'"
+        :type="'text'"
+        :error-message="v$?.groupName?.$error ? v$?.groupName?.$errors?.[0]?.$message : ''"
+      />
+      <AtomsBaseInput
+        v-model="formData.groupDesc"
+        :placeholder="'Enter your group description'"
+        :label="'Description'"
+        :type="'text'"
+        :error-message="v$?.groupDesc?.$error ? v$?.groupDesc?.$errors?.[0]?.$message : ''"
+        :is-textarea="true"
+      />
+      <span v-if="errorResponse" class="errorClass">{{
+        errorResponse
+      }}</span>
+      <div class="flex items-center justify-end gap-4">
+        <NxActionButton :is-submit="true" :button-label="STRING_DATA.ADD.toUpperCase()" :is-loading="loading" />
+        <NxActionButton :onclick="closeGroupModal" :button-label="STRING_DATA.CLOSE.toUpperCase()" />
+      </div>
+    </form>
+  </div>
 </template>

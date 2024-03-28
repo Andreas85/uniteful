@@ -31,7 +31,7 @@ export default defineNuxtConfig({
       ripple: true
     },
     components: {
-      include: ['FileUpload', 'usetoast', 'Toast']
+      include: ['FileUpload', 'usetoast', 'Toast', 'useconfirm', 'confirmationservice']
     }
   },
   googleSignIn: {

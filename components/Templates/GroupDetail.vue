@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import Card from 'primevue/card'
+import { useGroupStore } from '~/stores/group'
 
-const props = defineProps({
-  groupData: Object
-})
-
-const { groupData } = toRefs(props)
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 
+const groupStore = useGroupStore()
+const { groupData } = storeToRefs(groupStore)
 const route = useRoute()
 
-const sectionClass = () => ('lg:w-1/2 w-full ')
+const sectionClass = () => ('lg:w-1/2 w-full h-full')
 const navigateToEdit = () => {
   const path = `${ROUTE_CONSTANTS.GROUP_OWNER}/${route.params.slug?.toString()}/edit`
   navigateTo(path)
@@ -19,8 +17,8 @@ const navigateToEdit = () => {
 
 </script>
 <template>
-  <div class="flex flex-col gap-4 pt-8">
-    <AtomsBreadCrumb v-if="groupData?.name" :has-id="true" />
+  <div class="flex flex-col gap-4 pt-8 mb-4">
+    <AtomsBreadCrumb v-if="groupData?.name" />
     <div v-if="groupData?.isOwner" class="flex justify-end items-center ">
       <NxActionButton :button-label="STRING_DATA.EDIT.toUpperCase()" :onclick="navigateToEdit" />
     </div>
@@ -34,27 +32,18 @@ const navigateToEdit = () => {
           {{ groupData?.name }}
         </template>
         <template #content>
-          <div class="flex flex-col gap-4">
-            <AtomsIconLabel :icon="'basil:location-outline'">
-              {{ groupData?.location ?? '-' }}
-            </AtomsIconLabel>
-            <div class="flex gap-4 items-center justify-start">
-              <AtomsIconLabel :icon="'material-symbols:group-outline'">
-                {{ groupData?.totalMembers ?? '-' }} members
-              </AtomsIconLabel>
-              <span>
-                {{ groupData?.isPublic ? 'Public' : 'Private' }} group
-              </span>
-            </div>
-            <AtomsIconLabel :icon="'mdi:user-outline'">
-              Organized by {{ groupData?.owner?.name ?? '-' }}
-            </AtomsIconLabel>
-          </div>
+          <NxGroupRightSection />
         </template>
       </Card>
     </section>
-    <section class="mb-4">
-      <NxGroupMembers :member-id="'test'" />
+    <section v-if="groupData?.groupValues && groupData?.groupValues?.length > 0">
+      <NxGroupValueRender />
+    </section>
+    <section>
+      <NxGroupMembers :member-id="groupData?._id" />
+    </section>
+    <section>
+      <NxGroupJoinRequests />
     </section>
   </div>
 </template>

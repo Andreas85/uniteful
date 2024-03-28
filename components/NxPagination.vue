@@ -1,26 +1,32 @@
 <script setup lang="ts">
 
+import Paginator from 'primevue/paginator'
+
 const props = defineProps({
-  totalCount: String,
-  currentPage: String,
+  totalCount: { type: Number, default: 0 },
+  currentPage: { type: Number, default: 0 }
 })
 
 const { totalCount, currentPage } = toRefs(props)
-const emit = defineEmits(["prev", "next"])
+const first = ref(0)
+const emit = defineEmits(['currentpage'])
 
-const handleNext = () => {
-  emit("next")
+const handlePageChange = (e: PageState) => {
+  const { page } = e
+  emit('currentpage', { page })
 }
 
-const handlePrev = () => {
-  emit("prev")
-}
+watch(currentPage, (newValue) => {
+  first.value = newValue
+}, { immediate: true })
 
 </script>
 <template>
-  <div class="join flex items-center justify-center mb-4">
-    <button class="join-item btn" @click="handlePrev">«</button>
-    <button class="join-item btn">Page {{ currentPage ?? "22" }}</button>
-    <button class="join-item btn" @click="handleNext">»</button>
-  </div>
+  <Paginator
+    v-model:first="first"
+    :rows="1"
+    :total-records="totalCount"
+    template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+    @page="handlePageChange"
+  />
 </template>
