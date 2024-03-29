@@ -15,7 +15,7 @@ const url = useRequestURL()
 const userStore = useUserStore()
 const { setGroup } = useGroupStore()
 const { isAuthenticated } = storeToRefs(userStore)
-const subDomainRef = ref(getSubdomainFromHost(url.host))
+const subDomainRef = ref(false ?? getSubdomainFromHost(url.host)) // Need to update this line to enable subdomain feature
 const route = useRoute()
 
 const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
@@ -24,10 +24,10 @@ const fetchGroupData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP, () => fetchGroupsSe
 const fetchGroupDetailData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL, () => fetchGroupDetailService({ id: subDomainRef.value ?? '' }))
 
 const requestFetctApi = () => {
-  if (!subDomainRef.value) {
-    return fetchGroupData()
-  } else {
+  if (subDomainRef.value) {
     return fetchGroupDetailData()
+  } else {
+    return fetchGroupData()
   }
 }
 
