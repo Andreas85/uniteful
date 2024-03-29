@@ -15,7 +15,7 @@ const url = useRequestURL()
 const userStore = useUserStore()
 const { setGroup } = useGroupStore()
 const { isAuthenticated } = storeToRefs(userStore)
-const subDomainRef = ref(false ?? getSubdomainFromHost(url.host)) // Need to update this line to enable subdomain feature
+const subDomainRef = ref(getSubdomainFromHost(url.host)) // Need to update this line to enable subdomain feature
 const route = useRoute()
 
 const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
