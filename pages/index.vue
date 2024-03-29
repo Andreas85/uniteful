@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import _ from 'lodash'
+import { usePagination } from '~/composables/usePagination'
+
 definePageMeta({
   middleware: ['privateroute']
 })
@@ -7,19 +10,35 @@ useHead({
   title: `Your Groups | ${STRING_DATA.BRAND_NAME}`
 })
 
+const { fetchGroupsService, fetchGroupDetailService } = useGroupsService()
+const url = useRequestURL()
+const userStore = useUserStore()
+const { setGroup } = useGroupStore()
+const { isAuthenticated } = storeToRefs(userStore)
+const subDomainRef = ref(getSubdomainFromHost(url.host))
 const route = useRoute()
-const pageRef = ref(route.query.q ? getDataFromQueryParams(route?.query?.q) : 0)
-const limitRef = ref(6)
 
-const { fetchGroupsService } = useGroupsService()
-const { data: GroupData, refresh, pending } = useAsyncData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP, () => fetchGroupsService({ page: pageRef.value, limit: limitRef.value }))
+const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
 
-const totalPage = ref(0)
+const fetchGroupData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP, () => fetchGroupsService({ page: pageRef.value, limit: limitRef.value }))
+const fetchGroupDetailData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL, () => fetchGroupDetailService({ id: subDomainRef.value ?? '' }))
+
+const requestFetctApi = () => {
+  if (!subDomainRef.value) {
+    return fetchGroupData()
+  } else {
+    return fetchGroupDetailData()
+  }
+}
+
+const { data: GroupData, refresh, pending } = useAsyncData(requestFetctApi)
 
 watch(GroupData, (newValue) => {
-  if (newValue) {
-    const { count } = newValue
-    totalPage.value = Math.ceil(count / limitRef.value)
+  if (!newValue) { return }
+  if (subDomainRef.value) {
+    setGroup(isAuthenticated.value ? getGroupStoreData(newValue) : newValue)
+  } else {
+    totalPage.value = Math.ceil(newValue?.count / limitRef.value)
   }
 }, { immediate: true })
 
@@ -34,11 +53,6 @@ const updatePage = (newPage: number) => {
     pageRef.value = newPage
     updateRouteQuery()
   }
-}
-
-const updateRouteQuery = () => {
-  const encryptvalue = setDataInQueryParams(pageRef.value)
-  navigateTo(`${route.path}?q=${encryptvalue}`)
 }
 
 const refreshIfNeeded = () => {
@@ -63,19 +77,31 @@ const handleCardClick = (props: { _id: string, data: IGroup }) => {
 
 </script>
 <template>
-  <NuxtLayout name="dashboard">
-    <div class="flex flex-col gap-4 ">
-      <template v-if="pending">
-        <NxLoadingPage />
-      </template>
-      <template v-else>
-        <TemplatesGroups :users="GroupData?.rows" :heading="STRING_DATA.GROUPS" @card-click="handleCardClick" />
-        <NxPagination
-          :total-count="totalPage"
-          :current-page="pageRef"
-          @currentpage="handlePage"
-        />
-      </template>
-    </div>
-  </NuxtLayout>
+  <template v-if="!subDomainRef">
+    <NuxtLayout name="dashboard">
+      <div class="flex flex-col gap-4 ">
+        <template v-if="pending">
+          <NxLoadingPage />
+        </template>
+        <template v-else-if="GroupData === null || totalPage ===0">
+          <NxLoadingPage />
+        </template>
+        <template v-else>
+          <TemplatesGroups :users="GroupData?.rows" :heading="STRING_DATA.GROUPS" @card-click="handleCardClick" />
+          <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
+        </template>
+      </div>
+    </NuxtLayout>
+  </template>
+  <template v-else>
+    <template v-if="pending">
+      <NxLoadingPage />
+    </template>
+    <template v-else-if="GroupData === null">
+      <AtomsComingSoon :label="STRING_DATA.GROUO_NOT_EXISTS" />
+    </template>
+    <template v-else>
+      <TemplatesGroupDetail />
+    </template>
+  </template>
 </template>

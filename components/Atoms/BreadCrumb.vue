@@ -22,7 +22,7 @@ const breadcrumbs = computed(() => {
 
 </script>
 <template>
-  <div class="text-lg breadcrumbs">
+  <div v-if="breadcrumbs?.length > 1" class="text-lg breadcrumbs">
     <Breadcrumb :model="breadcrumbs">
       <template #item="{ item, props }">
         <NuxtLink :to="item.path" v-bind="props.action">

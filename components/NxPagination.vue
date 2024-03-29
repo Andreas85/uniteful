@@ -17,7 +17,9 @@ const handlePageChange = (e: PageState) => {
 }
 
 watch(currentPage, (newValue) => {
-  first.value = newValue
+  if (newValue) {
+    first.value = newValue
+  }
 }, { immediate: true })
 
 </script>
@@ -27,6 +29,7 @@ watch(currentPage, (newValue) => {
     :rows="1"
     :total-records="totalCount"
     template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+    current-page-report-template="Showing {first} to {last} of {totalRecords}"
     @page="handlePageChange"
   />
 </template>

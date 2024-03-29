@@ -112,3 +112,7 @@ export const getGroupStoreData = (data: IGroup) => {
   }
   return storeData
 }
+
+export const getSubdomainFromHost = (host: string) => {
+  return host?.split('.')?.[1] ? host.split('.')?.[0] : ''
+}
