@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer tailwind-base, primevue, tailwind-utilities;
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
 :root {
   --brand-color: #0099ff;
   --btn-red: #dc3545;
@@ -133,15 +144,7 @@ body :focus-within {
 }
 
 .p-fileupload .p-fileupload-buttonbar {
-  @apply flex justify-normal items-center gap-4 flex-wrap p-0;
-}
-
-.p-fileupload .p-fileupload-content {
-  @apply px-0;
-}
-
-.p-fileupload .p-fileupload-content .p-fileupload-file {
-  @apply p-0;
+  @apply flex justify-normal items-center gap-4 flex-wrap ;
 }
 
 .p-fileupload .p-fileupload-content .p-progressbar {
@@ -175,4 +178,8 @@ body :focus-within {
 
 .breadcrumbs nav {
   @apply bg-transparent p-0
+}
+
+.p-tabview .p-tabview-nav {
+  border-width: 0px;
 }

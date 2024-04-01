@@ -2,28 +2,70 @@
 import Card from 'primevue/card'
 import { useConfirm } from 'primevue/useconfirm'
 const confirm = useConfirm()
-const confirm1 = () => {
+
+const items = ref([
+  {
+    items: [
+      {
+        label: 'Accept',
+        icon: 'pi pi-check',
+        command: () => {
+          approveRequest()
+        }
+      },
+      {
+        label: 'Reject',
+        icon: 'pi pi-times',
+        command: () => {
+          rejectRequest()
+        }
+      }
+    ]
+  }
+])
+
+const confirmReject = () => {
   confirm.require({
     message: 'Are you sure you want to proceed?',
     header: 'Confirmation',
     icon: 'pi pi-exclamation-triangle',
     rejectClass: 'p-button-secondary p-button-outlined',
     rejectLabel: 'Cancel',
-    acceptLabel: 'Save',
+    acceptLabel: 'Reject',
     accept: () => {
       console.log('accept')
-      // toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
     },
     reject: () => {
       console.log('reject')
-      // toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
     }
   })
 }
 
-const removeRequest = () => {
-  confirm1()
+const confirmApprove = () => {
+  confirm.require({
+    message: 'Are you sure you want to proceed?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    rejectClass: 'p-button-secondary p-button-outlined',
+    rejectLabel: 'Cancel',
+    acceptLabel: 'Approve',
+    accept: () => {
+      console.log('accept')
+    },
+    reject: () => {
+      console.log('reject')
+    }
+  })
 }
+
+const rejectRequest = () => {
+  confirmReject()
+}
+
+const approveRequest = () => {
+  confirmApprove()
+}
+
 </script>
 
 <template>
@@ -41,8 +83,7 @@ const removeRequest = () => {
           <AtomsMemberCard
             :member="{member: member}"
             :is-request-member-card="true"
-            @reject-api="removeRequest"
-            @approve-api="removeRequest"
+            :menu-items="items"
           />
         </div>
       </div>

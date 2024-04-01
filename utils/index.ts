@@ -36,6 +36,7 @@ export const NUXT_ASYNC_DATA_KEY = {
 }
 
 export const STRING_DATA = {
+  ACCOUNT: 'Account',
   APPROVE: 'Approve',
   REJECT: 'Reject',
   MAKE_MODERATOR: 'Moderator',
@@ -290,3 +291,5 @@ export const GROUP_ADMISSION_POLICY = [
     code: GROUP_ADMISSION.AUTOMATIC
   }
 ]
+
+export const PRIMEVUE_BREAKPOINTS = { '1199px': '75vw', '575px': '90vw' }

@@ -2,7 +2,8 @@
 import pauseable from 'pauseable'
 const props = defineProps({
   email: { type: String, default: '' },
-  otpsendsuccess: Boolean
+  otpsendsuccess: Boolean,
+  isModal: { type: Boolean, default: false }
 })
 
 const emit = defineEmits(['change-email'])
@@ -15,7 +16,7 @@ const { setToken, setUser, setUserInCookies } = userStore
 const { showError, showSuccess } = useToastComposable()
 
 const { token } = storeToRefs(userStore)
-const { email } = toRefs(props)
+const { email, isModal } = toRefs(props)
 
 const timePassed = ref(OTP_EXPIRED_TIME)
 
@@ -43,9 +44,12 @@ const verifyOtpService = async (payload: {input: string, otp: string}) => {
     const { token, user } = response.data
     setToken(token)
     setUserInCookies(user)
-    showSuccess({ detail: 'Logged-in Successfully' })
-    await navigateTo(ROUTE_CONSTANTS.HOME)
     console.log(response)
+    if (isModal.value) {
+      await refreshNuxtData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL)
+      return
+    }
+    await navigateTo(ROUTE_CONSTANTS.HOME)
   } catch (error) {
     const message = handleQueryResponse(error)
     errorResponse.value = message

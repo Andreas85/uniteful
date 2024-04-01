@@ -1,11 +1,19 @@
 <script setup lang="ts">
+import Dialog from 'primevue/dialog'
 
 const { joinGroupService, leaveGroupService, fetchGroupDetailService } = useGroupsService()
 const { loading, showLoading, hideLoading } = useLoader()
 const groupStore = useGroupStore()
+const userStore = useUserStore()
 const { groupData } = storeToRefs(groupStore)
+const { isAuthenticated } = storeToRefs(userStore)
+const { openModal, closeModal, showModal } = useModal()
 
 const handleCreateGroup = () => {
+  if (!isAuthenticated.value) {
+    showModal()
+    return
+  }
   showLoading()
   const payload = {
     groupId: groupData.value?._id ?? ''
@@ -43,6 +51,15 @@ const refreshData = async () => {
 </script>
 
 <template>
+  <Dialog
+    v-model:visible="openModal"
+    modal
+    :header="STRING_DATA.ACCOUNT"
+    :style="{ width: '40vw' }"
+    :breakpoints="PRIMEVUE_BREAKPOINTS"
+  >
+    <ModalsAuth />
+  </Dialog>
   <div class="flex flex-col gap-4">
     <div class="flex gap-4 items-center justify-start">
       <AtomsIconLabel :icon="'material-symbols:group-outline'">
@@ -53,10 +70,11 @@ const refreshData = async () => {
       Organized by {{ groupData?.owner?.name ?? groupData?.owner?.email }}
     </AtomsIconLabel>
 
-    <div v-if="groupData?.canJoinGroup && !groupData?.isOwner" class="flex justify-end items-center ">
+    <div v-if="!groupData?.isOwner" class="flex justify-end items-center ">
       <NxActionButton
         :is-loading="loading"
         :button-label="groupData?.isMember ? STRING_DATA.LEAVE.toUpperCase() : STRING_DATA.JOIN.toUpperCase()"
+        :disabled="groupData?.canJoinGroup"
         @click="handleCreateGroup"
       />
     </div>

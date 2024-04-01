@@ -1,8 +1,13 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   const userStore = useUserStore()
-  const PRIVATE_ROUTE = ['/events', '/groups', '/groups/owner']
+  const PRIVATE_ROUTES = ['/events', '/groups/owner']
 
-  if (PRIVATE_ROUTE.includes(to.path) && !userStore.isAuthenticated) {
+  // Function to check if the given path is a private route
+  const isPrivateRoute = (path:string) => {
+    return PRIVATE_ROUTES.some(route => path.startsWith(route))
+  }
+
+  if (isPrivateRoute(to.path) && !userStore.isAuthenticated) {
     return navigateTo('/login')
   }
 })

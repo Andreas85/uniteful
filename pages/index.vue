@@ -20,8 +20,18 @@ const route = useRoute()
 
 const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
 
-const fetchGroupData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP, () => fetchGroupsService({ page: pageRef.value, limit: limitRef.value }))
-const fetchGroupDetailData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL, () => fetchGroupDetailService({ id: subDomainRef.value ?? '' }))
+const fetchGroupData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP, () => fetchGroupsService({
+  page: pageRef.value,
+  limit: limitRef.value
+}))
+
+const fetchGroupDetailData = (NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL, () => fetchGroupDetailService({
+  id: subDomainRef.value ?? '',
+  fail: (data) => {
+    subDomainRef.value = ''
+    refresh()
+  }
+}))
 
 const requestFetctApi = () => {
   if (subDomainRef.value) {
@@ -35,6 +45,9 @@ const { data: GroupData, refresh, pending } = useAsyncData(requestFetctApi)
 
 watch(GroupData, (newValue) => {
   if (!newValue) { return }
+  if (newValue?.rows && newValue?.count) {
+    subDomainRef.value = ''
+  }
   if (subDomainRef.value) {
     setGroup(isAuthenticated.value ? getGroupStoreData(newValue) : newValue)
   } else {

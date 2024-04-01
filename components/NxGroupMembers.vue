@@ -8,13 +8,33 @@ const props = defineProps({
 
 const confirm = useConfirm()
 const route = useRoute()
-const pageRef = ref(route.query.q ? getDataFromQueryParams(route?.query?.q) : 0)
-const limitRef = ref(6)
-const totalPage = ref(0)
+
+const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
 const groupId = ref('')
 const groupMember = ref([])
 const { memberId } = toRefs(props)
 const { fetchGroupMemberService } = useGroupsService()
+
+const items = ref([
+  {
+    items: [
+      {
+        label: 'Moderator',
+        icon: 'pi pi-user-plus',
+        command: () => {
+          moderatorRequest()
+        }
+      },
+      {
+        label: 'Remove',
+        icon: 'pi pi-trash',
+        command: () => {
+          removeRequest()
+        }
+      }
+    ]
+  }
+])
 
 const fetchData = () => {
   fetchGroupMemberService({
@@ -24,8 +44,6 @@ const fetchData = () => {
       const { rows, count } = data
       groupMember.value = rows
       totalPage.value = Math.ceil(count / limitRef.value)
-    },
-    fail: () => {
     }
   })
 }
@@ -50,11 +68,6 @@ const updatePage = (newPage: number) => {
   }
 }
 
-const updateRouteQuery = () => {
-  const encryptvalue = setDataInQueryParams(pageRef.value)
-  navigateTo(`${route.path}?q=${encryptvalue}`)
-}
-
 const refreshIfNeeded = () => {
   if (pageRef.value < totalPage.value && pageRef.value >= 0) {
     fetchData()
@@ -69,27 +82,46 @@ watch(() => route.query, (newValue) => {
   refreshIfNeeded()
 })
 
-const confirm1 = () => {
+const confirmRemove = () => {
   confirm.require({
     message: 'Are you sure you want to proceed?',
     header: 'Confirmation',
     icon: 'pi pi-exclamation-triangle',
     rejectClass: 'p-button-secondary p-button-outlined',
     rejectLabel: 'Cancel',
-    acceptLabel: 'Save',
+    acceptLabel: 'Remove',
     accept: () => {
       console.log('accept')
-      // toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
     },
     reject: () => {
       console.log('reject')
-      // toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+    }
+  })
+}
+
+const confirmModerator = () => {
+  confirm.require({
+    message: 'Are you sure you want to proceed?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    rejectClass: 'p-button-secondary p-button-outlined',
+    rejectLabel: 'Cancel',
+    acceptLabel: 'Moderator',
+    accept: () => {
+      console.log('accept')
+    },
+    reject: () => {
+      console.log('reject')
     }
   })
 }
 
 const removeRequest = () => {
-  confirm1()
+  confirmRemove()
+}
+
+const moderatorRequest = () => {
+  confirmModerator()
 }
 
 </script>
@@ -108,8 +140,7 @@ const removeRequest = () => {
         >
           <AtomsMemberCard
             :member="member"
-            @remove-api="removeRequest"
-            @moderator-api="removeRequest"
+            :menu-items="items"
           />
         </div>
       </div>

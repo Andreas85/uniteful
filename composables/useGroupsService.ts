@@ -4,14 +4,21 @@ export const useGroupsService = () => {
   const fetchGroupsService = async (data: {
     limit: number;
     page: number;
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
   }) => {
-    const { limit, page } = data
-    const response = await $api(ENDPOINTS.GROUPS, {
-      method: 'GET',
-      query: { page, limit }
-    }) as any
-    const sendResponse = response.data
-    return sendResponse as IResponseDataGroup
+    const { limit, page, success, fail } = data
+    try {
+      const response = (await $api(ENDPOINTS.GROUPS, {
+        method: 'GET',
+        query: { page, limit }
+      })) as any
+      const sendResponse = response.data as IResponseDataGroup
+      success?.(sendResponse)
+      return sendResponse
+    } catch (error: any) {
+      fail?.(error.data)
+    }
   }
 
   const createGroupService = async (data: any) => {
@@ -49,13 +56,22 @@ export const useGroupsService = () => {
     return sendResponse
   }
 
-  const fetchGroupDetailService = async (data: { id: string; }) => {
-    const URL = ENDPOINTS.GROUPS + '/' + data?.id
-    const response = (await $api(URL, {
-      method: 'GET'
-    })) as any
-    const sendResponse = response.data
-    return sendResponse
+  const fetchGroupDetailService = async (data: { id: string;fail?: (error: any) => void;
+    success?: (data: any) => void; }) => {
+    const { success, fail, id } = data
+    try {
+      const URL = ENDPOINTS.GROUPS + '/' + id
+      const response = (await $api(URL, {
+        method: 'GET'
+      })) as any
+      const sendResponse = response.data
+      if (success) {
+        success?.(sendResponse)
+      }
+      return sendResponse
+    } catch (error: any) {
+      fail?.(error.data)
+    }
   }
 
   const fetchGroupMembershipService = async (data: {

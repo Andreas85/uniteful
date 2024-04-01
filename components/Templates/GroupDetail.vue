@@ -1,19 +1,29 @@
+<!-- eslint-disable vue/valid-v-show -->
 <script setup lang="ts">
 import Card from 'primevue/card'
-import { useGroupStore } from '~/stores/group'
-
-const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
 
 const groupStore = useGroupStore()
 const { groupData } = storeToRefs(groupStore)
 const route = useRoute()
+const isUserOwnerRoute = ref(false)
+const isImageLoaded = ref<boolean>(false)
 
 const sectionClass = () => ('lg:w-1/2 w-full h-full')
 const navigateToEdit = () => {
   const path = `${ROUTE_CONSTANTS.GROUP_OWNER}/${route.params.slug?.toString()}/edit`
   navigateTo(path)
 }
+
+const handleLoading = () => {
+  isImageLoaded.value = true
+}
+
+watch(route, (newValue) => {
+  if (newValue) {
+    const isOwnerIncludedInRoute = newValue?.fullPath?.split('/')?.includes('owner')
+    isUserOwnerRoute.value = isOwnerIncludedInRoute
+  }
+}, { immediate: true })
 
 </script>
 <template>
@@ -24,8 +34,24 @@ const navigateToEdit = () => {
     </div>
     <section class="flex w-full mx-auto lg:flex-row flex-col gap-5 py-4">
       <div class="lg:w-1/2 w-full rounded-lg min-h-full">
-        <img v-if="groupData?.image" :src="groupData?.image" alt="group-image" class="rounded-lg min-h-96">
-        <img v-else src="~assets/img/sample.png" class="rounded-lg min-h-96">
+        <template v-if="groupData?.image">
+          <span v-show="isImageLoaded">
+            <img
+              :src="groupData?.image"
+              alt="group-image"
+              class="rounded-lg min-h-96"
+              @load="handleLoading"
+            >
+          </span>
+          <span v-show="!isImageLoaded">
+            <div class="flex items-center justify-center h-full w-full">
+              <AtomsLoading />
+            </div>
+          </span>
+        </template>
+        <template v-else>
+          <img src="~assets/img/sample.png" class="rounded-lg min-h-96" @load="handleLoading">
+        </template>
       </div>
       <Card :class="sectionClass()">
         <template #title>
@@ -43,7 +69,7 @@ const navigateToEdit = () => {
       <NxGroupMembers :member-id="groupData?._id" />
     </section>
     <section>
-      <NxGroupJoinRequests />
+      <NxGroupJoinRequests v-if="isUserOwnerRoute && (groupData?.isOwner || groupData?.isModerator)" />
     </section>
   </div>
 </template>
