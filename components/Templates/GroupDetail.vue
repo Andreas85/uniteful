@@ -3,8 +3,8 @@
 import Card from 'primevue/card'
 import { useResizeObserver } from '@vueuse/core'
 
-const lgPlaceholderImage = 'https://placehold.co/1920x1080?text=United'
-const mdPlaceholderImage = 'https://placehold.co/600x400?text=United'
+const lgPlaceholderImage = 'https://placehold.co/1920x1080?text=Uniteful'
+const mdPlaceholderImage = 'https://placehold.co/600x400?text=Uniteful'
 
 const groupStore = useGroupStore()
 const { groupData } = storeToRefs(groupStore)
