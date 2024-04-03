@@ -83,11 +83,14 @@ useResizeObserver(el, (entries) => {
         </template>
       </Card>
     </section>
-    <section v-if="groupData?.groupValues && groupData?.groupValues?.length > 0">
+    <section v-if="isUserOwnerRoute">
+      <NxPolicySection />
+    </section>
+    <section>
       <NxGroupValueRender />
     </section>
     <section>
-      <NxGroupMembers :member-id="groupData?._id" />
+      <NxGroupMembers :member-id=" groupData?._id" />
     </section>
     <section>
       <NxGroupJoinRequests v-if="isUserOwnerRoute && (groupData?.isOwner || groupData?.isModerator)" />

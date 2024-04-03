@@ -11,11 +11,12 @@ const { groupData } = storeToRefs(groupStore)
       {{ STRING_DATA.GROUP_VALUES }}
     </template>
     <template #content>
-      <ul class="list-disc">
+      <ul v-if="groupData?.groupValues && (groupData?.groupValues?.length > 0)" class="list-disc">
         <li v-for="(item, index) in groupData?.groupValues" :key="index" class="ms-4">
           {{ item }}
         </li>
       </ul>
+      <AtomsComingSoon v-else :label="'Group values not found'" />
     </template>
   </Card>
 </template>

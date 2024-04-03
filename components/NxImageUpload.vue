@@ -93,7 +93,8 @@ const onRemoveTemplatingFile = (file: { size: number; }, removeFileCallback: (ar
     <FileUpload
       custom-upload
       accept="image/png,image/gif,image/jpeg,image/webp"
-      :max-file-size="1000000"
+      :max-file-size="2000000"
+      :file-limit="1"
       @uploader="customBase64Uploader"
       @select="uploadComplete"
       @clear="handleClearButton"

@@ -3,8 +3,7 @@ interface IUser {
   content: string;
   _id: string;
   type: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
 }
 

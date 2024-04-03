@@ -35,9 +35,8 @@ const addGroup = async (payload) => {
 }
 
 const handleCreateGroup = (data: any) => {
-  const { name, desc, groupValues } = data.formData
   const payload = {
-    name, desc, groupValues
+    ...data?.formData
   }
   console.log(payload)
   addGroup(payload)

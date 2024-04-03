@@ -2,7 +2,7 @@
 
 const route = useRoute()
 const userStore = useUserStore()
-const { isAuthenticated } = storeToRefs(userStore)
+const { isAuthenticated, user } = storeToRefs(userStore)
 const isTippyOpen = ref(false)
 
 const handleSignup = () => {
@@ -30,10 +30,13 @@ const iconcompute = computed(() => (!isTippyOpen.value ? 'fa-solid:caret-up' : '
       <div class="relative">
         <tippy trigger="click" content-class="content-wrapper" @state="onStateChange">
           <template #default>
-            <div class="avatar cursor-pointer flex items-center" @click="toggleTippy">
-              <div class="w-12 rounded-full">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg">
-              </div>
+            <div class="cursor-pointer flex items-center" @click="toggleTippy">
+              <!-- <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg">
+                </div>
+              </div> -->
+              <NxAvatar :label="getInitials(user.name)" />
               <Icon :name="iconcompute" :width="'1.1rem'" :height="'1.1rem'" />
             </div>
           </template>

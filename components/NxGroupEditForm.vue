@@ -262,7 +262,7 @@ const handleRemoveChips = (
           </div>
         </template>
         <template #content>
-          <img v-if="showImage" :src="formData.image" alt="group-image">
+          <img v-if="showImage" :src="formData.image" alt="group-image" class="aspect-video w-full object-contain">
           <template v-else>
             <div v-if="!imageLoading" class="flex flex-col gap-6">
               <nx-image-upload
@@ -323,7 +323,7 @@ const handleRemoveChips = (
                 :options="VISIBILITY_TYPE"
                 option-label="name"
                 placeholder="Select visibility type"
-                class="w-full md:w-14rem bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
+                class="dropdown-class"
               />
             </div>
             <template v-if="formData.visibility.code === VISIBILITY.CHERRY_PICKED">
@@ -374,7 +374,7 @@ const handleRemoveChips = (
                 :options="REGISTRATION_POLICY"
                 option-label="name"
                 placeholder="Select registration policy"
-                class="w-full md:w-14rem bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
+                class="dropdown-class"
               />
             </div>
             <template
@@ -429,7 +429,7 @@ const handleRemoveChips = (
                 :options="GROUP_ADMISSION_POLICY"
                 option-label="name"
                 placeholder="Select group admission policy"
-                class="w-full md:w-14rem bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
+                class="dropdown-class"
               />
             </div>
           </div>

@@ -64,7 +64,7 @@ const handleUpload = (e: { fileUrl: any }) => {
             <NxShowLabelValue
               :heading-class="headingClass()"
               :value-class="headingClass()"
-              :value="getUserName(user)"
+              :value="user?.name"
               :heading="'Name'"
             />
           </div>

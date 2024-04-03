@@ -3,22 +3,22 @@
 const props = defineProps({
   customClass: {
     type: String,
-    default: ""
+    default: ''
   },
   icon: String,
-  iconSize: { type: String, default: "1.1rem" },
-  iconColor: { type: String, default: "" },
+  iconSize: { type: String, default: '1.1rem' },
+  iconColor: { type: String, default: '' }
 })
 
 const { icon, customClass, iconSize, iconColor } = toRefs(props)
 
 const classes = computed(() => {
   if (customClass.value) {
-    return customClass.value;
+    return customClass.value
   } else {
-    return "flex items-center gap-2 justify-start";
+    return 'flex items-center gap-2 justify-start'
   }
-});
+})
 
 </script>
 <template>

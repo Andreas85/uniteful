@@ -69,7 +69,9 @@ const refreshData = async () => {
     <AtomsIconLabel :icon="'mdi:user-outline'">
       Organized by {{ groupData?.owner?.name ?? groupData?.owner?.email }}
     </AtomsIconLabel>
-
+    <AtomsIconLabel :icon="'material-symbols:description-outline'">
+      {{ groupData?.description ?? '-' }}
+    </AtomsIconLabel>
     <div v-if="!groupData?.isOwner" class="flex justify-end items-center ">
       <NxActionButton
         :is-loading="loading"

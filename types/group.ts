@@ -15,20 +15,40 @@ interface IOwner {
   name?: string;
 }
 
+interface IonPolicy {
+  policyType: string;
+}
+
+interface Owner {
+  name: string;
+  email: string;
+  id: string;
+  roles: string[];
+  iat: number;
+  exp: number;
+}
+
 interface IGroup {
   _id: string;
+  deleted: boolean;
   name: string;
-  totalMembers: number;
-  groupValues: any[];
-  createdAt: Date;
-  slug: string;
   description: string;
   image: string;
-  owner: IOwner;
+  totalMembers: number;
+  owner: Owner;
+  groupValues: any[];
+  createdAt: Date;
+  updatedAt: Date;
+  slug: string;
+  __v: number;
+  visibility: Visibility;
+  admissionPolicy: IonPolicy;
+  registrationPolicy: IonPolicy;
+  canJoinGroup: boolean;
   isOwner: boolean;
   isMember: boolean;
   isModerator: boolean;
-  canJoinGroup: boolean;
+  userMap: any[];
   isOrdinaryUser?: boolean; // add at client side
 }
 

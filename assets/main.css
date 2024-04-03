@@ -183,3 +183,7 @@ body :focus-within {
 .p-tabview .p-tabview-nav {
   border-width: 0px;
 }
+
+.dropdown-class {
+  @apply w-full bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100
+}

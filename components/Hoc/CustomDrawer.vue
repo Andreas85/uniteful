@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const userStore = useUserStore()
 const { logout } = userStore
-const { isAuthenticated } = storeToRefs(userStore)
+const { isAuthenticated, user } = storeToRefs(userStore)
 
 const updatedAuthenticated = computed(() => isAuthenticated.value)
-const drawerNavlinks = ref([])
+const drawerNavlinks = ref<any>([])
 
 const emit = defineEmits(['route-link-clicked'])
 
@@ -40,22 +40,23 @@ const handleLogout = () => {
         v-for="(item, index) in drawerNavlinks"
         :key="index"
         :custom-class="'flex items-center justify-between flex-row-reverse'"
-        :icon="item.icon"
+        :icon="item?.icon"
         :icon-size="'2rem'"
         :icon-color="'grey'"
       >
-        <NuxtLink class="text-xl font-bold" :to="item.path" @click="handleClick">
-          {{ item.label }}
+        <NuxtLink class="text-xl font-bold" :to="item?.path" @click="handleClick">
+          {{ item?.label }}
         </NuxtLink>
       </AtomsIconLabel>
     </div>
     <template v-if="updatedAuthenticated">
       <hr class="bg-gray-600 ">
       <div class="flex items-center justify-between">
-        <div class="avatar cursor-pointer">
-          <div class="w-12 rounded-full">
+        <div class="cursor-pointer">
+          <!-- <div class="avatar w-12 rounded-full">
             <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg">
-          </div>
+          </div> -->
+          <NxAvatar :label="getInitials(user.name) " />
         </div>
         <AtomsIconLabel :icon="'material-symbols:logout'">
           <div class="cursor-pointer" @click="handleLogout">

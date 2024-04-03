@@ -34,7 +34,7 @@ const submitForm = async () => {
     const payload = {
       formData: {
         name: groupName,
-        desc: groupDesc
+        description: groupDesc
       }
     }
 
@@ -42,17 +42,6 @@ const submitForm = async () => {
     emit('handle-submit', payload)
   } else {
     console.log('Invalid Form NOT Submitted')
-  }
-}
-
-const handleChange = async (e) => {
-  try {
-    const payload = e.target.files[0]
-
-    console.log(payload.name, payload)
-    await awsPreSignedURLUpload(payload)
-  } catch (error) {
-    console.log(error.data)
   }
 }
 

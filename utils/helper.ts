@@ -59,48 +59,64 @@ export const getDataFromQueryParams = (encodedString: string | any) => {
   return data
 }
 
+// Function to find selected visibility type
+export const findSelectedVisibility = (data: any) => {
+  return VISIBILITY_TYPE.find(item => item?.code === data?.visibility?.visibilityType)
+}
+
+// Function to find selected registration policy
+export const findSelectedRegistrationPolicy = (data: any) => {
+  return REGISTRATION_POLICY.find(item => item?.code === data?.registrationPolicy?.policyType)
+}
+
+// Function to find selected admission policy
+export const findSelectedAdmissionPolicy = (data: any) => {
+  return GROUP_ADMISSION_POLICY.find(item => item?.code === data?.admissionPolicy?.policyType)
+}
+
+// Function to filter users based on visibility type
+export const filterUsersByVisibility = (data: any) => {
+  return data?.userMap.filter((item: { id: any }) => data?.visibility?.cherryPickedUsers?.includes(item?.id))
+}
+
+// Function to filter users based on registration policy
+export const filterUsersByRegistrationPolicy = (data: any) => {
+  return data?.userMap.filter((item: { id: any }) => data?.registrationPolicy?.cherryPickedUsers?.includes(item?.id))
+}
+
+// Main function
 export const sanitizedUserDetail = (data: any) => {
   const result = _.cloneDeep(data)
 
-  const selectedVisibility = VISIBILITY_TYPE.find(
-    item => item?.code === data?.visibility?.visibilityType
-  )
-
-  const selectedRegistrationPolicy = REGISTRATION_POLICY.find(
-    item => item?.code === data?.registrationPolicy?.policyType
-  )
-
-  const selectedAdmissionPolicy = GROUP_ADMISSION_POLICY.find(
-    item => item?.code === data?.admissionPolicy?.policyType
-  )
-
-  if (data?.visibility?.visibilityType) {
+  // Find and set selected visibility type
+  const selectedVisibility = findSelectedVisibility(data)
+  if (selectedVisibility) {
     result.visibility.visibilityType = selectedVisibility
   }
 
-  result.registrationPolicy = selectedRegistrationPolicy
-  result.admissionPolicy = selectedAdmissionPolicy
+  // Find and set selected registration policy
+  const selectedRegistrationPolicy = findSelectedRegistrationPolicy(data)
+  if (selectedRegistrationPolicy) {
+    result.registrationPolicy = selectedRegistrationPolicy
+  }
 
+  // Find and set selected admission policy
+  const selectedAdmissionPolicy = findSelectedAdmissionPolicy(data)
+  if (selectedAdmissionPolicy) {
+    result.admissionPolicy = selectedAdmissionPolicy
+  }
+
+  // Filter users based on visibility type
   if (data?.visibility?.visibilityType === VISIBILITY.CHERRY_PICKED) {
-    result.user_visibility = data?.userMap.filter(
-      (item: { id: any }) => data?.visibility?.cherryPickedUsers?.includes(item?.id)
-    )
+    result.user_visibility = filterUsersByVisibility(data)
   }
 
+  // Filter users based on registration policy
   if (data?.registrationPolicy?.policyType === VISIBILITY.CHERRY_PICKED) {
-    result.user_registration_policy = data?.userMap.filter(
-      (item: { id: any }) => data?.registrationPolicy?.cherryPickedUsers?.includes(item?.id)
-    )
+    result.user_registration_policy = filterUsersByRegistrationPolicy(data)
   }
 
-  // console.log(selectedRegistrationPolicy, "helperw", data);
   return result
-}
-
-export const getUserName = (data: IUser) => {
-  if (data) {
-    return `${data.firstName} ${data.lastName}`
-  }
 }
 
 export const getGroupStoreData = (data: IGroup) => {
@@ -115,4 +131,8 @@ export const getGroupStoreData = (data: IGroup) => {
 
 export const getSubdomainFromHost = (host: string) => {
   return host?.split('.')?.[1] ? host.split('.')?.[0] : ''
+}
+
+export function getInitials (name:string) {
+  return name.split(' ').map((word:string) => word.charAt(0).toUpperCase()).join('')
 }
