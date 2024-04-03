@@ -56,7 +56,7 @@ const handleLogout = () => {
           <!-- <div class="avatar w-12 rounded-full">
             <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg">
           </div> -->
-          <NxAvatar :label="getInitials(user.name) " />
+          <NxAvatar :label="getInitials(user?.name) " />
         </div>
         <AtomsIconLabel :icon="'material-symbols:logout'">
           <div class="cursor-pointer" @click="handleLogout">

@@ -130,9 +130,9 @@ export const getGroupStoreData = (data: IGroup) => {
 }
 
 export const getSubdomainFromHost = (host: string) => {
-  return host?.split('.')?.[1] ? host.split('.')?.[0] : ''
+  return host?.split('.')?.[1] ? host?.split('.')?.[0] : ''
 }
 
 export function getInitials (name:string) {
-  return name.split(' ').map((word:string) => word.charAt(0).toUpperCase()).join('')
+  return name?.split(' ').map((word:string) => word.charAt(0).toUpperCase()).join('')
 }
