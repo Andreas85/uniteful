@@ -74,9 +74,16 @@ const refreshData = async () => {
     </AtomsIconLabel>
     <div v-if="!groupData?.isOwner" class="flex justify-end items-center ">
       <NxActionButton
+        v-if="groupData?.isMember"
         :is-loading="loading"
-        :button-label="groupData?.isMember ? STRING_DATA.LEAVE.toUpperCase() : STRING_DATA.JOIN.toUpperCase()"
-        :disabled="!groupData?.canJoinGroup && !groupData?.isMember"
+        :button-label="STRING_DATA.LEAVE.toUpperCase()"
+        @click="handleCreateGroup"
+      />
+      <NxActionButton
+        v-else
+        :is-loading="loading"
+        :button-label="STRING_DATA.JOIN.toUpperCase()"
+        :disabled="!groupData?.canJoinGroup"
         @click="handleCreateGroup"
       />
     </div>
