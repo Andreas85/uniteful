@@ -187,3 +187,11 @@ body :focus-within {
 .dropdown-class {
   @apply w-full bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100
 }
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link {
+  @apply w-max
+}
+
+.p-avatar.p-avatar-lg {
+  @apply text-[1rem]
+}

@@ -76,7 +76,7 @@ const refreshData = async () => {
       <NxActionButton
         :is-loading="loading"
         :button-label="groupData?.isMember ? STRING_DATA.LEAVE.toUpperCase() : STRING_DATA.JOIN.toUpperCase()"
-        :disabled="groupData?.canJoinGroup"
+        :disabled="!groupData?.canJoinGroup"
         @click="handleCreateGroup"
       />
     </div>
