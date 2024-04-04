@@ -28,7 +28,10 @@ watch(currentPage, (newValue) => {
     v-model:first="first"
     :rows="1"
     :total-records="totalCount"
-    template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+    :template="{
+      '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+      default: 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink'
+    }"
     current-page-report-template="Showing {first} to {last} of {totalRecords}"
     @page="handlePageChange"
   />

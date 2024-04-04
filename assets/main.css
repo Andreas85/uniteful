@@ -195,3 +195,7 @@ body :focus-within {
 .p-avatar.p-avatar-lg {
   @apply text-[1rem]
 }
+
+.p-paginator.p-component {
+  @apply p-0
+}

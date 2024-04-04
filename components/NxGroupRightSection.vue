@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Dialog from 'primevue/dialog'
+import { useConfirm } from 'primevue/useconfirm'
+const confirm = useConfirm()
 
 const { joinGroupService, leaveGroupService, fetchGroupDetailService } = useGroupsService()
 const { loading, showLoading, hideLoading } = useLoader()
@@ -9,31 +11,12 @@ const { groupData } = storeToRefs(groupStore)
 const { isAuthenticated } = storeToRefs(userStore)
 const { openModal, closeModal, showModal } = useModal()
 
-const handleCreateGroup = () => {
-  if (!isAuthenticated.value) {
-    showModal()
-    return
-  }
+const joinRequest = () => {
   showLoading()
-  const payload = {
-    groupId: groupData.value?._id ?? ''
-  }
-  // console.log(payload)
-  if (groupData?.value?.isMember) {
-    leaveGroupService({
-      body: payload,
-      success: (data) => {
-        refreshData()
-        hideLoading()
-      },
-      fail: (data) => {
-        hideLoading()
-      }
-    })
-    return
-  }
   joinGroupService({
-    body: payload,
+    body: {
+      groupId: groupData.value?._id ?? ''
+    },
     success: (data) => {
       refreshData()
       hideLoading()
@@ -44,8 +27,57 @@ const handleCreateGroup = () => {
   })
 }
 
+const leaveRequest = () => {
+  showLoading()
+  leaveGroupService({
+    body: {
+      groupId: groupData.value?._id ?? ''
+    },
+    success: (data) => {
+      refreshData()
+      hideLoading()
+    },
+    fail: (data) => {
+      hideLoading()
+    }
+  })
+}
+
+const handleCreateGroup = () => {
+  if (!isAuthenticated.value) {
+    showModal()
+    return
+  }
+
+  if (groupData?.value?.isMember) {
+    confirmLeave()
+
+    return
+  }
+  joinRequest()
+}
+
 const refreshData = async () => {
   await refreshNuxtData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL)
+}
+
+const confirmLeave = () => {
+  confirm.require({
+    message: 'Are you sure you want to proceed?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    rejectClass: 'p-button-secondary p-button-outlined',
+    rejectLabel: 'Cancel',
+    acceptLabel: 'Leave',
+    accept: () => {
+      leaveRequest()
+    },
+    reject: () => {
+      console.log('reject')
+    },
+    onShow: () => console.log('show'),
+    onHide: () => console.log('hide')
+  })
 }
 
 </script>
@@ -75,7 +107,7 @@ const refreshData = async () => {
     <div v-if="!groupData?.isOwner" class="flex justify-end items-center ">
       <NxActionButton
         v-if="groupData?.isMember"
-        :is-loading="loading"
+        :is-delete-button="true"
         :button-label="STRING_DATA.LEAVE.toUpperCase()"
         @click="handleCreateGroup"
       />

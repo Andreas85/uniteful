@@ -26,6 +26,8 @@ const classes = computed(() => {
     <template v-if="icon">
       <Icon :name="icon" :width="iconSize" :height="iconSize" :color="iconColor" />
     </template>
-    <slot />
+    <div class="flex-1">
+      <slot />
+    </div>
   </div>
 </template>
