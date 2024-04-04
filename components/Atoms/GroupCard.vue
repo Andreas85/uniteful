@@ -6,15 +6,11 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  item: { type: Object as IGroup }
+  item: { type: Object, default: () => {} }
 })
 
 const emit = defineEmits(['clicked'])
 const { customClass, item } = toRefs(props)
-const router = useRouter()
-const handleClick = () => {
-  emit('clicked')
-}
 
 const moveToDetail = () => {
   emit('clicked', { _id: item.value._id, data: item.value })
@@ -22,18 +18,23 @@ const moveToDetail = () => {
 
 </script>
 <template>
-  <Card>
-    <template #title>
-      <h2 class="custom-h2-class line-clamp-2 cursor-pointer" @click="moveToDetail">
-        {{ item.name }}
-      </h2>
-    </template>
-    <template #content>
-      <div class="flex flex-col gap-4 min-h-40">
-        <p class="flex-1 ">
-          totalMembers :{{ item.totalMembers }}
-        </p>
-      </div>
-    </template>
-  </Card>
+  <div class="group-card cursor-pointer" @click="moveToDetail">
+    <Card>
+      <template #header>
+        <NxImageRenderer :image-url="item?.image ?? ''" />
+      </template>
+      <template #title>
+        <h2 class="custom-h2-class line-clamp-1 cursor-pointer">
+          {{ item.name }}
+        </h2>
+      </template>
+      <template #content>
+        <div class="flex flex-col gap-4">
+          <p class="flex-1 ">
+            totalMembers :{{ item.totalMembers }}
+          </p>
+        </div>
+      </template>
+    </Card>
+  </div>
 </template>

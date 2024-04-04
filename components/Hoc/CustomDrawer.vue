@@ -53,10 +53,14 @@ const handleLogout = () => {
       <hr class="bg-gray-600 ">
       <div class="flex items-center justify-between">
         <div class="cursor-pointer">
-          <!-- <div class="avatar w-12 rounded-full">
-            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg">
-          </div> -->
-          <NxAvatar :label="getInitials(user?.name) " />
+          <div v-if="user?.profileImage" class="avatar">
+            <div class="w-12 rounded-full">
+              <img :src="user?.profileImage">
+            </div>
+          </div>
+          <template v-else>
+            <NxAvatar :label="getInitials(user?.name) " />
+          </template>
         </div>
         <AtomsIconLabel :icon="'material-symbols:logout'">
           <div class="cursor-pointer" @click="handleLogout">

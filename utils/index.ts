@@ -8,7 +8,8 @@ export const ROUTE_CONSTANTS = {
   SETTINGS: '/settings',
   PROFILE: '/profile',
   GROUP_OWNER: '/groups/owner',
-  GROUP_MEMBER: '/groups/member'
+  GROUP_MEMBER: '/groups/member',
+  PROFILE_EDIT: '/profile/edit'
 }
 
 export const UNITED_COOKIE = {
@@ -25,7 +26,8 @@ export const ENDPOINTS = {
   GROUPS_MEMBERSHIP: '/group/membership',
   GROUPS_OWNERSHIP: '/group/ownership',
   AWS_SIGNED_URL: '/file/s3url',
-  USER_SEARCH_AUTO_COMPLETE: '/user/search'
+  USER_SEARCH_AUTO_COMPLETE: '/user/search',
+  UPDATE_PROFILE: '/me'
 }
 
 export const NUXT_ASYNC_DATA_KEY = {
@@ -36,6 +38,8 @@ export const NUXT_ASYNC_DATA_KEY = {
 }
 
 export const STRING_DATA = {
+  UPDATE_PROFILE: 'Update profile',
+  CONFIRMATON: 'Confirmation',
   ACCOUNT: 'Account',
   APPROVE: 'Approve',
   REJECT: 'Reject',
@@ -115,7 +119,9 @@ export const ERROR_MESSAGE = {
   REPS_REQ: 'Reps is required',
   LOCATION_REQ: 'Location is required',
   GROUP_NAME_REQ: 'Group name is required',
-  EVENT_REQ: 'Event name is required'
+  EVENT_REQ: 'Event name is required',
+  NAME_REQ: 'Name is required',
+  REASON: 'Reason is required'
 }
 
 export const MESSAGES = {

@@ -1,15 +1,28 @@
 <script setup lang="ts">
 import Dialog from 'primevue/dialog'
-import { useConfirm } from 'primevue/useconfirm'
-const confirm = useConfirm()
+import { useVuelidate } from '@vuelidate/core'
+import { required, helpers } from '@vuelidate/validators'
 
-const { joinGroupService, leaveGroupService, fetchGroupDetailService } = useGroupsService()
+const { joinGroupService, leaveGroupService } = useGroupsService()
 const { loading, showLoading, hideLoading } = useLoader()
 const groupStore = useGroupStore()
 const userStore = useUserStore()
 const { groupData } = storeToRefs(groupStore)
 const { isAuthenticated } = storeToRefs(userStore)
-const { openModal, closeModal, showModal } = useModal()
+const { openModal, showModal } = useModal()
+const { openModal: openModalLeave, closeModal: closeModalLeave, showModal: showModalLeave } = useModal()
+
+const formData = reactive({
+  reason: ''
+})
+
+const rules = {
+  reason: {
+    required: helpers.withMessage(ERROR_MESSAGE.REASON, required)
+  }
+}
+
+const v$ = useVuelidate(rules, formData)
 
 const joinRequest = () => {
   showLoading()
@@ -18,7 +31,9 @@ const joinRequest = () => {
       groupId: groupData.value?._id ?? ''
     },
     success: (data) => {
-      refreshData()
+      const newData = data?.data
+      const updatedDate = getGroupStoreData(newData)
+      groupStore.setGroup(updatedDate)
       hideLoading()
     },
     fail: (data) => {
@@ -31,11 +46,15 @@ const leaveRequest = () => {
   showLoading()
   leaveGroupService({
     body: {
-      groupId: groupData.value?._id ?? ''
+      groupId: groupData.value?._id ?? '',
+      reason: formData?.reason ?? ''
     },
     success: (data) => {
-      refreshData()
+      const newData = data?.data
+      const updatedDate = getGroupStoreData(newData)
+      groupStore.setGroup(updatedDate)
       hideLoading()
+      closeModalLeave()
     },
     fail: (data) => {
       hideLoading()
@@ -50,34 +69,22 @@ const handleCreateGroup = () => {
   }
 
   if (groupData?.value?.isMember) {
-    confirmLeave()
+    // confirmLeave()
+    showModalLeave()
 
     return
   }
   joinRequest()
 }
 
-const refreshData = async () => {
-  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL)
-}
+const submitForm = async () => {
+  const result = await v$.value.$validate()
 
-const confirmLeave = () => {
-  confirm.require({
-    message: 'Are you sure you want to proceed?',
-    header: 'Confirmation',
-    icon: 'pi pi-exclamation-triangle',
-    rejectClass: 'p-button-secondary p-button-outlined',
-    rejectLabel: 'Cancel',
-    acceptLabel: 'Leave',
-    accept: () => {
-      leaveRequest()
-    },
-    reject: () => {
-      console.log('reject')
-    },
-    onShow: () => console.log('show'),
-    onHide: () => console.log('hide')
-  })
+  if (result) {
+    leaveRequest()
+  } else {
+    console.log('Invalid Form NOT Submitted')
+  }
 }
 
 </script>
@@ -91,6 +98,24 @@ const confirmLeave = () => {
     :breakpoints="PRIMEVUE_BREAKPOINTS"
   >
     <ModalsAuth />
+  </Dialog>
+
+  <Dialog v-model:visible="openModalLeave" modal :header="STRING_DATA.CONFIRMATON" :style="{ width: '40vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
+      <AtomsBaseInput
+        v-model="formData.reason"
+        :placeholder="'Enter reason'"
+        :label="'Reason to leave group'"
+        type="text"
+        :error-message="v$?.reason?.$error ? v$?.reason?.$errors?.[0]?.$message : ''
+        "
+      />
+      <NxActionButton
+        :is-loading="loading"
+        :button-label="STRING_DATA.LEAVE.toUpperCase()"
+        :is-submit="true"
+      />
+    </form>
   </Dialog>
   <div class="flex flex-col gap-4">
     <div class="flex gap-4 items-center justify-start">

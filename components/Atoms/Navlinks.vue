@@ -31,12 +31,14 @@ const iconcompute = computed(() => (!isTippyOpen.value ? 'fa-solid:caret-up' : '
         <tippy trigger="click" content-class="content-wrapper" @state="onStateChange">
           <template #default>
             <div class="cursor-pointer flex items-center" @click="toggleTippy">
-              <!-- <div class="avatar">
+              <div v-if="user?.profileImage" class="avatar">
                 <div class="w-12 rounded-full">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg">
+                  <img :src="user?.profileImage">
                 </div>
-              </div> -->
-              <NxAvatar :label="getInitials(user.name)" />
+              </div>
+              <template v-else>
+                <NxAvatar :label="getInitials(user?.name)" />
+              </template>
               <Icon :name="iconcompute" :width="'1.1rem'" :height="'1.1rem'" />
             </div>
           </template>

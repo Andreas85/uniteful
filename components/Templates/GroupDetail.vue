@@ -83,7 +83,7 @@ useResizeObserver(el, (entries) => {
         </template>
       </Card>
     </section>
-    <section v-if="isUserOwnerRoute">
+    <section v-if="groupData?.isOwner">
       <NxPolicySection />
     </section>
     <section>

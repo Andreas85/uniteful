@@ -139,7 +139,7 @@ export const useGroupsService = () => {
   }
 
   const leaveGroupService = async (payload: {
-    body: {groupId: string};
+    body: {groupId: string, reason: string};
     fail?: (error: any) => void;
     success?: (data: any) => void;
   }) => {

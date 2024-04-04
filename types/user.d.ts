@@ -5,6 +5,7 @@ interface IUser {
   type: string;
   name: string;
   email: string;
+  profileImage: string;
 }
 
 // ~/@types/news.d.ts

@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   const userStore = useUserStore()
-  const PRIVATE_ROUTES = ['/events', '/groups/owner']
+  const PRIVATE_ROUTES = ['/events', '/groups/owner', '/profile', '/profile/edit']
 
   // Function to check if the given path is a private route
   const isPrivateRoute = (path:string) => {

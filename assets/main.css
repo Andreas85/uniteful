@@ -160,6 +160,10 @@ body :focus-within {
   @apply w-52 h-52 rounded-full shadow-lg border border-gray-600 object-cover mx-auto;
 } 
 
+.profile-image-class {
+  @apply w-52 h-52 rounded-full shadow-lg border border-gray-600 object-cover mx-auto;
+}
+
 /* .p-card {
   @apply bg-[#f6f7f8]
 } */
@@ -198,4 +202,8 @@ body :focus-within {
 
 .p-paginator.p-component {
   @apply p-0
+}
+
+.group-card .p-card .p-card-header img{
+  @apply aspect-video w-full rounded-t-lg
 }
