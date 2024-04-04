@@ -38,6 +38,7 @@ export const NUXT_ASYNC_DATA_KEY = {
 }
 
 export const STRING_DATA = {
+  BACK: 'Back',
   UPDATE_PROFILE: 'Update profile',
   CONFIRMATON: 'Confirmation',
   ACCOUNT: 'Account',

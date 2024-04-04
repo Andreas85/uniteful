@@ -2,6 +2,7 @@
 import Card from 'primevue/card'
 import { useVuelidate } from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
+import Button from 'primevue/button'
 
 definePageMeta({
   middleware: ['privateroute']
@@ -115,6 +116,9 @@ watch(user, (newValue) => {
 <template>
   <div class="py-8">
     <div class="flex flex-col gap-4 lg:w-3/5 md:w-4/5 mx-auto">
+      <div class="flex items-center justify-end">
+        <Button :label="STRING_DATA.BACK.toUpperCase()" link @click="()=>navigateTo(ROUTE_CONSTANTS.PROFILE)" />
+      </div>
       <Card>
         <template #title>
           <div class="flex items-center justify-between gap-4">
