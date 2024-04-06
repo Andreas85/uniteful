@@ -1,13 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["privateroute"]
-})
-useHead({
-  title: `Your Groups | ${STRING_DATA.BRAND_NAME}`,
+  redirect: ROUTE_CONSTANTS.HOME
 })
 </script>
 <template>
-  <div class="py-8">
-    <TemplatesGroups />
-  </div>
+  home
 </template>

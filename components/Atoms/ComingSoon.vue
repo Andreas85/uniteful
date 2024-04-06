@@ -4,7 +4,7 @@ interface Props {
   showSearchImage?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 const { label, showSearchImage } = toRefs(props)
 
 </script>
@@ -14,7 +14,7 @@ const { label, showSearchImage } = toRefs(props)
       {{ label ?? STRING_DATA.COMING_SOON }}
     </template>
     <template v-else>
-      <img src="~/assets/img/search-image.png" class="lg:w-[30%] w-4/5" />
+      <img src="~/assets/img/search-image.png" class="lg:w-[30%] w-4/5">
     </template>
   </div>
 </template>

@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer tailwind-base, primevue, tailwind-utilities;
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
 :root {
   --brand-color: #0099ff;
   --btn-red: #dc3545;
@@ -14,6 +25,7 @@
 body {
   min-height: 100vh;
   word-break: break-all;
+  background: #f6f7f8;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -116,9 +128,82 @@ body :focus-within {
 }
 
 .content-wrapper {
-  @apply absolute -right-6 top-12 z-50 pointer-events-auto;
+  @apply absolute -right-6 z-50 pointer-events-auto;
+}
+
+.content-wrapper-three-dot-owner {
+  @apply absolute -top-[80px] -right-28 z-50 pointer-events-auto;
+}
+
+.content-wrapper-three-dot-moderator {
+  @apply absolute -top-[150px] -right-6 z-50 pointer-events-auto;
 }
 
 .custom-drawer-class {
   @apply fixed left-0 top-12 p-4 right-0 bg-white z-50 w-full transform duration-300 items-start bottom-0;
+}
+
+.p-fileupload .p-fileupload-buttonbar {
+  @apply flex justify-normal items-center gap-4 flex-wrap ;
+}
+
+.p-fileupload .p-fileupload-content .p-progressbar {
+  @apply hidden;
+}
+
+.p-fileupload .p-fileupload-content img {
+  @apply w-full aspect-video object-contain;
+
+}
+
+.p-fileupload .p-fileupload-content .has-profile-class img{
+  @apply w-52 h-52 rounded-full shadow-lg border border-gray-600 object-cover mx-auto;
+} 
+
+.profile-image-class {
+  @apply w-52 h-52 rounded-full shadow-lg border border-gray-600 object-cover mx-auto;
+}
+
+/* .p-card {
+  @apply bg-[#f6f7f8]
+} */
+
+.p-tabview .p-tabview-panels {
+  @apply bg-transparent
+}
+
+.p-tabview .p-tabview-nav-container .p-tabview-nav-content .p-tabview-nav {
+  @apply flex items-center justify-center bg-transparent
+}
+
+.p-tabview .p-tabview-nav-container .p-tabview-nav-content .p-tabview-nav .p-tabview-header a {
+  @apply bg-transparent
+}
+
+.breadcrumbs nav {
+  @apply bg-transparent p-0
+}
+
+.p-tabview .p-tabview-nav {
+  border-width: 0px;
+}
+
+.dropdown-class {
+  @apply w-full bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100
+}
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link {
+  @apply w-max
+}
+
+.p-avatar.p-avatar-lg {
+  @apply text-[1rem]
+}
+
+.p-paginator.p-component {
+  @apply p-0
+}
+
+.group-card .p-card .p-card-header img{
+  @apply aspect-video w-full rounded-t-lg
 }

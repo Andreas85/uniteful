@@ -1,65 +1,16 @@
 <script setup lang="ts">
-import { useVuelidate } from "@vuelidate/core";
-import { required, email, helpers } from "@vuelidate/validators";
 
 definePageMeta({
-  middleware: ["auth"]
+  middleware: ['auth']
 })
 
 useHead({
-  title: `Signup | ${STRING_DATA.BRAND_NAME}`,
+  title: `Signup | ${STRING_DATA.BRAND_NAME}`
 })
-
-const formData = reactive({
-  email: "",
-});
-
-const rules = {
-  email: {
-    required: helpers.withMessage(ERROR_MESSAGE.EMAIL_REQ, required),
-    email: helpers.withMessage(ERROR_MESSAGE.INVALID_EMAIL, email),
-  },
-};
-
-const v$ = useVuelidate(rules, formData);
-const submitForm = async () => {
-  const result = await v$.value.$validate();
-
-  if (result) {
-    const { email } = formData;
-    console.log("Api Call", email);
-    const payload = {
-      formData: {
-        input: email,
-      },
-    };
-
-    // login(payload);
-  } else {
-    console.log("Invalid Form NOT Submitted");
-  }
-};
 
 </script>
 <template>
   <div class="auth-section-class">
-    <div class="flex flex-col items-start gap-6 w-full">
-
-      <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-        {{ STRING_DATA.CREATE_ACCOUNT }}
-      </h2>
-      <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
-        <AtomsBaseInput v-model="formData.email" :placeholder="'Enter your email'" :label="'Email'" type="email"
-          :errorMessage="v$?.email?.$error ? v$?.email?.$errors?.[0]?.$message : ''
-          " />
-        <AtomsActionButton :isSubmit="true" :buttonLabel="STRING_DATA.REGISTER.toUpperCase()" />
-        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-          {{ STRING_DATA.ALREADY_HAVE_ACCOUNT }}
-          <NuxtLink :to="ROUTE_CONSTANTS.LOGIN" class="custom-link-class">
-            {{ STRING_DATA.LOGIN }}
-          </NuxtLink>
-        </p>
-      </form>
-    </div>
+    <TemplatesSignup />
   </div>
 </template>

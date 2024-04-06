@@ -21,7 +21,7 @@ function handleInput(event: any) {
 </script>
 <template>
   <div class="relative">
-    <AtomsSearchSvg :customClass="'absolute left-2 bottom-[0.6rem] h-[1.2rem] w-[1.2rem] mr-2'" />
+    <SVGSearchSvg :customClass="'absolute left-2 bottom-[0.6rem] h-[1.2rem] w-[1.2rem] mr-2'" />
 
     <input class="search-form-controls" :id="id" type="type" :value="modelValue" :placeholder="placeholder"
       :disabled="disabled" @input="handleInput" />

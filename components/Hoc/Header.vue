@@ -28,15 +28,19 @@ const toggleTopBar = () => {
   isMobileView.value.isOpenTopbar = !isMobileView.value.isOpenTopbar
 };
 
+const handleBrandClick = () => {
+  isMobileView.value.isOpenTopbar = false
+}
+
 </script>
 
 <template>
-  <div ref="navbarElement" class="navbar fixed top-0 bg-white z-50  border-b-2" :class="{
+  <div ref="navbarElement" class="navbar fixed top-0 bg-white z-20 border-b-2" :class="{
     'p-4': isMobileView.mobileView
     , 'px-4': !isMobileView.mobileView
   }">
     <template v-if="!isMobileView.mobileView">
-      <div class="lg:flex hidden flex-row items-center justify-between w-full">
+      <div class="flex flex-row items-center justify-between w-full">
         <div class="flex items-center justify-start gap-12">
           <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer ">
             {{ STRING_DATA.BRAND_NAME.toUpperCase() }}
@@ -50,15 +54,15 @@ const toggleTopBar = () => {
       <div class="flex flex-col w-full gap-4">
         <div class="flex items-center justify-between w-full relative bg-white">
           <template v-if="!isMobileView.isOpenTopbar">
-            <AtomsMenuSvg v-on:clicked="toggleTopBar" />
+            <SVGMenuSvg v-on:clicked="toggleTopBar" />
           </template>
           <template v-else>
-            <AtomsCrossSvg v-on:clicked="toggleTopBar" />
+            <SVGCrossSvg v-on:clicked="toggleTopBar" />
           </template>
-          <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer ">
+          <NuxtLink :to="ROUTE_CONSTANTS.HOME" class="text-xl font-bold cursor-pointer " @click="handleBrandClick">
             {{ STRING_DATA.BRAND_NAME.toUpperCase() }}
           </NuxtLink>
-          <AtomsSearchSvg :customClass="'h-[1.2rem] w-[1.2rem]'" v-on:clicked="toggleSearchClick" />
+          <SVGSearchSvg :customClass="'h-[1.2rem] w-[1.2rem]'" v-on:clicked="toggleSearchClick" />
 
         </div>
         <template v-if="searchSvgClicked">
