@@ -20,6 +20,7 @@ const fetchData = () => {
     query: { page: pageRef.value, limit: limitRef.value },
     success: (data) => {
       const { rows, count } = data
+      // console.log(count, limitRef.value, 'sdalkjadskljdasfkljsadfk;jl', Math.ceil(count / limitRef.value))
       groupData.value = rows
       totalPage.value = Math.ceil(count / limitRef.value)
       hideLoadingFetch()
@@ -31,13 +32,6 @@ const fetchData = () => {
 onMounted(() => {
   fetchData()
 })
-
-watch(groupData, (newValue) => {
-  if (newValue) {
-    const { count } = newValue
-    totalPage.value = Math.ceil(count / limitRef.value)
-  }
-}, { immediate: true })
 
 const handlePage = (e: PageState) => {
   const { page } = e
@@ -113,9 +107,9 @@ const leaveRequest = (reason: string) => {
     />
   </Dialog>
   <template v-if="loadingFetch">
-    <!-- <div class="flex items-center justify-center h-20">
-      <Loading />
-    </div> -->
+    <NxLoadingPage />
+  </template>
+  <template v-else-if="!totalPage">
     <NxLoadingPage />
   </template>
   <div v-else class="flex flex-col gap-4 ">
@@ -143,6 +137,7 @@ const leaveRequest = (reason: string) => {
               />
             </div>
           </div>
+          {{ JSON.stringify(totalPage) }}
           <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
         </template>
         <template v-else>

@@ -101,13 +101,13 @@ const leaveRequest = (reason: string) => {
       @submit="handleReject"
     />
   </Dialog>
-  <template v-if="loadingFetch">
-    <!-- <div class="flex items-center justify-center h-20">
-      <Loading />
-    </div> -->
+  <!-- <template v-if="loadingFetch">
     <NxLoadingPage />
   </template>
-  <Card v-else>
+    <template v-if="loadingFetch">
+    <NxLoadingPage />
+  </template> -->
+  <Card>
     <template #title>
       Pending requests
     </template>
@@ -131,6 +131,7 @@ const leaveRequest = (reason: string) => {
             />
           </div>
         </div>
+        {{ JSON.stringify(totalPage) }}
         <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
       </template>
       <template v-else>
