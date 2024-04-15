@@ -38,6 +38,7 @@ export const NUXT_ASYNC_DATA_KEY = {
 }
 
 export const STRING_DATA = {
+  WITHDRAW: 'Withdraw',
   BACK: 'Back',
   UPDATE_PROFILE: 'Update profile',
   CONFIRMATON: 'Confirmation',
@@ -46,7 +47,7 @@ export const STRING_DATA = {
   REJECT: 'Reject',
   MAKE_MODERATOR: 'Moderator',
   REMOVE: 'Remove',
-  GROUP_VALUES: 'Group Values',
+  GROUP_VALUES: 'Group values',
   JOIN: 'Join',
   LEAVE: 'Leave',
   GROUPS: 'Groups',

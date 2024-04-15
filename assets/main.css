@@ -207,3 +207,7 @@ body :focus-within {
 .group-card .p-card .p-card-header img{
   @apply aspect-video w-full rounded-t-lg
 }
+
+.otp-break-words {
+  word-break: break-word;
+}

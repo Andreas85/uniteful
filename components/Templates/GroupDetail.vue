@@ -93,7 +93,7 @@ useResizeObserver(el, (entries) => {
       <NxGroupMembers :member-id=" groupData?._id" />
     </section>
     <section>
-      <NxGroupJoinRequests v-if="isUserOwnerRoute && (groupData?.isOwner || groupData?.isModerator)" />
+      <NxGroupJoinRequests v-if="isUserOwnerRoute && (groupData?.isOwner || groupData?.isModerator)" :id="groupData?._id" />
     </section>
   </div>
 </template>

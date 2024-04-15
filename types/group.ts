@@ -48,6 +48,7 @@ interface IGroup {
   isOwner: boolean;
   isMember: boolean;
   isModerator: boolean;
+  hasPendingJoinRequest: boolean;
   userMap: any[];
   isOrdinaryUser?: boolean; // add at client side
 }

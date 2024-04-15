@@ -103,7 +103,7 @@ const signUsingOtpRequest = () => {
     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
       {{ STRING_DATA.VERIFY_EMAIL_MESSAGE }}
     </h1>
-    <p>
+    <p class="otp-break-words">
       We have send an OTP on you email {{ email }}
 
       &nbsp;(<span class="custom-link-class" @click="resetOtpData">{{ STRING_DATA.CHANGE }}</span>)

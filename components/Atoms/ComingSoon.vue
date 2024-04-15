@@ -1,15 +1,24 @@
 <script setup lang="ts">
 interface Props {
+  customClass?: string;
   label?: string;
   showSearchImage?: boolean;
 }
 
 const props = defineProps<Props>()
-const { label, showSearchImage } = toRefs(props)
+const { label, customClass, showSearchImage } = toRefs(props)
+
+const classes = computed(() => {
+  if (customClass.value) {
+    return customClass.value
+  } else {
+    return 'flex items-center justify-center min-h-[70vh]'
+  }
+})
 
 </script>
 <template>
-  <div class="flex items-center justify-center min-h-[70vh]">
+  <div :class="classes">
     <template v-if="!showSearchImage">
       {{ label ?? STRING_DATA.COMING_SOON }}
     </template>

@@ -68,7 +68,7 @@ const handleCreateGroup = () => {
     return
   }
 
-  if (groupData?.value?.isMember) {
+  if (groupData?.value?.hasPendingJoinRequest || groupData?.value?.isMember) {
     // confirmLeave()
     showModalLeave()
 
@@ -100,7 +100,13 @@ const submitForm = async () => {
     <ModalsAuth />
   </Dialog>
 
-  <Dialog v-model:visible="openModalLeave" modal :header="STRING_DATA.CONFIRMATON" :style="{ width: '40vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+  <Dialog
+    v-model:visible="openModalLeave"
+    modal
+    :header="STRING_DATA.CONFIRMATON"
+    :style="{ width: '40vw' }"
+    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+  >
     <form class="w-full flex flex-col gap-6" @submit.prevent="submitForm">
       <AtomsBaseInput
         v-model="formData.reason"
@@ -110,11 +116,7 @@ const submitForm = async () => {
         :error-message="v$?.reason?.$error ? v$?.reason?.$errors?.[0]?.$message : ''
         "
       />
-      <NxActionButton
-        :is-loading="loading"
-        :button-label="STRING_DATA.LEAVE.toUpperCase()"
-        :is-submit="true"
-      />
+      <NxActionButton :is-loading="loading" :button-label="STRING_DATA.LEAVE.toUpperCase()" :is-submit="true" />
     </form>
   </Dialog>
   <div class="flex flex-col gap-4">
@@ -129,11 +131,14 @@ const submitForm = async () => {
     <AtomsIconLabel :icon="'material-symbols:description-outline'">
       {{ groupData?.description ?? '-' }}
     </AtomsIconLabel>
+    <AtomsIconLabel v-if="groupData?.isModerator" :icon="'carbon:user-role'">
+      Moderator
+    </AtomsIconLabel>
     <div v-if="!groupData?.isOwner" class="flex justify-end items-center ">
       <NxActionButton
-        v-if="groupData?.isMember"
+        v-if="groupData?.hasPendingJoinRequest || groupData?.isMember"
         :is-delete-button="true"
-        :button-label="STRING_DATA.LEAVE.toUpperCase()"
+        :button-label="groupData?.hasPendingJoinRequest ? STRING_DATA.WITHDRAW.toUpperCase() : STRING_DATA.LEAVE.toUpperCase()"
         @click="handleCreateGroup"
       />
       <NxActionButton

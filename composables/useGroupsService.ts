@@ -74,17 +74,30 @@ export const useGroupsService = () => {
     }
   }
 
-  const fetchGroupMembershipService = async (data: {
-    limit: string;
-    page: string;
+  const fetchGroupMembershipService = async (payload: {
+    query: { limit?: number; page?: number };
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
   }) => {
-    const { limit, page } = data
-    const response = await $api(ENDPOINTS.GROUPS_MEMBERSHIP, {
-      method: 'GET',
-      query: { page, limit }
-    })as any
-    const sendResponse = response.data
-    return sendResponse
+    const { success, fail, query } = payload
+    const { limit, page } = query
+    try {
+      const URL = ENDPOINTS.GROUPS_MEMBERSHIP
+      const response = (await $api(URL, {
+        method: 'GET',
+        query: { page, limit }
+      })) as any
+      success?.(response.data)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+    // const { limit, page } = data
+    // const response = await $api(ENDPOINTS.GROUPS_MEMBERSHIP, {
+    //   method: 'GET',
+    //   query: { page, limit }
+    // })as any
+    // const sendResponse = response.data
+    // return sendResponse
   }
 
   const fetchUserSearchervice = async (data: {
@@ -156,6 +169,117 @@ export const useGroupsService = () => {
     }
   }
 
+  const pendingReqeustForGroupService = async (payload: {
+    query: { limit: number; page: number };
+    groupId: string;
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
+  }) => {
+    const { success, fail, query, groupId } = payload
+    const { limit, page } = query
+    try {
+      const URL = ENDPOINTS.GROUPS + `/${groupId}` + '/pending-requests'
+      const response = (await $api(URL, {
+        method: 'GET',
+        query: { page, limit }
+      })) as any
+      success?.(response.data)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
+  const approveMemberRequestService = async (payload: {
+      body: { groupId: string };
+      fail?: (error: any) => void;
+      success?: (data: any) => void;
+    }) => {
+    const { body, success, fail } = payload
+    try {
+      const URL = ENDPOINTS.GROUPS + '/approve'
+      const response = (await $api(URL, {
+        method: 'POST',
+        body
+      })) as any
+      success?.(response)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
+  const rejectMemberRequestService = async (payload: {
+      body: { groupId: string };
+      fail?: (error: any) => void;
+      success?: (data: any) => void;
+    }) => {
+    const { body, success, fail } = payload
+    try {
+      const URL = ENDPOINTS.GROUPS + '/reject'
+      const response = (await $api(URL, {
+        method: 'POST',
+        body
+      })) as any
+      success?.(response)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
+  const makeModeratorRequestService = async (payload: {
+    body: { groupId: string; memberId:string };
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
+  }) => {
+    const { body, success, fail } = payload
+    try {
+      const URL = ENDPOINTS.GROUPS + '/make-moderator'
+      const response = (await $api(URL, {
+        method: 'POST',
+        body
+      })) as any
+      success?.(response)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
+  const removeModeratorRequestService = async (payload: {
+      body: { groupId: string; memberId: string, reason?:string };
+      fail?: (error: any) => void;
+      success?: (data: any) => void;
+    }) => {
+    const { body, success, fail } = payload
+    try {
+      const URL = ENDPOINTS.GROUPS + '/remove-moderator'
+      const response = (await $api(URL, {
+        method: 'POST',
+        body
+      })) as any
+      success?.(response)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
+  const myPendingGroupReqeustService = async (payload: {
+      query: { limit?: number; page?: number };
+      fail?: (error: any) => void;
+      success?: (data: any) => void;
+    }) => {
+    const { success, fail, query } = payload
+    const { limit, page } = query
+    try {
+      const URL = ENDPOINTS.GROUPS + '/my-pending-requests'
+      const response = (await $api(URL, {
+        method: 'GET',
+        query: { page, limit }
+      })) as any
+      success?.(response.data)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
   return {
     createGroupService,
     fetchGroupsService,
@@ -166,6 +290,12 @@ export const useGroupsService = () => {
     fetchUserSearchervice,
     fetchGroupMemberService,
     joinGroupService,
-    leaveGroupService
+    leaveGroupService,
+    pendingReqeustForGroupService,
+    approveMemberRequestService,
+    rejectMemberRequestService,
+    makeModeratorRequestService,
+    removeModeratorRequestService,
+    myPendingGroupReqeustService
   }
 }

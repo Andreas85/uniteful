@@ -16,7 +16,11 @@ const { groupData } = storeToRefs(groupStore)
           {{ item }}
         </li>
       </ul>
-      <AtomsComingSoon v-else :label="'Group values not found'" />
+      <AtomsComingSoon
+        v-else
+        :custom-class="'flex items-center justify-center h-20'"
+        :label="'Group values not found'"
+      />
     </template>
   </Card>
 </template>
