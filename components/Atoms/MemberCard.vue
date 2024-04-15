@@ -71,7 +71,7 @@ const handleSelectMenu = () => {
     </div>
     <div class="flex flex-col">
       <div>{{ name ?? email }}</div>
-      <div>{{ getRequiredDataFormat(joinedAt) }}</div>
+      <div>{{ formattedDateAndTime(joinedAt) }}</div>
     </div>
   </div>
   <div v-if="(!groupData?.isOrdinaryUser && isAuthenticated)" class="relative">

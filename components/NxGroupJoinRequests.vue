@@ -12,7 +12,7 @@ const { loading, showLoading, hideLoading } = useLoader()
 
 const confirm = useConfirm()
 const route = useRoute()
-
+const selectedData = ref<any>({})
 const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
 const groupId = ref('')
 const groupMember = ref<any>([])
@@ -62,7 +62,8 @@ const approveRequestService = () => {
   showLoading()
   approveMemberRequestService({
     body: {
-      groupId: groupId.value ?? ''
+      groupId: groupId.value ?? '',
+      memberId: selectedData.value?.member?._id ?? ''
     },
     success: (data) => {
       console.log('hit', data)
@@ -79,7 +80,8 @@ const rejectRequestService = (reason:string) => {
   showLoading()
   rejectMemberRequestService({
     body: {
-      groupId: groupId.value ?? ''
+      groupId: groupId.value ?? '',
+      memberId: selectedData.value?.member?._id ?? ''
       // reason: reason ?? ''
     },
     success: (data) => {
@@ -120,6 +122,11 @@ const handleReject = (event: {reason:string}) => {
 
 const rejectRequest = () => {
   confirmReject()
+}
+
+const menuSelect = (member: { value: any; }) => {
+  console.log(member.value, 'asdfasdf')
+  selectedData.value = member.value
 }
 
 const approveRequest = () => {
@@ -184,6 +191,7 @@ const updatePage = (newPage: number) => {
               :name="member?.member?.name"
               :email="member?.member?.email"
               :joined-at="member?.joinedAt"
+              @menu-select="menuSelect"
             />
           </div>
         </div>

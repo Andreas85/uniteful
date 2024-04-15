@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import Card from 'primevue/card'
 import Dialog from 'primevue/dialog'
+import Loading from '../Atoms/Loading.vue'
 
 const { openModal, closeModal, showModal } = useModal()
 const { loading, showLoading, hideLoading } = useLoader()
+const { loading: loadingFetch, showLoading: showLoadingFetch, hideLoading: hideLoadingFetch } = useLoader()
 const selectedData = ref<any>({})
 const groupData = ref<any>([])
 
@@ -13,14 +15,17 @@ const { fetchGroupMembershipService, leaveGroupService } = useGroupsService()
 // const { data: groupData, pending, refresh } = useFetch(() => fetchGroupMembershipService({ page: pageRef.value, limit: limitRef.value }))
 
 const fetchData = () => {
+  showLoadingFetch()
   fetchGroupMembershipService({
     query: { page: pageRef.value, limit: limitRef.value },
     success: (data) => {
       const { rows, count } = data
       groupData.value = rows
       totalPage.value = Math.ceil(count / limitRef.value)
+      hideLoadingFetch()
     }
   })
+  // hideLoadingFetch()
 }
 
 onMounted(() => {
@@ -107,7 +112,13 @@ const leaveRequest = (reason: string) => {
       @submit="handleReject"
     />
   </Dialog>
-  <div class="flex flex-col gap-4 ">
+  <template v-if="loadingFetch">
+    <!-- <div class="flex items-center justify-center h-20">
+      <Loading />
+    </div> -->
+    <NxLoadingPage />
+  </template>
+  <div v-else class="flex flex-col gap-4 ">
     <Card>
       <template #title>
         Joined groups

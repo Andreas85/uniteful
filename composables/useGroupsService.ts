@@ -190,10 +190,10 @@ export const useGroupsService = () => {
   }
 
   const approveMemberRequestService = async (payload: {
-      body: { groupId: string };
-      fail?: (error: any) => void;
-      success?: (data: any) => void;
-    }) => {
+    body: { groupId: string; memberId:string };
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
+  }) => {
     const { body, success, fail } = payload
     try {
       const URL = ENDPOINTS.GROUPS + '/approve'
@@ -208,7 +208,7 @@ export const useGroupsService = () => {
   }
 
   const rejectMemberRequestService = async (payload: {
-      body: { groupId: string };
+      body: { groupId: string, memberId:string  };
       fail?: (error: any) => void;
       success?: (data: any) => void;
     }) => {

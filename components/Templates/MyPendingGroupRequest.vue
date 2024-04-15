@@ -10,6 +10,7 @@ const selectedData = ref<any>({})
 
 const { openModal, closeModal, showModal } = useModal()
 const { loading, showLoading, hideLoading } = useLoader()
+const { loading: loadingFetch, showLoading: showLoadingFetch, hideLoading: hideLoadingFetch } = useLoader()
 
 const handlePage = (e: PageState) => {
   const { page } = e
@@ -25,12 +26,14 @@ const updatePage = (newPage: number) => {
 }
 
 const fetchData = () => {
+  showLoadingFetch()
   myPendingGroupReqeustService({
     query: { page: pageRef.value, limit: limitRef.value },
     success: (data) => {
       const { rows, count } = data
       groupData.value = rows
       totalPage.value = Math.ceil(count / limitRef.value)
+      hideLoadingFetch()
     }
   })
 }
@@ -98,7 +101,13 @@ const leaveRequest = (reason: string) => {
       @submit="handleReject"
     />
   </Dialog>
-  <Card>
+  <template v-if="loadingFetch">
+    <!-- <div class="flex items-center justify-center h-20">
+      <Loading />
+    </div> -->
+    <NxLoadingPage />
+  </template>
+  <Card v-else>
     <template #title>
       Pending requests
     </template>
