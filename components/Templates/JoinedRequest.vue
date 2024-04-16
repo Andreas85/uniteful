@@ -90,6 +90,12 @@ const leaveRequest = (reason: string) => {
   })
 }
 
+const hasRequiredData = computed(() => {
+  const result = (groupData.value?.length && totalPage.value !== 0)
+  // console.log(result, 'result')
+  return result
+})
+
 </script>
 <template>
   <Dialog
@@ -106,19 +112,21 @@ const leaveRequest = (reason: string) => {
       @submit="handleReject"
     />
   </Dialog>
-  <template v-if="loadingFetch">
-    <NxLoadingPage />
-  </template>
-  <template v-else-if="!totalPage">
-    <NxLoadingPage />
-  </template>
-  <div v-else class="flex flex-col gap-4 ">
+  <div class="flex flex-col gap-4 ">
     <Card>
       <template #title>
         Joined groups
       </template>
       <template #content>
-        <template v-if="groupData?.length">
+        <template v-if="loadingFetch">
+          <NxLoadingPage :custom-class="'flex items-center justify-center h-20'" />
+        </template>
+
+        <div v-else-if="!hasRequiredData">
+          <AtomsComingSoon :custom-class="'flex items-center justify-center h-20'" :label="'Joined request not found'" />
+        </div>
+
+        <template v-else>
           <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
             <div
               v-for="( group, index ) in groupData"
@@ -137,14 +145,7 @@ const leaveRequest = (reason: string) => {
               />
             </div>
           </div>
-          {{ JSON.stringify(totalPage) }}
           <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
-        </template>
-        <template v-else>
-          <AtomsComingSoon
-            :custom-class="'flex items-center justify-center h-20'"
-            :label="'Pending requests not found'"
-          />
         </template>
       </template>
     </Card>

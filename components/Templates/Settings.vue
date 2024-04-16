@@ -21,7 +21,7 @@ const toggleImageView = () => {
     <!-- @click="handleProfileUpdate" -->
     <div class="flex flex-col gap-4 lg:w-3/5 md:w-4/5 mx-auto">
       <div class="flex items-center justify-end">
-        <Button :label="STRING_DATA.UPDATE_PROFILE.toUpperCase()" link @click="()=>navigateTo(ROUTE_CONSTANTS.PROFILE_EDIT)" />
+        <Button :label="STRING_DATA.EDIT_PROFILE.toUpperCase()" link @click="()=>navigateTo(ROUTE_CONSTANTS.PROFILE_EDIT)" />
       </div>
       <Card>
         <template #title>
