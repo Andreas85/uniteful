@@ -40,7 +40,7 @@ const submitForm = async () => {
     const { eventName, location, group, startDate, duration } = formData
     const payload = {
       formData: {
-        name: eventName, location, group: group?.id, startDate: getISODate(startDate), duration: getISODate(duration)
+        name: eventName, location, group: group?.id, startDate: getISODate(startDate), duration
       }
     }
     // console.log(payload, 'modalcompo')
@@ -126,7 +126,7 @@ const handleDurationInput = (field: any, event: any) => {
           v-model="formData.duration"
           :placeholder="'Enter duration'"
           :label="'Duration'"
-          :type="'text'"
+          type="text"
           :show-hint="true"
           :error-message="v$?.duration?.$error ? v$?.duration?.$errors?.[0]?.$message : ''"
           @input="handleDurationInput('duration', $event)"
