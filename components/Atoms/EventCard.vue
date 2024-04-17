@@ -18,11 +18,15 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  date: {
+    type: String,
+    default: ''
+  },
   item: { type: Object, default: () => { } }
 })
 
 const emit = defineEmits(['clicked'])
-const { customClass, item, name, description, image } = toRefs(props)
+const { customClass, date, item, name, description, image } = toRefs(props)
 
 const moveToDetail = () => {
   emit('clicked', { _id: item.value._id, data: item.value })
@@ -43,7 +47,7 @@ const moveToDetail = () => {
       <template #content>
         <div class="flex flex-col gap-4">
           <p class="flex-1 line-clamp-2">
-            {{ description ?? '-' }}
+            {{ formattedDateAndTime(date) }}
           </p>
         </div>
       </template>

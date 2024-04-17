@@ -20,7 +20,7 @@ const formData = reactive({
   location: '',
   group: '',
   startDate: '',
-  endDate: ''
+  duration: ''
 })
 
 const rules = {
@@ -37,10 +37,10 @@ const submitForm = async () => {
   const result = await v$.value.$validate()
 
   if (result) {
-    const { eventName, location, group, startDate, endDate } = formData
+    const { eventName, location, group, startDate, duration } = formData
     const payload = {
       formData: {
-        name: eventName, location, group: group?.id, startDate: getISODate(startDate), endDate: getISODate(endDate)
+        name: eventName, location, group: group?.id, startDate: getISODate(startDate), duration: getISODate(duration)
       }
     }
     // console.log(payload, 'modalcompo')
@@ -73,6 +73,15 @@ const suggestedGroup = async () => {
 onBeforeMount(() => {
   suggestedGroup()
 })
+
+const handleDurationInput = (field: any, event: any) => {
+  const value = parseInt(event.target.value)
+  if (!isNaN(value) && value) {
+    formData[field] = value
+    return
+  }
+  formData[field] = null
+}
 
 </script>
 <template>
@@ -111,9 +120,17 @@ onBeforeMount(() => {
           :label="'Start date'"
           :type="'date'"
           :min="getTodayDate()"
-          @input="handleInput('endDate')"
+          @input="handleInput('startDate')"
         />
-        <AtomsBaseInput v-model="formData.endDate" :label="'End date'" :type="'date'" :min="formData.startDate" />
+        <AtomsBaseInput
+          v-model="formData.duration"
+          :placeholder="'Enter duration'"
+          :label="'Duration'"
+          :type="'text'"
+          :show-hint="true"
+          :error-message="v$?.duration?.$error ? v$?.duration?.$errors?.[0]?.$message : ''"
+          @input="handleDurationInput('duration', $event)"
+        />
         <span v-if="errorResponse" class="errorClass">{{
           errorResponse
         }}</span>

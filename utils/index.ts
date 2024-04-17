@@ -131,7 +131,8 @@ export const ERROR_MESSAGE = {
   GROUP_NAME_REQ: 'Group name is required',
   EVENT_REQ: 'Event name is required',
   NAME_REQ: 'Name is required',
-  REASON: 'Reason is required'
+  REASON: 'Reason is required',
+  EVENT_NAME_REQ: 'Event name is required'
 }
 
 export const MESSAGES = {

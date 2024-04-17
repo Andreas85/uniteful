@@ -69,7 +69,14 @@ const handleCardClicked = (props: { _id: string, data: IGroup }) => {
     <template v-if="eventData?.length">
       <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
         <div v-for="(item, index) in eventData" :key="index">
-          <AtomsEventCard :item="item" :name="item?.name" :description="item?.description" :image="item?.image" @clicked="handleCardClicked" />
+          <AtomsEventCard
+            :date="item?.createdAt"
+            :item="item"
+            :name="item?.name"
+            :description="item?.description"
+            :image="item?.image"
+            @clicked="handleCardClicked"
+          />
         </div>
       </div>
     </template>

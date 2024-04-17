@@ -25,14 +25,6 @@ const items = ref([
   {
     items: [
       {
-        label: 'Moderator',
-        icon: 'pi pi-user-plus',
-        command: () => {
-          // console.log(selectedData.value, 'moderationitem')
-          moderatorRequest()
-        }
-      },
-      {
         label: 'Remove',
         icon: 'pi pi-trash',
         command: () => {
@@ -191,7 +183,7 @@ const menuSelect = (member:{value:any}) => {
   </Dialog>
   <Card>
     <template #title>
-      Event members
+      Event attendee
     </template>
     <template v-if="eventMember.length> 0" #content>
       <div class="grid lg:grid-cols-3 gap-4">
@@ -203,8 +195,8 @@ const menuSelect = (member:{value:any}) => {
           <AtomsMemberCard
             :member="member"
             :menu-items="items"
-            :name="member?.member?.name"
-            :email="member?.member?.email"
+            :name="member?.attendee?.name"
+            :email="member?.attendee?.email"
             :joined-at="member?.joinedAt"
             @menu-select="menuSelect"
           />
@@ -216,4 +208,4 @@ const menuSelect = (member:{value:any}) => {
       <AtomsComingSoon :label="STRING_DATA.MEMBER_NOT_FOUND" :custom-class="'flex items-center justify-center h-20'" />
     </template>
   </Card>
-</template>: any: { value: {}; }
+</template>

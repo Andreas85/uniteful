@@ -135,7 +135,7 @@ const hasRequiredData = computed(() => {
                 :menu-items="items"
                 :name="event?.name"
                 :email="event?.email"
-                :joined-at="event?.joinedAt"
+                :joined-at="event?.createdAt"
                 :show-group-icon="true"
                 @menu-select="menuSelect"
               />

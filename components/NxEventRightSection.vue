@@ -120,7 +120,7 @@ const submitForm = async () => {
   <div class="flex flex-col gap-4">
     <div class="flex gap-4 items-center justify-start">
       <AtomsIconLabel :icon="'material-symbols:group-outline'">
-        {{ eventData?.totalMembers ?? '-' }} members
+        {{ eventData?.totalAttendee ?? '0' }} attendee
       </AtomsIconLabel>
     </div>
     <AtomsIconLabel :icon="'mdi:user-outline'">

@@ -65,7 +65,7 @@ watch(data, (newValue) => {
 
     <Card>
       <template #title>
-        Group admission
+        Admission policy
       </template>
       <template #content>
         <div class="flex flex-col gap-6">

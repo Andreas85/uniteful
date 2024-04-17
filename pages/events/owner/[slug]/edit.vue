@@ -55,7 +55,7 @@ const handleUpdateGroup = (data: any) => {
   </template>
   <template v-else>
     <div class="py-8">
-      <NxGroupEditForm :user-data="sanitizedUserDetail(user)" :loading="loading" @handle-submit="handleUpdateGroup" />
+      <NxEventEditForm :user-data="sanitizedUserDetail(user)" :loading="loading" @handle-submit="handleUpdateGroup" />
     </div>
   </template>
 </template>
