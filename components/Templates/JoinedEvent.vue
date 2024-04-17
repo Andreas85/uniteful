@@ -6,19 +6,19 @@ const { openModal, closeModal, showModal } = useModal()
 const { loading, showLoading, hideLoading } = useLoader()
 const { loading: loadingFetch, showLoading: showLoadingFetch, hideLoading: hideLoadingFetch } = useLoader()
 const selectedData = ref<any>({})
-const groupData = ref<any>([])
+const eventData = ref<any>([])
 
 const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
 
-const { fetchGroupMembershipService, leaveGroupService } = useGroupsService()
+const { fetchEventMembershipService, leaveEventService } = useEventsService()
 
 const fetchData = () => {
   showLoadingFetch()
-  fetchGroupMembershipService({
+  fetchEventMembershipService({
     query: { page: pageRef.value, limit: limitRef.value },
     success: (data) => {
       const { rows, count } = data
-      groupData.value = rows
+      eventData.value = rows
       totalPage.value = Math.ceil(count / limitRef.value)
       hideLoadingFetch()
     }
@@ -59,19 +59,19 @@ const items = ref([
 
 const menuSelect = (member: { value: any; }) => {
   selectedData.value = member.value
+  // console.log(member.value)
 }
 
 const handleReject = ({ reason }: { reason: string }) => {
-  console.log('api hit', selectedData.value)
+  // console.log('api hit', selectedData.value)
   leaveRequest(reason)
-  // closeModal()
 }
 
 const leaveRequest = (reason: string) => {
   showLoading()
-  leaveGroupService({
+  leaveEventService({
     body: {
-      groupId: selectedData.value?.group?._id ?? '',
+      eventId: selectedData.value?._id ?? '',
       reason: reason ?? ''
     },
     success: (data) => {
@@ -87,7 +87,7 @@ const leaveRequest = (reason: string) => {
 }
 
 const hasRequiredData = computed(() => {
-  const result = (groupData.value?.length && totalPage.value !== 0)
+  const result = (eventData.value?.length && totalPage.value !== 0)
   // console.log(result, 'result')
   return result
 })
@@ -102,7 +102,7 @@ const hasRequiredData = computed(() => {
     :breakpoints="PRIMEVUE_BREAKPOINTS"
   >
     <ModalsAskReason
-      :field-label="'Reason to leave group'"
+      :field-label="'Reason to leave event'"
       :loading="loading"
       :button-label="'Leave'"
       @submit="handleReject"
@@ -111,7 +111,7 @@ const hasRequiredData = computed(() => {
   <div class="flex flex-col gap-4 ">
     <Card>
       <template #title>
-        Joined groups
+        Joined Events
       </template>
       <template #content>
         <template v-if="loadingFetch">
@@ -125,17 +125,17 @@ const hasRequiredData = computed(() => {
         <template v-else>
           <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
             <div
-              v-for="( group, index ) in groupData"
+              v-for="( event, index ) in eventData"
               :key="index"
               class="border p-2 shadow rounded-lg border-gray-400 flex items-center justify-between gap-4"
             >
               <AtomsMemberCard
-                :member="group"
+                :member="event"
                 :is-request-member-card="true"
                 :menu-items="items"
-                :name="group?.group?.name"
-                :email="group?.group?.email"
-                :joined-at="group?.joinedAt"
+                :name="event?.name"
+                :email="event?.email"
+                :joined-at="event?.joinedAt"
                 :show-group-icon="true"
                 @menu-select="menuSelect"
               />

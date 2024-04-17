@@ -15,11 +15,7 @@ const { loading, showLoading, hideLoading } = useLoader()
 const { createGroupService } = useGroupsService()
 const errorResponse = ref('')
 
-const handleBack = () => {
-  navigateTo(ROUTE_CONSTANTS.HOME)
-}
-
-const addGroup = async (payload) => {
+const addGroup = async (payload:any) => {
   try {
     showLoading()
     console.log(payload)

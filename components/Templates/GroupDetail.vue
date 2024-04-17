@@ -84,7 +84,7 @@ useResizeObserver(el, (entries) => {
       </Card>
     </section>
     <section v-if="groupData?.isOwner">
-      <NxPolicySection />
+      <NxPolicySection :data="groupData" />
     </section>
     <section>
       <NxGroupValueRender />

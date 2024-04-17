@@ -44,7 +44,7 @@ const buttonClasses = computed(() => {
   } else if (props.isActionButton) {
     return 'custom-action-button-class bg-action-btn text-white'
   } else {
-    return 'btn-active'
+    return 'custom-action-button-class btn-active'
   }
 })
 </script>

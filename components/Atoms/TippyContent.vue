@@ -12,7 +12,7 @@ const handlelogout = () => {
 <template>
   <div class="bg-white border border-gray-400 shadow-lg p-4 rounded-lg text-sm min-w-60 ">
     <div class="flex flex-col gap-4">
-      <NuxtLink :to="ROUTE_CONSTANTS.EVENTS">
+      <NuxtLink :to="ROUTE_CONSTANTS.EVENTS_OWNER">
         {{ STRING_DATA.YOUR_EVENTS }}
       </NuxtLink>
       <NuxtLink :to="ROUTE_CONSTANTS.GROUP_OWNER">

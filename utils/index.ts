@@ -9,7 +9,9 @@ export const ROUTE_CONSTANTS = {
   PROFILE: '/profile',
   GROUP_OWNER: '/groups/owner',
   GROUP_MEMBER: '/groups/member',
-  PROFILE_EDIT: '/profile/edit'
+  PROFILE_EDIT: '/profile/edit',
+  EVENTS_OWNER: '/events/owner',
+  EVENTS_MEMBER: '/events/member'
 }
 
 export const UNITED_COOKIE = {
@@ -27,17 +29,22 @@ export const ENDPOINTS = {
   GROUPS_OWNERSHIP: '/group/ownership',
   AWS_SIGNED_URL: '/file/s3url',
   USER_SEARCH_AUTO_COMPLETE: '/user/search',
-  UPDATE_PROFILE: '/me'
+  UPDATE_PROFILE: '/me',
+  EVENTS: '/event',
+  EVENTS_OWNERSHIP: '/event/ownership'
 }
 
 export const NUXT_ASYNC_DATA_KEY = {
+  EVENTS: 'events',
   OWNER_GROUP: 'owner-group',
+  OWNER_EVENT: 'owner-event',
   OWNER_GROUP_DETAIL: 'owner-group-detail',
   HOME_PAGE_GROUP: 'home-page-group',
   HOME_PAGE_GROUP_DETAIL: 'home-page-group'
 }
 
 export const STRING_DATA = {
+  EVENTS_OWNER: 'Event owner',
   EDIT_PROFILE: 'Edit profile',
   WITHDRAW: 'Withdraw',
   BACK: 'Back',
@@ -140,6 +147,11 @@ export const URL_ROUTES = [
   {
     label: STRING_DATA.YOUR_EVENTS,
     path: ROUTE_CONSTANTS.EVENTS,
+    icon: 'ic:outline-emoji-events'
+  },
+  {
+    label: STRING_DATA.EVENTS_OWNER,
+    path: ROUTE_CONSTANTS.EVENTS_OWNER,
     icon: 'ic:outline-emoji-events',
     isAuthenticatedRoute: true
   },

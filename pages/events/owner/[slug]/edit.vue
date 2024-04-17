@@ -7,9 +7,9 @@ definePageMeta({
 const route = useRoute()
 const router = useRouter()
 const emit = defineEmits(['handle-submit'])
-const { fetchGroupDetailService } = useGroupsService()
-const { updateGroupService } = useGroupsService()
-const { data: user, refresh, pending, status } = await useAsyncData(() => fetchGroupDetailService({ id: route.params.slug?.toString() }))
+const { fetchEventDetailService, updateEventService } = useEventsService()
+
+const { data: user, refresh, pending, status } = await useAsyncData(() => fetchEventDetailService({ id: route.params.slug?.toString() }))
 
 const { loading, showLoading, hideLoading } = useLoader()
 const toast = useToast()
@@ -18,17 +18,17 @@ const showSuccess = () => {
   toast.add({ severity: 'success', summary: 'Success Message', detail: 'Updated', life: 3000 })
 }
 
-const showError = (message:string) => {
+const showError = (message: string) => {
   toast.add({ severity: 'error', summary: 'Error Message', detail: message ?? 'Message Content', life: 3000 })
 }
 
 const back = () => {
-  navigateTo(ROUTE_CONSTANTS.GROUP_OWNER + '/' + route.params.slug)
+  navigateTo(ROUTE_CONSTANTS.EVENTS_OWNER + '/' + route.params.slug)
 }
-const upateGroup = async (payload:any) => {
+const upateGroup = async (payload: any) => {
   try {
     showLoading()
-    const response = await updateGroupService({ id: user.value._id?.toString() ?? '', formData: payload })
+    const response = await updateEventService({ id: user.value._id?.toString() ?? '', formData: payload })
     showSuccess()
     back()
   } catch (error) {

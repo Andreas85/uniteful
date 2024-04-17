@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import _ from 'lodash'
 
+definePageMeta({
+  middleware: ['privateroute']
+})
+
 const { fetchEventDetailService } = useEventsService()
 const { setEvent } = useEventStore()
 const route = useRoute()

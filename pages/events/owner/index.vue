@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['privateroute']
+})
 
 useHead({
   title: `Events | ${STRING_DATA.BRAND_NAME}`
@@ -7,8 +10,8 @@ useHead({
 const route = useRoute()
 const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
 
-const { fetchEventsService } = useEventsService()
-const { data: EventData, refresh, pending } = useAsyncData(NUXT_ASYNC_DATA_KEY.EVENTS, () => fetchEventsService({ page: pageRef.value, limit: limitRef.value }))
+const { fetchEventOwnershipService } = useEventsService()
+const { data: EventData, refresh, pending } = useAsyncData(NUXT_ASYNC_DATA_KEY.OWNER_EVENT, () => fetchEventOwnershipService({ page: pageRef.value, limit: limitRef.value }))
 
 watch(EventData, (newValue) => {
   if (newValue) {
@@ -46,19 +49,23 @@ watch(() => route.query, (newValue) => {
 
 const handleCardClick = (props: { _id: string, data: IGroup }) => {
   const { data } = props
-  const path = ROUTE_CONSTANTS.EVENTS + '/' + data?.slug
+  const path = ROUTE_CONSTANTS.EVENTS_OWNER + '/' + data?.slug
   navigateTo(path)
 }
 
 </script>
 <template>
-  <div class="flex flex-col gap-4 py-8">
+  <div class="flex flex-col gap-4 ">
     <template v-if="pending">
       <NxLoadingPage />
     </template>
     <template v-else>
-      <TemplatesEvents :event-data="EventData?.rows" @card-click="handleCardClick" />
-      <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
+      <TemplatesEvents :event-data="EventData?.rows" :show-create="true" @card-click="handleCardClick" />
+      <NxPagination
+        :total-count="totalPage"
+        :current-page="pageRef"
+        @currentpage="handlePage"
+      />
     </template>
   </div>
 </template>

@@ -2,8 +2,13 @@
 import Card from 'primevue/card'
 import { findSelectedAdmissionPolicy, findSelectedRegistrationPolicy, findSelectedVisibility } from '~/utils/helper'
 
-const groupStore = useGroupStore()
-const { groupData } = storeToRefs(groupStore)
+const props = defineProps({
+  data: {
+    type: Object, default: () => {}
+  }
+})
+
+const { data } = toRefs(props)
 
 const formData = reactive({
   visibility: '',
@@ -14,7 +19,7 @@ const formData = reactive({
 const headingClass = () => ('md:col-span-4 col-span-full')
 const valueClass = () => ('md:col-span-8 col-span-full')
 
-watch(groupData, (newValue) => {
+watch(data, (newValue) => {
   if (newValue) {
     formData.visibility = findSelectedVisibility(newValue)?.name ?? '-'
     formData.registrationPolicy = findSelectedRegistrationPolicy(newValue)?.name ?? '-'
