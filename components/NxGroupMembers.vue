@@ -22,6 +22,10 @@ const {
   removeModeratorRequestService
 } = useGroupsService()
 
+const groupStore = useGroupStore()
+const { setGroupMembers } = useGroupStore()
+const { groupMembers } = storeToRefs(groupStore)
+
 const items = ref([
   {
     items: [
@@ -51,11 +55,21 @@ const fetchData = () => {
     groupId: groupId.value,
     success: (data) => {
       const { rows, count } = data
-      groupMember.value = rows
-      totalPage.value = Math.ceil(count / limitRef.value)
+      setGroupMembers({
+        rows,
+        totalPage: Math.ceil(count / limitRef.value)
+      })
     }
   })
 }
+
+watch(groupMembers, (newValue) => {
+  if (newValue) {
+    const { rows, totalPage: total } = newValue
+    groupMember.value = rows
+    totalPage.value = total
+  }
+}, { immediate: true })
 
 watch(memberId, (newValue) => {
   if (newValue) {
@@ -138,8 +152,8 @@ const moderatorService = () => {
       memberId: selectedData.value?.member?._id ?? ''
     },
     success: (data) => {
-      // fetchData()
-      refreshData()
+      fetchData()
+      // refreshData()
     }
   })
 }
@@ -154,9 +168,9 @@ const removeModeratorService = (reason?: string) => {
     },
     success: (data) => {
       closeModal()
-      // fetchData()
+      fetchData()
       hideLoading()
-      refreshData()
+      // refreshData()
     },
     fail: () => {
       closeModal()

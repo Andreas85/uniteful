@@ -17,11 +17,11 @@ const { pageRef, limitRef, totalPage, updateRouteQuery } = usePagination()
 const groupId = ref('')
 const groupMember = ref<any>([])
 const { id } = toRefs(props)
-const { pendingReqeustForGroupService, approveMemberRequestService, rejectMemberRequestService } = useGroupsService()
+const { pendingReqeustForGroupService, approveMemberRequestService, rejectMemberRequestService, fetchGroupMemberService } = useGroupsService()
+const { setGroupMembers } = useGroupStore()
 
-const refreshData = async () => {
-  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.OWNER_GROUP_SLUG)
-  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL)
+const refreshData = () => {
+  fetchDataMember()
 }
 
 const items = ref([
@@ -72,7 +72,7 @@ const approveRequestService = () => {
     },
     success: (data) => {
       console.log('hit', data)
-      // fetchData()
+      fetchData()
       hideLoading()
       refreshData()
     },
@@ -91,7 +91,7 @@ const rejectRequestService = (reason:string) => {
       // reason: reason ?? ''
     },
     success: (data) => {
-      // fetchData()
+      fetchData()
       hideLoading()
       closeModal()
       refreshData()
@@ -138,6 +138,20 @@ const menuSelect = (member: { value: any; }) => {
 
 const approveRequest = () => {
   confirmApprove()
+}
+
+const fetchDataMember = () => {
+  fetchGroupMemberService({
+    query: { page: 0, limit: 6 },
+    groupId: groupId.value,
+    success: (data) => {
+      const { rows, count } = data
+      setGroupMembers({
+        rows,
+        totalPage: Math.ceil(count / limitRef.value)
+      })
+    }
+  })
 }
 
 const fetchData = () => {
