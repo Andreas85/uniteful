@@ -96,12 +96,14 @@ const handleCardClick = (props: { _id: string, data: IGroup }) => {
         <template v-if="pending">
           <NxLoadingPage />
         </template>
-        <template v-else-if="GroupData === null || totalPage ===0">
-          <NxLoadingPage />
-        </template>
         <template v-else>
           <TemplatesGroups :users="GroupData?.rows" :heading="STRING_DATA.GROUPS" @card-click="handleCardClick" />
-          <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
+          <NxPagination
+            v-if="totalPage > 0"
+            :total-count="totalPage"
+            :current-page="pageRef"
+            @currentpage="handlePage"
+          />
         </template>
       </div>
     </NuxtLayout>

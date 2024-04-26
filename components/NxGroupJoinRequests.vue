@@ -19,6 +19,11 @@ const groupMember = ref<any>([])
 const { id } = toRefs(props)
 const { pendingReqeustForGroupService, approveMemberRequestService, rejectMemberRequestService } = useGroupsService()
 
+const refreshData = async () => {
+  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.OWNER_GROUP_SLUG)
+  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL)
+}
+
 const items = ref([
   {
     items: [
@@ -67,8 +72,9 @@ const approveRequestService = () => {
     },
     success: (data) => {
       console.log('hit', data)
-      fetchData()
+      // fetchData()
       hideLoading()
+      refreshData()
     },
     fail: (data) => {
       hideLoading()
@@ -85,9 +91,10 @@ const rejectRequestService = (reason:string) => {
       // reason: reason ?? ''
     },
     success: (data) => {
-      fetchData()
+      // fetchData()
       hideLoading()
       closeModal()
+      refreshData()
     },
     fail: (data) => {
       hideLoading()
@@ -204,7 +211,7 @@ const updatePage = (newPage: number) => {
       <AtomsComingSoon
         v-else
         :custom-class="'flex items-center justify-center h-20'"
-        :label="'Group values not found'"
+        :label="'Pending request not found'"
       />
     </template>
   </Card>

@@ -58,7 +58,7 @@ const handleCardClick = (props: { _id: string, data: IGroup }) => {
     </template>
     <template v-else>
       <TemplatesEvents :event-data="EventData?.rows" @card-click="handleCardClick" />
-      <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
+      <NxPagination v-if="totalPage > 0" :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
     </template>
   </div>
 </template>

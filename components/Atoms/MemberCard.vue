@@ -3,7 +3,7 @@ import Menu from 'primevue/menu'
 import { useGroupStore } from '~/stores/group'
 
 const props = defineProps({
-  member: { type: Object },
+  member: { type: Object, default: () => {} },
   menuItems: { type: Array, default: () => [] },
   isRequestMemberCard: {
     type: Boolean, default: false
@@ -36,7 +36,7 @@ const { isAuthenticated } = storeToRefs(userStore)
 const { groupData } = storeToRefs(groupStore)
 const { member, showGroupIcon, isRequestMemberCard, menuItems, name, profileImage, joinedAt, email } = toRefs(props)
 const menu = ref()
-
+const menuItemRef = ref<any>([])
 const toggle = (event: Event) => {
   menu.value.toggle(event)
   handleSelectMenu()
@@ -44,6 +44,24 @@ const toggle = (event: Event) => {
 
 const handleSelectMenu = () => {
   emit('menuSelect', member)
+}
+
+watch(menuItems, (newValue) => {
+  if (newValue) {
+    if (member.value?.isModerator) {
+      const updateItems = newValue?.[0]?.items?.filter((item:any) => item?.label !== 'Moderator')
+      // console.log(updateItems, 'updateItems', member.value)
+      menuItemRef.value = [{ items: updateItems }]
+      return
+    }
+    menuItemRef.value = newValue
+  }
+}, { immediate: true })
+
+const handleModeratorClick = (event: Event) => {
+  if (isAuthenticated && groupData?.value?.isOwner) {
+    toggle(event)
+  }
 }
 
 </script>
@@ -69,17 +87,30 @@ const handleSelectMenu = () => {
         </template>
       </template>
     </div>
-    <div class="flex flex-col">
-      <div>{{ name ?? email }}</div>
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-wrap items-center justify-start gap-4">
+        <div>{{ name ?? email }}</div>
+        <template v-if="member?.isModerator">
+          <div
+            aria-haspopup="true"
+            aria-controls="overlay_menu"
+            class="cursor-pointer flex flex-wrap items-center justify-start gap-2 border border-brand-color text-brand-color px-2 py-[2px] shadow rounded-lg"
+            @click="handleModeratorClick"
+          >
+            <Icon class="cursor-pointer" :name="'iconoir:user-crown'" :width="'1.2rem'" :height="'1.2rem'" />
+            <span class="text-sm">Moderator</span>
+          </div>
+        </template>
+      </div>
       <div>{{ formattedDateAndTime(joinedAt) }}</div>
     </div>
   </div>
-  <div v-if="(!groupData?.isOrdinaryUser && isAuthenticated)" class="relative">
+  <div v-if="((groupData?.isOwner) && isAuthenticated)" class="relative">
     <div class="card flex justify-content-center">
-      <div aria-haspopup="true" aria-controls="overlay_menu" @click="toggle">
+      <div v-if="!member?.isModerator" aria-haspopup="true" aria-controls="overlay_menu" @click="toggle">
         <Icon class="cursor-pointer" :name="'ph:dots-three-vertical-bold'" :width="'2rem'" :height="'2rem'" />
       </div>
-      <Menu id="overlay_menu" ref="menu" :model="menuItems" :popup="true" />
+      <Menu id="overlay_menu" ref="menu" :model="menuItemRef" :popup="true" />
     </div>
   </div>
 </template>

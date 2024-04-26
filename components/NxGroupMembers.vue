@@ -127,6 +127,10 @@ const confirmModerator = () => {
   })
 }
 
+const refreshData = async () => {
+  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.OWNER_GROUP_SLUG)
+  await refreshNuxtData(NUXT_ASYNC_DATA_KEY.HOME_PAGE_GROUP_DETAIL)
+}
 const moderatorService = () => {
   makeModeratorRequestService({
     body: {
@@ -134,7 +138,8 @@ const moderatorService = () => {
       memberId: selectedData.value?.member?._id ?? ''
     },
     success: (data) => {
-      fetchData()
+      // fetchData()
+      refreshData()
     }
   })
 }
@@ -149,8 +154,9 @@ const removeModeratorService = (reason?: string) => {
     },
     success: (data) => {
       closeModal()
-      fetchData()
+      // fetchData()
       hideLoading()
+      refreshData()
     },
     fail: () => {
       closeModal()
@@ -199,7 +205,7 @@ const menuSelect = (member:{value:any}) => {
         <div
           v-for="(member, index) in groupMember"
           :key="index"
-          class="border p-2 shadow rounded-lg border-gray-400 flex items-center justify-between gap-4"
+          class="border p-2 shadow rounded-lg border-gray-400 flex items-center justify-between gap-4 relative"
         >
           <AtomsMemberCard
             :member="member"
@@ -217,4 +223,4 @@ const menuSelect = (member:{value:any}) => {
       <AtomsComingSoon :label="STRING_DATA.MEMBER_NOT_FOUND" :custom-class="'flex items-center justify-center h-20'" />
     </template>
   </Card>
-</template>: any: { value: {}; }
+</template>

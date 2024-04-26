@@ -8,7 +8,7 @@ definePageMeta({
 const { fetchGroupDetailService } = useGroupsService()
 const { setGroup } = useGroupStore()
 const route = useRoute()
-const { data: user, refresh, pending, status } = await useAsyncData(() => fetchGroupDetailService({ id: route.params.slug?.toString() }))
+const { data: user, refresh, pending, status } = await useAsyncData(NUXT_ASYNC_DATA_KEY.OWNER_GROUP_SLUG, () => fetchGroupDetailService({ id: route.params.slug?.toString() }))
 
 const userStore = useUserStore()
 const { isAuthenticated } = storeToRefs(userStore)

@@ -16,13 +16,7 @@ const formData = reactive({
   reason: ''
 })
 
-const rules = {
-  reason: {
-    required: helpers.withMessage(ERROR_MESSAGE.REASON, required)
-  }
-}
-
-const v$ = useVuelidate(rules, formData)
+// const v$ = useVuelidate(rules, formData)
 
 const joinRequest = () => {
   showLoading()
@@ -77,14 +71,8 @@ const handleCreateGroup = () => {
   joinRequest()
 }
 
-const submitForm = async () => {
-  const result = await v$.value.$validate()
-
-  if (result) {
-    leaveRequest()
-  } else {
-    console.log('Invalid Form NOT Submitted')
-  }
+const submitForm = () => {
+  leaveRequest()
 }
 
 </script>
@@ -113,8 +101,6 @@ const submitForm = async () => {
         :placeholder="'Enter reason'"
         :label="'Reason to leave group'"
         type="text"
-        :error-message="v$?.reason?.$error ? v$?.reason?.$errors?.[0]?.$message : ''
-        "
       />
       <NxActionButton :is-loading="loading" :button-label="STRING_DATA.LEAVE.toUpperCase()" :is-submit="true" />
     </form>

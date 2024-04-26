@@ -40,7 +40,9 @@ export const NUXT_ASYNC_DATA_KEY = {
   OWNER_EVENT: 'owner-event',
   OWNER_GROUP_DETAIL: 'owner-group-detail',
   HOME_PAGE_GROUP: 'home-page-group',
-  HOME_PAGE_GROUP_DETAIL: 'home-page-group'
+  HOME_PAGE_GROUP_DETAIL: 'home-page-group',
+  OWNER_GROUP_SLUG: 'owner-group-slug',
+  OWNER_SLUG: 'owner-slug'
 }
 
 export const STRING_DATA = {
