@@ -205,7 +205,7 @@ const menuSelect = (member:{value:any}) => {
       <NxPagination :total-count="totalPage" :current-page="pageRef" @currentpage="handlePage" />
     </template>
     <template v-else #content>
-      <AtomsComingSoon :label="STRING_DATA.MEMBER_NOT_FOUND" :custom-class="'flex items-center justify-center h-20'" />
+      <AtomsComingSoon :label="'Attendees not found'" :custom-class="'flex items-center justify-center h-20'" />
     </template>
   </Card>
 </template>

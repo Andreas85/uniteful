@@ -102,7 +102,7 @@ const menuSelect = (member:{value:any}) => {
             :menu-items="items"
             :name="member?.attendee?.name"
             :email="member?.attendee?.email"
-            :joined-at="member?.joinedAt"
+            :joined-at="member?.appliedAt"
             :show-icons="false"
             @menu-select="menuSelect"
           />

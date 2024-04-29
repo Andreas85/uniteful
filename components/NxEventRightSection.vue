@@ -3,7 +3,7 @@ import Dialog from 'primevue/dialog'
 import { useVuelidate } from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 
-const { joinEventService, leaveEventService } = useEventsService()
+const { joinEventService, leaveEventService, joinWaitingListService } = useEventsService()
 const { loading, showLoading, hideLoading } = useLoader()
 const eventStore = useEventStore()
 const userStore = useUserStore()
@@ -27,6 +27,23 @@ const v$ = useVuelidate(rules, formData)
 const joinRequest = () => {
   showLoading()
   joinEventService({
+    body: {
+      eventId: eventData.value?._id ?? ''
+    },
+    success: (data) => {
+      const newData = data?.data
+      eventStore.setEvent(newData)
+      hideLoading()
+    },
+    fail: (data) => {
+      hideLoading()
+    }
+  })
+}
+
+const interestedRequest = () => {
+  showLoading()
+  joinWaitingListService({
     body: {
       eventId: eventData.value?._id ?? ''
     },
@@ -85,6 +102,10 @@ const submitForm = async () => {
   }
 }
 
+const handleInterestedPeopleCall = () => {
+  interestedRequest()
+}
+
 </script>
 
 <template>
@@ -140,6 +161,8 @@ const submitForm = async () => {
       <NxActionButton
         v-else-if="eventData?.commitmentLevel === COMMITMENT_LEVEL.NOT_COMMITED"
         :button-label="STRING_DATA.INTERESTED.toUpperCase()"
+        :is-loading="loading"
+        @click="handleInterestedPeopleCall"
       />
       <NxActionButton
         v-else

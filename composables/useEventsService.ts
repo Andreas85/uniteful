@@ -300,6 +300,24 @@ export const useEventsService = () => {
     }
   }
 
+  const joinWaitingListService = async (payload: {
+    body: { eventId: string};
+    fail?: (error: any) => void;
+    success?: (data: any) => void;
+  }) => {
+    const { body, success, fail } = payload
+    try {
+      const URL = ENDPOINTS.EVENTS + '/join-wait-list'
+      const response = (await $api(URL, {
+        method: 'POST',
+        body
+      })) as any
+      success?.(response)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
   return {
     fetchEventsService,
     fetchEventOwnershipService,
@@ -310,6 +328,7 @@ export const useEventsService = () => {
     joinEventService,
     leaveEventService,
     fetchEventAttendeeService,
-    fetchInterestedPeopleEvent
+    fetchInterestedPeopleEvent,
+    joinWaitingListService
   }
 }
