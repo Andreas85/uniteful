@@ -13,7 +13,10 @@ const props = defineProps({
 })
 const { addEventModal, closeEventModal } = toRefs(props)
 const { autoCompleteGroupSearchService } = useGroupsService()
-
+const ca = ref()
+const closeCalendar = () => {
+  ca.value.overlayVisible = false
+}
 const groupData = ref<string>('')
 const groupList = ref<any>([]) // for visibility type
 const formData = reactive<any>({
@@ -143,14 +146,20 @@ const handleDurationInput = (field: any, event: any) => {
         <!-- {{ JSON.stringify(formData.startDate) }} -->
         <label class="block text-sm font-medium text-gray-900">Start date</label>
         <Calendar
+          ref="ca"
           v-model="formData.startDate"
           show-time
           hour-format="12"
-          :hide-on-date-time-select="true"
           :placeholder="'Enter start date'"
           :min-date="new Date()"
           class="dateTimeCustomClass"
-        />
+        >
+          <template #footer>
+            <div class="flex justify-end">
+              <NxActionButton :is-delete-button="true" :button-label="STRING_DATA.CLOSE.toUpperCase()" :onclick="closeCalendar" />
+            </div>
+          </template>
+        </Calendar>
       </div>
       <AtomsBaseInput
         v-model="formData.duration"

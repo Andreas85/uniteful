@@ -28,6 +28,10 @@ const value = ref('')
 const items = ref<any>([]) // for visibility type
 const itemsRegistration = ref<any>([])
 const showImage = ref(!!userData?.value?.image)
+const ca = ref()
+const closeCalendar = () => {
+  ca.value.overlayVisible = false
+}
 
 const visibilitiyUser = ref<string>('')
 const registrationPolicyUser = ref<string>('')
@@ -326,13 +330,20 @@ const handleCloseEdit = () => {
               <!-- {{ JSON.stringify(formData.startDate) }} -->
               <label class="block text-sm font-medium text-gray-900">Start date</label>
               <Calendar
+                ref="ca"
                 v-model="formData.startDate"
                 show-time
                 hour-format="12"
                 :hide-on-date-time-select="true"
                 :placeholder="'Enter start date'"
                 class="dateTimeCustomClass"
-              />
+              >
+                <template #footer>
+                  <div class="flex justify-end">
+                    <NxActionButton :is-delete-button="true" :button-label="STRING_DATA.CLOSE.toUpperCase()" :onclick="closeCalendar" />
+                  </div>
+                </template>
+              </Calendar>
             </div>
           </div>
         </template>
@@ -342,7 +353,7 @@ const handleCloseEdit = () => {
         <Checkbox v-model="formData.group" input-id="specific-group" name="group" :binary="true" />
         <label for="specific-group" class="ms-2"> This event is for specific group</label>
       </div>
-      <Card>
+      <Card v-if="!formData.group">
         <template #title>
           Visibility
         </template>
@@ -425,7 +436,7 @@ const handleCloseEdit = () => {
         </template>
       </Card>
 
-      <Card>
+      <Card v-if="!formData.group">
         <template #title>
           Registration policy
         </template>
