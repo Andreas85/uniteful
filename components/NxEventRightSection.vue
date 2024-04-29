@@ -138,6 +138,10 @@ const submitForm = async () => {
         @click="handleCreateGroup"
       />
       <NxActionButton
+        v-else-if="eventData?.commitmentLevel === COMMITMENT_LEVEL.NOT_COMMITED"
+        :button-label="STRING_DATA.INTERESTED.toUpperCase()"
+      />
+      <NxActionButton
         v-else
         :is-loading="loading"
         :button-label="STRING_DATA.JOIN.toUpperCase()"

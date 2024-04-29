@@ -280,6 +280,26 @@ export const useEventsService = () => {
     }
   }
 
+  const fetchInterestedPeopleEvent = async (payload: {
+      query: { limit: number; page: number };
+      eventId: string;
+      fail?: (error: any) => void;
+      success?: (data: any) => void;
+    }) => {
+    const { success, fail, query, eventId } = payload
+    const { limit, page } = query
+    try {
+      const URL = ENDPOINTS.EVENTS + `/${eventId}` + '/wait-list'
+      const response = (await $api(URL, {
+        method: 'GET',
+        query: { page, limit }
+      })) as any
+      success?.(response.data)
+    } catch (error: any) {
+      fail?.(error.data)
+    }
+  }
+
   return {
     fetchEventsService,
     fetchEventOwnershipService,
@@ -289,6 +309,7 @@ export const useEventsService = () => {
     fetchEventMembershipService,
     joinEventService,
     leaveEventService,
-    fetchEventAttendeeService
+    fetchEventAttendeeService,
+    fetchInterestedPeopleEvent
   }
 }

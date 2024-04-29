@@ -72,5 +72,8 @@ const handleLoading = () => {
     <section v-if="eventData?.isOwner">
       <NxEventMembers :event-id="eventData?._id" />
     </section>
+    <section v-if="eventData?.isOwner">
+      <NxEventInterestedPeople :event-id="eventData?._id" />
+    </section>
   </div>
 </template>

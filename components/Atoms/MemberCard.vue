@@ -25,6 +25,9 @@ const props = defineProps({
   },
   showGroupIcon: {
     type: Boolean, default: false
+  },
+  showIcons: {
+    type: Boolean, default: true
   }
 })
 
@@ -34,7 +37,7 @@ const groupStore = useGroupStore()
 
 const { isAuthenticated } = storeToRefs(userStore)
 const { groupData } = storeToRefs(groupStore)
-const { member, showGroupIcon, isRequestMemberCard, menuItems, name, profileImage, joinedAt, email } = toRefs(props)
+const { showIcons, member, showGroupIcon, isRequestMemberCard, menuItems, name, profileImage, joinedAt, email } = toRefs(props)
 const menu = ref()
 const menuItemRef = ref<any>([])
 const toggle = (event: Event) => {
@@ -46,15 +49,13 @@ const handleSelectMenu = () => {
   emit('menuSelect', member)
 }
 
-watch(menuItems, (newValue) => {
-  if (newValue) {
-    if (member.value?.isModerator) {
-      const updateItems = newValue?.[0]?.items?.filter((item:any) => item?.label !== 'Moderator')
-      // console.log(updateItems, 'updateItems', member.value)
-      menuItemRef.value = [{ items: updateItems }]
-      return
-    }
-    menuItemRef.value = newValue
+watch(member, (newValue) => {
+  if (newValue?.isModerator) {
+    const updateItems = menuItems.value?.[0]?.items?.filter((item: any) => item?.label !== 'Moderator')
+    // console.log('updateItems', updateItems)
+    menuItemRef.value = [{ items: updateItems }]
+  } else {
+    menuItemRef.value = menuItems.value
   }
 }, { immediate: true })
 
@@ -97,15 +98,21 @@ const handleModeratorClick = (event: Event) => {
             class="cursor-pointer flex flex-wrap items-center justify-start gap-2 border border-brand-color text-brand-color px-2 py-[2px] shadow rounded-lg"
             @click="handleModeratorClick"
           >
-            <Icon class="cursor-pointer" :name="'iconoir:user-crown'" :width="'1.2rem'" :height="'1.2rem'" />
             <span class="text-sm">Moderator</span>
+            <Icon
+              v-if="((groupData?.isOwner) && isAuthenticated) "
+              class="cursor-pointer"
+              :name="'akar-icons:cross'"
+              :width="'1rem'"
+              :height="'1rem'"
+            />
           </div>
         </template>
       </div>
       <div>{{ formattedDateAndTime(joinedAt) }}</div>
     </div>
   </div>
-  <div v-if="((groupData?.isOwner) && isAuthenticated)" class="relative">
+  <div v-if="((groupData?.isOwner) && isAuthenticated && showIcons)" class="relative">
     <div class="card flex justify-content-center">
       <div v-if="!member?.isModerator" aria-haspopup="true" aria-controls="overlay_menu" @click="toggle">
         <Icon class="cursor-pointer" :name="'ph:dots-three-vertical-bold'" :width="'2rem'" :height="'2rem'" />

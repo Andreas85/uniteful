@@ -239,6 +239,11 @@ const handleRemoveChips = (
   )
   formData.user_visibility = updatedData
 }
+
+const handleCloseEdit = () => {
+  navigateTo(ROUTE_CONSTANTS.GROUP_OWNER + '/' + route.params.slug)
+}
+
 </script>
 <template>
   <div class="flex flex-col gap-4 mx-auto lg:w-3/5 md:w-4/5">
@@ -467,8 +472,12 @@ const handleRemoveChips = (
           </template>
         </template>
       </Card>
-
       <div class="flex items-center justify-end gap-4">
+        <NxActionButton
+          :is-action-button="false"
+          :onclick="handleCloseEdit"
+          :button-label="STRING_DATA.CLOSE.toUpperCase()"
+        />
         <NxActionButton :is-submit="true" :button-label="STRING_DATA.UPDATE.toUpperCase()" :is-loading="loading" />
       </div>
     </form>

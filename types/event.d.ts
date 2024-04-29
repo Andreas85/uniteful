@@ -22,6 +22,7 @@ interface IEventDetail {
   _id: string;
   image: string;
   deleted: boolean;
+  commitmentLevel: string;
   name: string;
   owner: Owner;
   description: string;

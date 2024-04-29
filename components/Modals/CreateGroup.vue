@@ -68,8 +68,8 @@ const submitForm = async () => {
         errorResponse
       }}</span>
       <div class="flex items-center justify-end gap-4">
+        <NxActionButton :is-action-button="false" :onclick="closeGroupModal" :button-label="STRING_DATA.CLOSE.toUpperCase()" />
         <NxActionButton :is-submit="true" :button-label="STRING_DATA.ADD.toUpperCase()" :is-loading="loading" />
-        <NxActionButton :onclick="closeGroupModal" :button-label="STRING_DATA.CLOSE.toUpperCase()" />
       </div>
     </form>
   </div>

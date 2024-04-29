@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Dialog from 'primevue/dialog'
 
 const props = defineProps({
   eventData: { type: Array as unknown as IEvents, default: () => [] },
@@ -50,21 +51,33 @@ const handleCardClicked = (props: { _id: string, data: IGroup }) => {
 
 </script>
 <template>
-  <ModalsCreateEvent
-    v-if="openModal"
-    :add-event-modal="openModal"
-    :close-event-modal="closeModal"
-    :loading="loading"
-    :error-response="errorResponse"
-    @handle-submit="handleCreateEvent"
-  />
+  <Dialog
+    v-model:visible="openModal"
+    modal
+    :header="STRING_DATA.CREATE_EVENT"
+    :style="{ width: '50rem' }"
+    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+  >
+    <ModalsCreateEvent
+      v-if="openModal"
+      :add-event-modal="openModal"
+      :close-event-modal="closeModal"
+      :loading="loading"
+      :error-response="errorResponse"
+      @handle-submit="handleCreateEvent"
+    />
+  </Dialog>
   <div class="flex flex-col gap-4">
     <AtomsBreadCrumb />
     <div class="flex items-center justify-between">
       <h2 class="custom-h2-class">
         {{ STRING_DATA.EVENTS }}
       </h2>
-      <NxActionButton v-if="isAuthenticated && showCreate" :button-label="STRING_DATA.CREATE_EVENT" :onclick="showModal" />
+      <NxActionButton
+        v-if="isAuthenticated && showCreate"
+        :button-label="STRING_DATA.CREATE_EVENT"
+        :onclick="showModal"
+      />
     </div>
     <template v-if="eventData?.length">
       <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">

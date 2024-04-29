@@ -183,7 +183,7 @@ const menuSelect = (member:{value:any}) => {
   </Dialog>
   <Card>
     <template #title>
-      Event attendee
+      Attendees
     </template>
     <template v-if="eventMember.length> 0" #content>
       <div class="grid lg:grid-cols-3 gap-4">

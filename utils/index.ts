@@ -46,6 +46,7 @@ export const NUXT_ASYNC_DATA_KEY = {
 }
 
 export const STRING_DATA = {
+  INTERESTED: 'Interested',
   EVENTS_OWNER: 'Event owner',
   EDIT_PROFILE: 'Edit profile',
   WITHDRAW: 'Withdraw',
@@ -100,6 +101,7 @@ export const STRING_DATA = {
   PROFILE: 'Profile',
   GROUO_NOT_EXISTS: 'Group does not exits',
   MEMBER_NOT_FOUND: 'Member not found',
+  INTERESTED_PEOPLE_NOT_FOUND: 'Interested people not found',
   EVENTS: 'Events'
 }
 
@@ -265,18 +267,30 @@ export const DASHBOARD_TAB = [
 
 export const VISIBILITY = {
   EVERYONE: 'everyone',
-  CHERRY_PICKED: 'cherry_picked'
+  CHERRY_PICKED: 'cherry_picked',
+  EVERYONE_IN_GROUP: 'everyone_in_group'
 }
 
 export const GROUP_ADMISSION = {
   MANUAL: 'manual',
   AUTOMATIC: 'automatic'
 }
+
+export const EVENT_ADMISSION = {
+  REGISTRATION_DATE: 'registrationDate',
+  NO_OF_EVENTS_ATTENDED: 'noOfEventsAttended'
+}
+
 export const REGISTRATION = {
   EVERYONE: 'everyone',
   EVERYONE_IN_GROUP: 'everyone_in_group',
   CHERRY_PICKED: 'cherry_picked',
   CRITERIA: 'criteria'
+}
+
+export const COMMITMENT_LEVEL = {
+  COMMITED: 'committed',
+  NOT_COMMITED: 'not_committed'
 }
 
 export const VISIBILITY_TYPE = [
@@ -285,6 +299,29 @@ export const VISIBILITY_TYPE = [
     id: 2,
     name: 'Cherry picker',
     code: VISIBILITY.CHERRY_PICKED
+  }
+]
+
+export const VISIBILITY_TYPE_EVENT = [
+  { id: 1, name: 'Everyone', code: VISIBILITY.EVERYONE },
+  {
+    id: 2,
+    name: 'Cherry picker',
+    code: VISIBILITY.CHERRY_PICKED
+  },
+  {
+    id: 3,
+    name: 'Everyone in group',
+    code: VISIBILITY.EVERYONE_IN_GROUP
+  }
+]
+
+export const COMMITMENT = [
+  { id: 1, name: 'Commited', code: COMMITMENT_LEVEL.COMMITED },
+  {
+    id: 2,
+    name: 'Not commited',
+    code: COMMITMENT_LEVEL.NOT_COMMITED
   }
 ]
 
@@ -299,11 +336,6 @@ export const REGISTRATION_POLICY = [
     id: 3,
     name: 'Cherry picker',
     code: REGISTRATION.CHERRY_PICKED
-  },
-  {
-    id: 4,
-    name: 'Criteria',
-    code: REGISTRATION.CRITERIA
   }
 ]
 
@@ -313,6 +345,15 @@ export const GROUP_ADMISSION_POLICY = [
     id: 2,
     name: 'Automatic',
     code: GROUP_ADMISSION.AUTOMATIC
+  }
+]
+
+export const EVENT_ADMISSION_POLICY = [
+  { id: 1, name: 'Registration date', code: EVENT_ADMISSION.REGISTRATION_DATE },
+  {
+    id: 2,
+    name: 'Number of events attented',
+    code: EVENT_ADMISSION.NO_OF_EVENTS_ATTENDED
   }
 ]
 

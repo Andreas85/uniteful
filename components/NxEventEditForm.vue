@@ -5,6 +5,8 @@ import { helpers, required, requiredIf } from '@vuelidate/validators'
 import Card from 'primevue/card'
 import Dropdown from 'primevue/dropdown'
 import AutoComplete from 'primevue/autocomplete'
+import Checkbox from 'primevue/checkbox'
+import Calendar from 'primevue/calendar'
 
 const props = defineProps({
   userData: Object,
@@ -33,13 +35,17 @@ const registrationPolicyUser = ref<string>('')
 const formData = reactive({
   eventName: userData?.value?.name,
   eventDesc: userData?.value?.description,
+  duration: userData?.value?.duration,
   image: userData?.value?.image,
   groupValues: userData?.value?.groupValues ?? [],
   visibility: userData?.value?.visibility?.visibilityType ?? {},
   user_visibility: userData?.value?.user_visibility ?? [],
   registrationPolicy: userData?.value?.registrationPolicy ?? {},
   admissionPolicy: userData?.value?.admissionPolicy ?? {},
-  user_registration_policy: userData?.value?.user_registration_policy ?? []
+  commitment: userData?.value?.commitment ?? {},
+  user_registration_policy: userData?.value?.user_registration_policy ?? [],
+  startDate: new Date(userData?.value?.startDate),
+  group: !!userData?.value?.group
 })
 
 const suggestedUsers = async (query:string) => {
@@ -110,11 +116,16 @@ const submitForm = async () => {
       user_registration_policy,
       admissionPolicy,
       registrationPolicy,
-      image
+      image, commitment, duration, startDate,
+      group
     } = formData
     const payload = {
       name: eventName,
       description: eventDesc,
+      duration,
+      group: group ? userData?.value?.group : null,
+      startDate: new Date(startDate).toISOString(),
+      commitmentLevel: commitment?.code,
       image,
       visibility: {
         visibilityType: visibility.code,
@@ -128,7 +139,7 @@ const submitForm = async () => {
             cherryPickedUsers: user_registration_policy?.map((item: { id: any }) => item.id) || []
           }
         : undefined,
-      admissionPolicy: admissionPolicy.code ? { policyType: admissionPolicy.code } : undefined
+      admissionPolicy: admissionPolicy?.code
     }
 
     if (visibility.code !== VISIBILITY.CHERRY_PICKED) {
@@ -147,7 +158,7 @@ const submitForm = async () => {
       delete payload.admissionPolicy
     }
 
-    console.log(toRaw(payload), 'modalcompo', admissionPolicy)
+    // console.log(toRaw(payload), 'modalcompo', admissionPolicy)
     emit('handle-submit', payload)
   } else {
     console.log('Invalid Form NOT Submitted')
@@ -225,6 +236,11 @@ const handleRemoveChips = (
   )
   formData.user_visibility = updatedData
 }
+
+const handleCloseEdit = () => {
+  navigateTo(ROUTE_CONSTANTS.EVENTS_OWNER + '/' + route.params.slug)
+}
+
 </script>
 <template>
   <div class="flex flex-col gap-4 mx-auto lg:w-3/5 md:w-4/5">
@@ -280,6 +296,7 @@ const handleRemoveChips = (
                   : ''
               "
             />
+
             <AtomsBaseInput
               v-model="formData.eventDesc"
               :placeholder="'Enter your event description'"
@@ -292,10 +309,39 @@ const handleRemoveChips = (
               "
               :is-textarea="true"
             />
+            <AtomsBaseInput
+              v-model="formData.duration"
+              :show-hint="true"
+              :placeholder="'Enter duration name'"
+              :label="'Event duration'"
+              :type="'text'"
+              :error-message="
+                v$?.duration?.$error
+                  ? v$?.duration?.$errors?.[0]?.$message
+                  : ''
+              "
+            />
+
+            <div class="p-fluid flex flex-col gap-4">
+              <!-- {{ JSON.stringify(formData.startDate) }} -->
+              <label class="block text-sm font-medium text-gray-900">Start date</label>
+              <Calendar
+                v-model="formData.startDate"
+                show-time
+                hour-format="12"
+                :hide-on-date-time-select="true"
+                :placeholder="'Enter start date'"
+                class="dateTimeCustomClass"
+              />
+            </div>
           </div>
         </template>
       </Card>
-
+      <!-- {{ JSON.stringify(formData.group) }} -->
+      <div class="flex align-items-center">
+        <Checkbox v-model="formData.group" input-id="specific-group" name="group" :binary="true" />
+        <label for="specific-group" class="ms-2"> This event is for specific group</label>
+      </div>
       <Card>
         <template #title>
           Visibility
@@ -306,7 +352,7 @@ const handleRemoveChips = (
               <label class="block mb-2 text-sm font-medium text-gray-900">Type</label>
               <Dropdown
                 v-model="formData.visibility"
-                :options="VISIBILITY_TYPE"
+                :options="VISIBILITY_TYPE_EVENT"
                 option-label="name"
                 placeholder="Select visibility type"
                 class="dropdown-class"
@@ -323,6 +369,38 @@ const handleRemoveChips = (
                   class="rounded-lg bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
                   @complete="visiblityTypesearch"
                   @item-select="handleItemSelect"
+                />
+                <div v-if="formData.user_visibility.length > 0" class="flex flex-wrap gap-2">
+                  <div
+                    v-for="(item, index) in formData.user_visibility"
+                    :key="index"
+                    class="flex items-center justify-start gap-2 bg-gray-200 rounded-full px-2 py-1"
+                  >
+                    <span>{{ item.name || item.email }}</span>
+
+                    <Icon
+                      :name="'charm:cross'"
+                      :width="'1.1rem'"
+                      class="cursor-pointer"
+                      :height="'1.1rem'"
+                      @click="(e) => handleRemoveChips(e, item?.id)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <template v-if="formData.visibility.code === VISIBILITY.EVERYONE_IN_GROUP">
+              <div class="p-fluid flex flex-col gap-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Groups</label>
+                <!-- v-model="visibilitiyUser"
+                :suggestions="items"
+                @complete="visiblityTypesearch"
+                @item-select="handleItemSelect" -->
+                <AutoComplete
+                  option-label="name"
+                  input-class="w-full px-2 py-1"
+                  class="rounded-lg bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
                 />
                 <div v-if="formData.user_visibility.length > 0" class="flex flex-wrap gap-2">
                   <div
@@ -398,11 +476,43 @@ const handleRemoveChips = (
                 </div>
               </div>
             </template>
+
+            <template v-if="formData.registrationPolicy.code === VISIBILITY.EVERYONE_IN_GROUP">
+              <div class="p-fluid flex flex-col gap-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Groups</label>
+                <!-- v-model="visibilitiyUser"
+                :suggestions="items"
+                @complete="visiblityTypesearch"
+                @item-select="handleItemSelect" -->
+                <AutoComplete
+                  option-label="name"
+                  input-class="w-full px-2 py-1"
+                  class="rounded-lg bg-gray-50 border border-brand-color text-gray-900 sm:text-sm hover:bg-gray-100"
+                />
+                <div v-if="formData.user_visibility.length > 0" class="flex flex-wrap gap-2">
+                  <div
+                    v-for="(item, index) in formData.user_visibility"
+                    :key="index"
+                    class="flex items-center justify-start gap-2 bg-gray-200 rounded-full px-2 py-1"
+                  >
+                    <span>{{ item.name || item.email }}</span>
+
+                    <Icon
+                      :name="'charm:cross'"
+                      :width="'1.1rem'"
+                      class="cursor-pointer"
+                      :height="'1.1rem'"
+                      @click="(e) => handleRemoveChips(e, item?.id)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </template>
           </div>
         </template>
       </Card>
 
-      <Card>
+      <Card v-if="formData.group">
         <template #title>
           Admission policy
         </template>
@@ -412,7 +522,7 @@ const handleRemoveChips = (
               <label class="block mb-2 text-sm font-medium text-gray-900">Policy type</label>
               <Dropdown
                 v-model="formData.admissionPolicy"
-                :options="GROUP_ADMISSION_POLICY"
+                :options="EVENT_ADMISSION_POLICY"
                 option-label="name"
                 placeholder="Select admission policy"
                 class="dropdown-class"
@@ -422,7 +532,32 @@ const handleRemoveChips = (
         </template>
       </Card>
 
+      <Card v-if="formData.group">
+        <template #title>
+          Commitment
+        </template>
+        <template #content>
+          <div class="flex flex-col gap-6">
+            <div>
+              <label class="block mb-2 text-sm font-medium text-gray-900">Commitment type</label>
+              <Dropdown
+                v-model="formData.commitment"
+                :options="COMMITMENT"
+                option-label="name"
+                placeholder="Select commitment policy"
+                class="dropdown-class"
+              />
+            </div>
+          </div>
+        </template>
+      </Card>
+
       <div class="flex items-center justify-end gap-4">
+        <NxActionButton
+          :is-action-button="false"
+          :onclick="handleCloseEdit"
+          :button-label="STRING_DATA.CLOSE.toUpperCase()"
+        />
         <NxActionButton :is-submit="true" :button-label="STRING_DATA.UPDATE.toUpperCase()" :is-loading="loading" />
       </div>
     </form>

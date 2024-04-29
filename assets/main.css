@@ -59,6 +59,10 @@ body :focus-within {
   background-color: #000;
 }
 
+.dateTimeCustomClass input {
+  @apply border border-brand-color rounded
+}
+
 .form-controls {
   @apply bg-gray-50 border border-brand-color text-gray-900 sm:text-sm  hover:bg-gray-100 block w-full p-2 rounded;
 }
@@ -73,6 +77,10 @@ body :focus-within {
 
 .errorClass {
   @apply text-center text-xs text-red-500;
+}
+
+.mutedClass {
+  @apply text-center text-xs text-gray-500;
 }
 
 .custom-link-class {

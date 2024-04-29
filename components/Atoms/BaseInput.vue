@@ -14,10 +14,12 @@ interface Props {
   min?: string;
   max?: string;
   rows?: string;
+  showMutedText?: boolean;
+  mutedText?: string;
 }
 
 const props = defineProps<Props>()
-const { label, id, type, modelValue, placeholder, disabled, errorMessage, showHint, isTextarea, min, max, rows } =
+const { mutedText, showMutedText, label, id, type, modelValue, placeholder, disabled, errorMessage, showHint, isTextarea, min, max, rows } =
   toRefs(props)
 const emit = defineEmits<{
   (event: 'update:modelValue', value: any): void;
@@ -31,7 +33,11 @@ function handleInput (event: any) {
 
 <template>
   <div class="w-full">
-    <label class="block mb-2 text-sm font-medium text-gray-900" :for="id">{{ label }}</label>
+    <label class="flex items-center gap-1 mb-2 text-sm font-medium text-gray-900" :for="id">{{ label }}
+      <div v-if="showHint" class="hint">
+        (in hours)
+      </div>
+    </label>
     <textarea
       v-if="isTextarea"
       :id="id"
@@ -54,9 +60,11 @@ function handleInput (event: any) {
       :max="max"
       @input="handleInput"
     >
-    <div v-if="showHint" class="hint">
-      (in hours)
-    </div>
+    <span
+      v-if="showMutedText"
+      class="mutedClass {
+"
+    >{{ mutedText }}</span>
     <span v-if="errorMessage" class="errorClass">{{ errorMessage }}</span>
   </div>
 </template>
