@@ -158,12 +158,25 @@ const handleInterestedPeopleCall = () => {
         :button-label="STRING_DATA.LEAVE.toUpperCase()"
         @click="handleCreateGroup"
       />
-      <NxActionButton
+      <template
         v-else-if="eventData?.commitmentLevel === COMMITMENT_LEVEL.NOT_COMMITED"
-        :button-label="STRING_DATA.INTERESTED.toUpperCase()"
-        :is-loading="loading"
-        @click="handleInterestedPeopleCall"
-      />
+      >
+        <div
+          v-tooltip.top="'This event might occur'"
+        >
+          <Icon
+            :name="'material-symbols:info-outline'"
+            :width="'2rem'"
+            class="cursor-pointer"
+            :height="'2rem'"
+          />
+        </div>
+        <NxActionButton
+          :button-label="STRING_DATA.INTERESTED.toUpperCase()"
+          :is-loading="loading"
+          @click="handleInterestedPeopleCall"
+        />
+      </template>
       <NxActionButton
         v-else
         :is-loading="loading"
